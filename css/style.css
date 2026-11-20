@@ -540,6 +540,8 @@ body.film-aesthetic {
   height: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 0 16px 16px 0;
+  overflow: hidden;
 }
 
 .leader-vertical-view {
@@ -566,7 +568,14 @@ body.film-aesthetic {
   flex-shrink: 0;
   margin-top: -2px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0 0 16px 0 !important;
+  overflow: hidden;
   box-sizing: border-box;
+}
+
+.leader-bottom-track .sprocket-perforations-continuous.bottom {
+  border-radius: 0 0 16px 0 !important;
 }
 
 /* ==========================================================================
@@ -1627,6 +1636,8 @@ body.film-aesthetic {
   .leader-bottom-track {
     height: 36px !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border-radius: 0 0 16px 0 !important;
   }
 
   /* Frame width: scaled so Frame 01 does not overlap the canister */

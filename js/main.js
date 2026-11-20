@@ -319,9 +319,9 @@ function renderContinuousFilmRibbon() {
         <div class="leader-taper-zone">
           <svg class="leader-taper-svg" viewBox="0 0 460 380" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <!-- Solid celluloid body of the leader -->
-            <path d="M 0,0 L 30,0 C 65,0 95,130 130,130 L 444,130 A 16,16 0 0 1 460,146 L 460,364 A 16,16 0 0 1 444,380 L 0,380 Z" fill="#050608"/>
+            <path d="M 0,0 L 30,0 C 65,0 95,130 130,130 L 444,130 A 16,16 0 0 1 460,146 L 460,380 L 0,380 Z" fill="#050608"/>
             <!-- 1px acetate cut edge specular highlight (seamless match with top border) -->
-            <path d="M 0,0.5 L 30,0.5 C 65,0.5 95,130.5 130,130.5 L 444,130.5 A 15.5,15.5 0 0 1 459.5,146 L 459.5,364 A 15.5,15.5 0 0 1 444,379.5 L 0,379.5" fill="none" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1"/>
+            <path d="M 0,0.5 L 30,0.5 C 65,0.5 95,130.5 130,130.5 L 444,130.5 A 15.5,15.5 0 0 1 459.5,146 L 459.5,380" fill="none" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1"/>
             
             <!-- Orange Load Line and Label (Cleanly separated, zero collisions) -->
             <line x1="155" y1="135" x2="155" y2="375" stroke="#f59e0b" stroke-dasharray="5,4" stroke-width="1.5" opacity="0.8"/>
