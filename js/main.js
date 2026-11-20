@@ -374,9 +374,15 @@ function renderContinuousFilmRibbon() {
             <h1 class="theme-title">${theme.name}</h1>
           </header>
 
-          <div class="exposure-photo-frame">
+          <div class="exposure-photo-frame" title="Click to inspect 35mm slide" data-key="${key}" data-frame="${framePadded}">
             <img class="exposure-photo" src="${photoUrl}" alt="${theme.name}" loading="lazy" />
+            <div class="photo-inspect-cue">
+              <span class="cue-icon">🔍</span>
+              <span class="cue-text">EXP ${framePadded}</span>
+            </div>
           </div>
+
+          <p class="exposure-poetry">${theme.poetry || ""}</p>
 
           <div class="emulsion-swatch-row">
             <div class="swatch-meta">
@@ -390,6 +396,17 @@ function renderContinuousFilmRibbon() {
         </div>
       </div>
     `;
+
+    // Click on active frame's photo -> open 35mm slide lightbox!
+    const photoFrame = slide.querySelector(".exposure-photo-frame");
+    if (photoFrame) {
+      photoFrame.addEventListener("click", (e) => {
+        if (originalIdx === currentThemeIndex) {
+          e.stopPropagation();
+          openLightbox(key, theme, framePadded);
+        }
+      });
+    }
 
     // Click on a peaking frame -> immediately roll to it!
     slide.addEventListener("click", () => {
@@ -832,6 +849,46 @@ function updateCanisterTheme(themeKey, isInitial = false) {
 }
 
 /**
+ * 35mm Slide Darkroom Lightbox Modal Handlers
+ */
+function openLightbox(key, theme, framePadded) {
+  const modal = document.getElementById("photo-lightbox");
+  if (!modal) return;
+
+  const photoImg = document.getElementById("lightbox-photo-img");
+  const badge = document.getElementById("lightbox-badge");
+  const date = document.getElementById("lightbox-date");
+  const coords = document.getElementById("lightbox-coords");
+  const title = document.getElementById("lightbox-title");
+  const poetry = document.getElementById("lightbox-poetry");
+
+  const photoUrl = theme.image || `images/exposures/frame-${framePadded}.jpg`;
+  if (photoImg) {
+    photoImg.src = photoUrl;
+    photoImg.alt = theme.name || "35mm Exposure";
+  }
+  if (badge) badge.textContent = `EXP ${framePadded} // 35MM`;
+  if (date) date.textContent = theme.date || "";
+  if (coords) coords.textContent = theme.coords || "";
+  if (title) title.textContent = theme.name || "";
+  if (poetry) poetry.textContent = theme.poetry || "";
+
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  triggerHaptic(14);
+}
+
+function closeLightbox() {
+  const modal = document.getElementById("photo-lightbox");
+  if (!modal || !modal.classList.contains("is-open")) return;
+  modal.classList.remove("is-open");
+  modal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+  triggerHaptic(8);
+}
+
+/**
  * Configures winder buttons, keyboard arrows, wheel scroll, and touch swipe gestures
  */
 function setupControls() {
@@ -937,6 +994,23 @@ function setupControls() {
       }
     }, { passive: true });
   }
+
+  // 35mm Slide Darkroom Lightbox Modal
+  const lightboxCloseBtn = document.getElementById("lightbox-close-btn");
+  const lightboxBackdrop = document.getElementById("lightbox-backdrop");
+
+  if (lightboxCloseBtn) {
+    lightboxCloseBtn.addEventListener("click", closeLightbox);
+  }
+  if (lightboxBackdrop) {
+    lightboxBackdrop.addEventListener("click", closeLightbox);
+  }
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeLightbox();
+    }
+  });
 
   // Recalculate layout on window resize & orientation change
   window.addEventListener("resize", () => {

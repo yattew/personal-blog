@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@700;800&family=Orbitron:wght@700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Grotesk:wght@600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=52" />
+  <link rel="stylesheet" href="css/style.css?v=53" />
 </head>
 <body class="film-aesthetic">
   <!-- Dual-Layer Ambient Backdrop for Ultra-Smooth Organic Color Crossfading -->
@@ -184,9 +184,29 @@
 
   </div>
 
+  <!-- 35mm Slide Lightbox Modal (Full-Screen Darkroom Inspector) -->
+  <div id="photo-lightbox" class="photo-lightbox" aria-hidden="true" role="dialog" aria-label="35mm Frame Lightbox">
+    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+    <div class="lightbox-dialog">
+      <button class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close Lightbox">✕</button>
+      <div class="lightbox-photo-wrap">
+        <img id="lightbox-photo-img" class="lightbox-photo-img" src="" alt="" />
+      </div>
+      <div class="lightbox-caption">
+        <div class="lightbox-meta">
+          <span class="lightbox-badge" id="lightbox-badge">EXP 01 // 35MM</span>
+          <span class="lightbox-date" id="lightbox-date"></span>
+          <span class="lightbox-coords" id="lightbox-coords"></span>
+        </div>
+        <h2 class="lightbox-title" id="lightbox-title"></h2>
+        <p class="lightbox-poetry" id="lightbox-poetry"></p>
+      </div>
+    </div>
+  </div>
+
   <!-- Native Mobile Floating Toast -->
   <div id="mobile-toast" class="mobile-toast" role="status" aria-live="polite"></div>
 
-  <script type="module" src="js/main.js?v=52"></script>
+  <script type="module" src="js/main.js?v=53"></script>
 </body>
 </html>

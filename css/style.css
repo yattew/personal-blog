@@ -475,15 +475,20 @@ body.film-aesthetic {
   max-width: 620px;
   flex: 1;
   min-height: 0;
-  max-height: clamp(190px, 38vh, 340px);
+  max-height: clamp(180px, 35vh, 320px);
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.75), inset 0 0 1px rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+}
+
+.film-frame-exposure.active-frame .exposure-photo-frame {
+  cursor: zoom-in;
 }
 
 .exposure-photo {
@@ -496,8 +501,53 @@ body.film-aesthetic {
   filter: contrast(1.02) saturate(1.04);
 }
 
-.film-frame-exposure:hover .exposure-photo {
-  transform: scale(1.025);
+.film-frame-exposure.active-frame:hover .exposure-photo {
+  transform: scale(1.03);
+}
+
+.photo-inspect-cue {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(10, 12, 17, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #ebe3d5;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.film-frame-exposure.active-frame .exposure-photo-frame:hover .photo-inspect-cue {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Abstract Poetic Caption for 35mm Exposure */
+.exposure-poetry {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(0.72rem, 1.45vh, 0.88rem);
+  color: #c8c0b2;
+  text-align: center;
+  margin: 0;
+  max-width: 580px;
+  line-height: 1.35;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.01em;
+  opacity: 0.9;
 }
 
 /* 8-Color Emulsion Swatches */
@@ -1466,6 +1516,14 @@ body.film-aesthetic {
     width: 100% !important;
   }
 
+  .exposure-poetry {
+    display: none; /* Keep clean on vertical mobile screen */
+  }
+
+  .photo-inspect-cue {
+    display: none;
+  }
+
   .theme-title {
     font-size: clamp(1.15rem, 2.8vh, 1.55rem);
     line-height: 1.15;
@@ -2050,6 +2108,14 @@ body.film-aesthetic {
     width: 100% !important;
   }
 
+  .exposure-poetry {
+    display: none;
+  }
+
+  .photo-inspect-cue {
+    display: none;
+  }
+
   .emulsion-swatch-row {
     gap: 0.15rem;
   }
@@ -2082,5 +2148,207 @@ body.film-aesthetic {
 
   .counter-stock {
     font-size: 0.5rem;
+  }
+}
+
+/* ==========================================================================
+   35mm Darkroom Lightbox Modal (Full-Screen Film Inspector)
+   ========================================================================== */
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.photo-lightbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 6, 8, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  cursor: pointer;
+}
+
+.lightbox-dialog {
+  position: relative;
+  z-index: 2;
+  width: 90vw;
+  max-width: 960px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #0d0e12;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  animation: lightboxPopIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes lightboxPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.lightbox-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(20, 22, 28, 0.8);
+  color: #ebe3d5;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, border-color 0.2s;
+}
+
+.lightbox-close-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  transform: scale(1.08);
+}
+
+.lightbox-photo-wrap {
+  width: 100%;
+  max-height: 68vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  overflow: hidden;
+}
+
+.lightbox-photo-img {
+  max-width: 100%;
+  max-height: 68vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.lightbox-caption {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1.1rem 1.6rem;
+  background: #111318;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.lightbox-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #a39b8e;
+}
+
+.lightbox-badge {
+  background: rgba(235, 227, 213, 0.12);
+  color: var(--accent);
+  border: 1px solid rgba(184, 84, 32, 0.35);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.lightbox-date,
+.lightbox-coords {
+  letter-spacing: 0.04em;
+}
+
+.lightbox-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  font-weight: 700;
+  color: #f7f2ea;
+  letter-spacing: -0.01em;
+}
+
+.lightbox-poetry {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(0.85rem, 1.4vw, 0.98rem);
+  color: #c4bcb0;
+  line-height: 1.45;
+}
+
+@media (max-width: 640px) {
+  .lightbox-dialog {
+    width: 95vw;
+    max-height: 94vh;
+  }
+  .lightbox-photo-wrap {
+    max-height: 52vh;
+  }
+  .lightbox-photo-img {
+    max-height: 52vh;
+  }
+  .lightbox-caption {
+    padding: 0.85rem 1rem;
+    gap: 0.25rem;
+  }
+  .lightbox-title {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .lightbox-dialog {
+    flex-direction: row;
+    width: 94vw;
+    max-width: 820px;
+    max-height: 90vh;
+  }
+  .lightbox-photo-wrap {
+    max-height: 90vh;
+    max-width: 58vw;
+    flex: 1;
+  }
+  .lightbox-photo-img {
+    max-height: 90vh;
+  }
+  .lightbox-caption {
+    border-top: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    width: 42vw;
+    max-width: 320px;
+    height: 100%;
+    justify-content: center;
+    padding: 0.8rem 1rem;
   }
 }
