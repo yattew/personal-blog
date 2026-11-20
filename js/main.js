@@ -54,7 +54,7 @@ let toastTimeout = null;
 let activeAmbientLayer = "a"; // 'a' or 'b'
 
 export function isPortraitMode() {
-  return window.innerWidth <= 768 || window.innerHeight > window.innerWidth;
+  return window.matchMedia("(orientation: portrait)").matches;
 }
 
 /**
@@ -484,7 +484,10 @@ function updateFilmPosition() {
     if (currentThemeIndex === 0) {
       // FRAME 01: Entire leading edge tongue must be fully inside the frame on the right!
       const ribbonWidth = ribbon.offsetWidth;
-      targetX = gateWidth - 28 - ribbonWidth;
+      const idealX = gateWidth - 28 - ribbonWidth;
+      // Prevent Frame 01 from slipping behind the left canister on smaller mobile landscape screens:
+      const minTargetX = canisterWidth + 14 - activeSlide.offsetLeft;
+      targetX = Math.max(idealX, minTargetX);
     } else {
       // ALL OTHER FRAMES (including Frame 13): Dead-centered in the visible stage!
       const slideWidth = activeSlide.offsetWidth;
@@ -671,9 +674,10 @@ function setupControls() {
           }
         } else {
           // In landscape mode:
-          // Swipe left (deltaX < 0) advances, swipe right (deltaX > 0) rewinds
-          if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.4) {
-            if (deltaX < 0) {
+          // Swiping left to right (deltaX > 0) pulls film out of the canister -> ADVANCES frame!
+          // Swiping right to left (deltaX < 0) winds film back into the canister -> REWINDS frame!
+          if (Math.abs(deltaX) > 28 && Math.abs(deltaX) > Math.abs(deltaY) * 0.7) {
+            if (deltaX > 0) {
               advanceFrame(1);
             } else {
               advanceFrame(-1);
