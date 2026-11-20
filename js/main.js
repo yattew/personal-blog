@@ -369,7 +369,6 @@ function renderContinuousFilmRibbon() {
                 <span class="stamp-text">EXP ${framePadded} // 35MM</span>
               </span>
               <span class="date-stamp">${dateStr}</span>
-              <span class="exposure-coords">${coordsStr}</span>
             </div>
             <h1 class="theme-title">${theme.name}</h1>
           </header>
@@ -791,6 +790,56 @@ let canisterThemeTimer = null;
 let activeCanisterLayer = "a";
 
 /**
+ * Resolves the photorealistic 3D canister styling for any frame or theme
+ */
+function getCanisterThemeMeta(themeKey, theme) {
+  if (!theme) return CANISTER_THEMES.default;
+  if (CANISTER_THEMES[themeKey]) return CANISTER_THEMES[themeKey];
+
+  const normalize = (str) =>
+    (str || "")
+      .toLowerCase()
+      .replace(/[ōóòö]/g, "o")
+      .replace(/[āáàä]/g, "a")
+      .replace(/[^a-z0-9]+/g, "_")
+      .replace(/^_+|_+$/g, "");
+
+  const nm = normalize(theme.matched_theme);
+  const nv = normalize(theme.vibe);
+
+  if (CANISTER_THEMES[nm]) return CANISTER_THEMES[nm];
+  if (CANISTER_THEMES[nv]) return CANISTER_THEMES[nv];
+
+  if (nm.includes("neon") || nv.includes("neon")) return CANISTER_THEMES.tokyo_neon_noir;
+  if (nm.includes("akihabara") || nm.includes("electric") || nv.includes("electric")) return CANISTER_THEMES.akihabara_electric_pop;
+  if (nm.includes("rain") || nv.includes("rain") || nv.includes("melancholy")) return CANISTER_THEMES.tokyo_rain_melancholy;
+  if (nm.includes("shinkansen") && (nm.includes("twilight") || nv.includes("twilight") || nv.includes("indigo"))) return CANISTER_THEMES.shinkansen_countryside_indigo;
+  if (nm.includes("shinkansen") || nv.includes("countryside")) return CANISTER_THEMES.shinkansen_countryside;
+  if (nm.includes("senso") || nm.includes("crimson") || nv.includes("crimson")) return CANISTER_THEMES.sens_ji_historic_crimson;
+  if (nm.includes("bamboo") || nv.includes("bamboo") || nv.includes("moss")) return CANISTER_THEMES.kyoto_moss_bamboo;
+  if (nm.includes("ramen") || nm.includes("izakaya") || nv.includes("izakaya") || nv.includes("golden_gai") || nm.includes("yokocho")) return CANISTER_THEMES.midnight_ramen_izakaya;
+  if (nm.includes("sunlit") || nv.includes("urban") || nv.includes("minimalist")) return CANISTER_THEMES.sunlit_urban_afternoon;
+
+  const p = theme.palette || [theme.colors.bg, theme.colors.surface, theme.colors.border, theme.colors.muted, theme.colors.accent];
+  const c0 = p[0] || "#140e0a";
+  const c1 = p[1] || "#261c14";
+  const c2 = p[2] || "#523b28";
+  const c3 = theme.colors.accent || p[4] || "#9e6c43";
+  const c4 = p[3] || "#694f38";
+  const accent = theme.colors.accent || "#b85420";
+
+  return {
+    gradient: `linear-gradient(135deg, ${c0} 0%, ${c1} 18%, ${c2} 36%, ${c3} 50%, ${c4} 68%, ${c1} 86%, ${c0} 100%)`,
+    accent: accent,
+    badgeBg: c0,
+    badgeColor: accent,
+    typeColor: p[5] || "#e2c9a5",
+    stampColor: p[6] || "#fef08a",
+    glow: `color-mix(in srgb, ${accent} 40%, transparent)`
+  };
+}
+
+/**
  * Dynamically themes the photorealistic 3D metal film canister
  * Includes a physical latency delay (~280ms) to allow the film to roll out before morphing colors
  */
@@ -802,7 +851,7 @@ function updateCanisterTheme(themeKey, isInitial = false) {
 
   const applyCanisterUpdates = () => {
     const theme = siteConfig.themes[themeKey] || siteConfig.themes.default;
-    const meta = CANISTER_THEMES[themeKey] || (theme && theme.matched_theme && CANISTER_THEMES[theme.matched_theme]) || CANISTER_THEMES.default;
+    const meta = getCanisterThemeMeta(themeKey, theme);
     const originalIdx = themeKeys.indexOf(themeKey);
     const framePadded = String((originalIdx >= 0 ? originalIdx : 0) + 1).padStart(2, "0");
 
@@ -836,7 +885,7 @@ function updateCanisterTheme(themeKey, isInitial = false) {
   if (isInitial) {
     const layerA = document.getElementById("canister-bg-a");
     const theme = siteConfig.themes[themeKey] || siteConfig.themes.default;
-    const meta = CANISTER_THEMES[themeKey] || (theme && theme.matched_theme && CANISTER_THEMES[theme.matched_theme]) || CANISTER_THEMES.default;
+    const meta = getCanisterThemeMeta(themeKey, theme);
     if (layerA) {
       layerA.style.background = meta.gradient;
       layerA.classList.add("active");
@@ -858,7 +907,6 @@ function openLightbox(key, theme, framePadded) {
   const photoImg = document.getElementById("lightbox-photo-img");
   const badge = document.getElementById("lightbox-badge");
   const date = document.getElementById("lightbox-date");
-  const coords = document.getElementById("lightbox-coords");
   const title = document.getElementById("lightbox-title");
   const poetry = document.getElementById("lightbox-poetry");
 
@@ -869,7 +917,6 @@ function openLightbox(key, theme, framePadded) {
   }
   if (badge) badge.textContent = `EXP ${framePadded} // 35MM`;
   if (date) date.textContent = theme.date || "";
-  if (coords) coords.textContent = theme.coords || "";
   if (title) title.textContent = theme.name || "";
   if (poetry) poetry.textContent = theme.poetry || "";
 
