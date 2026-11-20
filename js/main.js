@@ -352,16 +352,6 @@ function renderContinuousFilmRibbon() {
     slide.innerHTML = `
       <div class="slide-exposure-inner" style="background: radial-gradient(at 15% 25%, ${p4}30 0px, transparent 65%), radial-gradient(at 85% 75%, ${p5}30 0px, transparent 65%), linear-gradient(180deg, #0b0c10 0%, #101218 50%, #0b0c10 100%);">
         <div class="exposure-content-wrap">
-          <header class="exposure-header compact">
-            <div class="exposure-meta-row">
-              <span class="film-stamp-badge">
-                <span class="stamp-icon">🎞️</span>
-                <span class="stamp-text">EXP ${framePadded} // 35MM</span>
-              </span>
-            </div>
-            <h1 class="theme-title">${theme.name}</h1>
-          </header>
-
           <div class="exposure-photo-frame" title="Click to inspect 35mm slide" data-key="${key}" data-frame="${framePadded}">
             <img class="exposure-photo" src="${photoUrl}" alt="${theme.name}" loading="lazy" />
             <div class="photo-inspect-cue">
@@ -399,7 +389,7 @@ function renderContinuousFilmRibbon() {
     topMeta.className = "frame-sprocket-meta";
     topMeta.dataset.index = originalIdx;
     topMeta.innerHTML = `
-      <span class="edge-code">SAFETY FILM • ${stockName}</span>
+      <span class="edge-title" title="${theme.name}">${theme.name.toUpperCase()}</span>
       <span class="edge-date">${dateStr}</span>
       <span class="frame-tag">▶ ${framePadded}A</span>
     `;
@@ -754,8 +744,38 @@ function applyTheme(themeKey, isInitial = false) {
 let canisterThemeTimer = null;
 let activeCanisterLayer = "a";
 
+function hexToHsl(hex) {
+  let c = (hex || "#fbbf24").replace(/^#/, "");
+  if (c.length === 3) c = c.split("").map((x) => x + x).join("");
+  const num = parseInt(c, 16);
+  if (isNaN(num)) return [40, 90, 70];
+  const r = (num >> 16) / 255;
+  const g = ((num >> 8) & 255) / 255;
+  const b = (num & 255) / 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h = 0, s = 0, l = (max + min) / 2;
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+      case g: h = ((b - r) / d + 2) / 6; break;
+      case b: h = ((r - g) / d + 4) / 6; break;
+    }
+  }
+  return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
+}
+
+function makeLuminousColor(hex, targetL = 74, minS = 88) {
+  if (!hex || typeof hex !== "string") return "#fbbf24";
+  const [h, s] = hexToHsl(hex);
+  const finalS = Math.max(s, minS);
+  return `hsl(${h}, ${finalS}%, ${targetL}%)`;
+}
+
 /**
  * Resolves the photorealistic 3D canister styling for any frame or theme
+ * Guarantees vivid, high-contrast, razor-sharp typography against dark anodized metallic surfaces
  */
 function getCanisterThemeMeta(themeKey, theme) {
   if (!theme) return CANISTER_THEMES.default;
@@ -789,18 +809,24 @@ function getCanisterThemeMeta(themeKey, theme) {
   const c0 = p[0] || "#140e0a";
   const c1 = p[1] || "#261c14";
   const c2 = p[2] || "#523b28";
-  const c3 = theme.colors.accent || p[4] || "#9e6c43";
+  const rawAccent = theme.colors.accent || p[4] || "#f59e0b";
+  const c3 = rawAccent;
   const c4 = p[3] || "#694f38";
-  const accent = theme.colors.accent || "#b85420";
+
+  // Compute vibrant high-contrast dynamic typography colors for the dark canister body
+  const [baseH] = hexToHsl(rawAccent);
+  const badgeColor = makeLuminousColor(rawAccent, 74, 90);
+  const typeColor = `hsl(${(baseH + 25) % 360}, 95%, 78%)`;
+  const stampColor = `hsl(${(baseH + 10) % 360}, 100%, 82%)`;
 
   return {
     gradient: `linear-gradient(135deg, ${c0} 0%, ${c1} 18%, ${c2} 36%, ${c3} 50%, ${c4} 68%, ${c1} 86%, ${c0} 100%)`,
-    accent: accent,
-    badgeBg: c0,
-    badgeColor: accent,
-    typeColor: p[5] || "#e2c9a5",
-    stampColor: p[6] || "#fef08a",
-    glow: `color-mix(in srgb, ${accent} 40%, transparent)`
+    accent: badgeColor,
+    badgeBg: "rgba(10, 14, 24, 0.88)",
+    badgeColor: badgeColor,
+    typeColor: typeColor,
+    stampColor: stampColor,
+    glow: `color-mix(in srgb, ${badgeColor} 45%, transparent)`
   };
 }
 

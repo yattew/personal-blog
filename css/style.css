@@ -273,6 +273,20 @@ body.film-aesthetic {
   color: rgba(245, 158, 11, 0.75);
 }
 
+.edge-title {
+  font-family: var(--font-mono);
+  font-size: clamp(0.55rem, 1.1vw, 0.65rem);
+  font-weight: 800;
+  color: var(--film-code-amber);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.95;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 45%;
+}
+
 .edge-date {
   font-family: var(--font-mono);
   font-size: clamp(0.55rem, 1.1vw, 0.65rem);
@@ -401,64 +415,29 @@ body.film-aesthetic {
   z-index: 5;
   width: 100%;
   height: 100%;
-  max-width: 900px;
+  max-width: 940px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   text-align: center;
-  gap: clamp(0.2rem, 0.8vh, 0.45rem);
-}
-
-/* Compressed Sleek Header */
-.exposure-header {
-  width: 100%;
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.12rem;
-  margin: 0;
   padding: 0;
-}
-
-.exposure-meta-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
   margin: 0;
 }
 
-.film-stamp-badge {
+/* Authentic 35mm Photographic Print Aperture Window - Maximum Display Area */
+.exposure-photo-frame {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  padding: 0.1rem 0.45rem;
-  font-size: clamp(0.58rem, 1.1vw, 0.65rem);
-  font-family: var(--font-mono);
-  font-weight: 700;
-  color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 15%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
-  border-radius: 4px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  justify-content: center;
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  background: transparent;
+  cursor: pointer;
+  margin: 0 auto;
 }
-
-.theme-title {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-size: clamp(1rem, 2.2vh, 1.35rem);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: #f7f2ea;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85);
-  line-height: 1.2;
-}
-
-/* Authentic 35mm Photographic Print Aperture Window - Zero Black Bars */
-.exposure-photo-frame {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -977,12 +956,14 @@ body.film-aesthetic {
 }
 
 .canister-brand-vertical .brand-iso {
-  color: var(--canister-badge-color, #f59e0b);
+  color: var(--canister-badge-color, #fbbf24);
   margin-top: 6px;
   font-family: var(--font-mono);
   font-size: 0.95em;
+  font-weight: 900;
   letter-spacing: 0.1em;
-  transition: color 0.6s ease;
+  text-shadow: 0 0 10px color-mix(in srgb, var(--canister-badge-color, #fbbf24) 75%, transparent), 0 1px 3px rgba(0, 0, 0, 0.95);
+  transition: color 0.6s ease, text-shadow 0.6s ease;
 }
 
 /* Right Column: Horizontal Technical Panel */
@@ -1040,12 +1021,12 @@ body.film-aesthetic {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--canister-badge-bg, #0f172a);
-  border: 1px solid var(--canister-badge-border, rgba(255, 255, 255, 0.3));
+  background: var(--canister-badge-bg, rgba(10, 14, 24, 0.88));
+  border: 1px solid var(--canister-badge-border, rgba(255, 255, 255, 0.4));
   border-radius: 4px;
   padding: 3px 6px;
   width: fit-content;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.25);
   white-space: nowrap !important;
   flex-shrink: 0;
   transition: background-color 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
@@ -1054,25 +1035,27 @@ body.film-aesthetic {
 .speed-iso {
   font-size: clamp(0.74rem, 1.05vw, 0.88rem);
   font-weight: 900;
-  color: var(--canister-badge-color, #f59e0b);
+  color: var(--canister-badge-color, #fbbf24);
   letter-spacing: 0.08em;
   font-family: var(--font-mono);
   white-space: nowrap !important;
   flex-shrink: 0;
-  transition: color 0.6s ease;
+  text-shadow: 0 0 8px color-mix(in srgb, var(--canister-badge-color, #fbbf24) 65%, transparent), 0 1px 2px rgba(0, 0, 0, 0.95);
+  transition: color 0.6s ease, text-shadow 0.6s ease;
 }
 
 .speed-type {
   font-size: 0.52rem;
   font-weight: 800;
-  color: var(--canister-type-color, #38bdf8);
+  color: var(--canister-type-color, #fde047);
   letter-spacing: 0.08em;
-  border-left: 1px solid var(--canister-badge-border, rgba(255, 255, 255, 0.25));
+  border-left: 1px solid var(--canister-badge-border, rgba(255, 255, 255, 0.3));
   padding-left: 6px;
   font-family: var(--font-mono);
   white-space: nowrap !important;
   flex-shrink: 0;
-  transition: color 0.6s ease, border-color 0.6s ease;
+  text-shadow: 0 0 8px color-mix(in srgb, var(--canister-type-color, #fde047) 50%, transparent);
+  transition: color 0.6s ease, border-color 0.6s ease, text-shadow 0.6s ease;
 }
 
 /* Film Specs */
@@ -1081,20 +1064,22 @@ body.film-aesthetic {
   flex-direction: column;
   gap: 3px;
   font-size: clamp(0.48rem, 0.68vw, 0.56rem);
-  color: #f1f5f9;
+  color: #f8fafc;
   line-height: 1.35;
-  opacity: 0.95;
+  opacity: 1;
   font-family: var(--font-mono);
   white-space: nowrap !important;
   flex-shrink: 0;
-  border-left: 2px solid var(--canister-badge-border, rgba(255, 255, 255, 0.25));
+  border-left: 2px solid var(--canister-badge-color, rgba(255, 255, 255, 0.35));
   padding-left: 7px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
   transition: opacity 0.6s ease, border-color 0.6s ease;
 }
 
 .spec-line {
   white-space: nowrap !important;
   flex-shrink: 0;
+  color: #e2e8f0;
 }
 
 .spec-line.spec-bold {
@@ -1106,9 +1091,16 @@ body.film-aesthetic {
 /* Emulsion Dot-Matrix Stamp */
 .canister-emulsion-stamp {
   font-size: 0.44rem;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+  font-weight: 800;
   color: var(--canister-stamp-color, #fef08a);
-  opacity: 0.95;
+  opacity: 1;
+  font-family: var(--font-mono);
+  white-space: nowrap !important;
+  flex-shrink: 0;
+  text-shadow: 0 0 6px color-mix(in srgb, var(--canister-stamp-color, #fef08a) 70%, transparent), 0 1px 2px rgba(0, 0, 0, 0.95);
+  transition: color 0.6s ease, text-shadow 0.6s ease;
+}
   font-family: var(--font-mono);
   white-space: nowrap !important;
   flex-shrink: 0;

@@ -4,37 +4,65 @@ export const siteConfig = {
   "themes": {
     "default": {
       "id": "frame_01",
-      "name": "Vapor Velocity",
+      "name": "Arcade Cadence",
       "frameNumber": 1,
       "image": "images/exposures/frame-01.jpg",
-      "date": "OCT 24 '26 \u2022 14:40 JST",
-      "matched_theme": "Tokyo Rain & Melancholy",
-      "vibe": "Tokyo Night Transit",
+      "date": "NOV 03 '26 \u2022 15:35 JST",
+      "matched_theme": "Akihabara Electric Pop",
+      "vibe": "Shibuya Center-Gai Crossing",
       "colors": {
-        "bg": "#0a0c11",
-        "surface": "#191819",
-        "border": "#242220",
-        "muted": "#2f2a28",
-        "accent": "#44342c",
+        "bg": "#171311",
+        "surface": "#271d1a",
+        "border": "#402721",
+        "muted": "#52362d",
+        "accent": "#62483f",
         "text": "#ded7d7",
         "shadow": "0 10px 25px rgba(0, 0, 0, 0.45)"
       },
       "palette": [
-        "#0a0c11",
-        "#191819",
-        "#242220",
-        "#2f2a28",
-        "#44342c",
-        "#624635",
-        "#965d3f",
-        "#d49468"
+        "#171311",
+        "#271d1a",
+        "#402721",
+        "#52362d",
+        "#62483f",
+        "#74605a",
+        "#95857b",
+        "#c2bdb9"
       ]
     },
     "frame_01": {
       "id": "frame_01",
-      "name": "Vapor Velocity",
+      "name": "Arcade Cadence",
       "frameNumber": 1,
       "image": "images/exposures/frame-01.jpg",
+      "date": "NOV 03 '26 \u2022 15:35 JST",
+      "matched_theme": "Akihabara Electric Pop",
+      "vibe": "Shibuya Center-Gai Crossing",
+      "colors": {
+        "bg": "#171311",
+        "surface": "#271d1a",
+        "border": "#402721",
+        "muted": "#52362d",
+        "accent": "#62483f",
+        "text": "#ded7d7",
+        "shadow": "0 10px 25px rgba(0, 0, 0, 0.45)"
+      },
+      "palette": [
+        "#171311",
+        "#271d1a",
+        "#402721",
+        "#52362d",
+        "#62483f",
+        "#74605a",
+        "#95857b",
+        "#c2bdb9"
+      ]
+    },
+    "frame_02": {
+      "id": "frame_02",
+      "name": "Vapor Velocity",
+      "frameNumber": 2,
+      "image": "images/exposures/frame-02.jpg",
       "date": "OCT 24 '26 \u2022 14:40 JST",
       "matched_theme": "Tokyo Rain & Melancholy",
       "vibe": "Tokyo Night Transit",
@@ -58,11 +86,11 @@ export const siteConfig = {
         "#d49468"
       ]
     },
-    "frame_02": {
-      "id": "frame_02",
+    "frame_03": {
+      "id": "frame_03",
       "name": "Shinjuku Twilight",
-      "frameNumber": 2,
-      "image": "images/exposures/frame-02.jpg",
+      "frameNumber": 3,
+      "image": "images/exposures/frame-03.jpg",
       "date": "OCT 25 '26 \u2022 18:35 JST",
       "matched_theme": "Tokyo Neon Noir",
       "vibe": "Evening Street Atmosphere",
@@ -86,11 +114,11 @@ export const siteConfig = {
         "#ddcbb1"
       ]
     },
-    "frame_03": {
-      "id": "frame_03",
+    "frame_04": {
+      "id": "frame_04",
       "name": "Nocturne Crossing",
-      "frameNumber": 3,
-      "image": "images/exposures/frame-03.jpg",
+      "frameNumber": 4,
+      "image": "images/exposures/frame-04.jpg",
       "date": "OCT 25 '26 \u2022 18:40 JST",
       "matched_theme": "Tokyo Neon Noir",
       "vibe": "Neon Reflections & Dusk",
@@ -114,11 +142,11 @@ export const siteConfig = {
         "#b09f9e"
       ]
     },
-    "frame_04": {
-      "id": "frame_04",
+    "frame_05": {
+      "id": "frame_05",
       "name": "Rainy Platform",
-      "frameNumber": 4,
-      "image": "images/exposures/frame-04.jpg",
+      "frameNumber": 5,
+      "image": "images/exposures/frame-05.jpg",
       "date": "OCT 26 '26 \u2022 15:34 JST",
       "matched_theme": "Tokyo Rain & Melancholy",
       "vibe": "Overcast Railway Quiet",
@@ -142,11 +170,11 @@ export const siteConfig = {
         "#978c94"
       ]
     },
-    "frame_05": {
-      "id": "frame_05",
+    "frame_06": {
+      "id": "frame_06",
       "name": "Asphalt Reflections",
-      "frameNumber": 5,
-      "image": "images/exposures/frame-05.jpg",
+      "frameNumber": 6,
+      "image": "images/exposures/frame-06.jpg",
       "date": "OCT 26 '26 \u2022 16:21 JST",
       "matched_theme": "Tokyo Rain & Melancholy",
       "vibe": "Monochrome Umbrellas",
@@ -170,11 +198,11 @@ export const siteConfig = {
         "#d1c1aa"
       ]
     },
-    "frame_06": {
-      "id": "frame_06",
+    "frame_07": {
+      "id": "frame_07",
       "name": "Monolithic Rail",
-      "frameNumber": 6,
-      "image": "images/exposures/frame-06.jpg",
+      "frameNumber": 7,
+      "image": "images/exposures/frame-07.jpg",
       "date": "OCT 26 '26 \u2022 16:29 JST",
       "matched_theme": "Tokyo Rain & Melancholy",
       "vibe": "Industrial Station Chiaroscuro",
@@ -198,11 +226,11 @@ export const siteConfig = {
         "#a28b83"
       ]
     },
-    "frame_07": {
-      "id": "frame_07",
+    "frame_08": {
+      "id": "frame_08",
       "name": "Morning Grove",
-      "frameNumber": 7,
-      "image": "images/exposures/frame-07.jpg",
+      "frameNumber": 8,
+      "image": "images/exposures/frame-08.jpg",
       "date": "OCT 27 '26 \u2022 05:38 JST",
       "matched_theme": "Kyoto Moss & Bamboo",
       "vibe": "Zen Temple Silence",
@@ -226,11 +254,11 @@ export const siteConfig = {
         "#d2d0c5"
       ]
     },
-    "frame_08": {
-      "id": "frame_08",
+    "frame_09": {
+      "id": "frame_09",
       "name": "Looming Timber",
-      "frameNumber": 8,
-      "image": "images/exposures/frame-08.jpg",
+      "frameNumber": 9,
+      "image": "images/exposures/frame-09.jpg",
       "date": "OCT 27 '26 \u2022 12:56 JST",
       "matched_theme": "Kyoto Moss & Bamboo",
       "vibe": "Weathered Cedar Eaves",
@@ -254,11 +282,11 @@ export const siteConfig = {
         "#caa899"
       ]
     },
-    "frame_09": {
-      "id": "frame_09",
+    "frame_10": {
+      "id": "frame_10",
       "name": "Vermilion Threshold",
-      "frameNumber": 9,
-      "image": "images/exposures/frame-09.jpg",
+      "frameNumber": 10,
+      "image": "images/exposures/frame-10.jpg",
       "date": "OCT 29 '26 \u2022 16:01 JST",
       "matched_theme": "Sens\u014d-ji Historic Crimson",
       "vibe": "Sacred Inari Approach",
@@ -282,11 +310,11 @@ export const siteConfig = {
         "#684646"
       ]
     },
-    "frame_10": {
-      "id": "frame_10",
+    "frame_11": {
+      "id": "frame_11",
       "name": "Torii Convergence",
-      "frameNumber": 10,
-      "image": "images/exposures/frame-10.jpg",
+      "frameNumber": 11,
+      "image": "images/exposures/frame-11.jpg",
       "date": "OCT 29 '26 \u2022 16:07 JST",
       "matched_theme": "Sens\u014d-ji Historic Crimson",
       "vibe": "Winding Vermilion Pathway",
@@ -310,11 +338,11 @@ export const siteConfig = {
         "#43403d"
       ]
     },
-    "frame_11": {
-      "id": "frame_11",
+    "frame_12": {
+      "id": "frame_12",
       "name": "Cinnabar Path",
-      "frameNumber": 11,
-      "image": "images/exposures/frame-11.jpg",
+      "frameNumber": 12,
+      "image": "images/exposures/frame-12.jpg",
       "date": "OCT 29 '26 \u2022 16:08 JST",
       "matched_theme": "Sens\u014d-ji Historic Crimson",
       "vibe": "Mountain Torii Tunnel",
@@ -338,11 +366,11 @@ export const siteConfig = {
         "#742f24"
       ]
     },
-    "frame_12": {
-      "id": "frame_12",
+    "frame_13": {
+      "id": "frame_13",
       "name": "Forest Light",
-      "frameNumber": 12,
-      "image": "images/exposures/frame-12.jpg",
+      "frameNumber": 13,
+      "image": "images/exposures/frame-13.jpg",
       "date": "OCT 29 '26 \u2022 16:21 JST",
       "matched_theme": "Fushimi Vermilion Gates",
       "vibe": "Canopy Filtered Sun",
@@ -366,11 +394,11 @@ export const siteConfig = {
         "#bba894"
       ]
     },
-    "frame_13": {
-      "id": "frame_13",
+    "frame_14": {
+      "id": "frame_14",
       "name": "Stone Steps",
-      "frameNumber": 13,
-      "image": "images/exposures/frame-13.jpg",
+      "frameNumber": 14,
+      "image": "images/exposures/frame-14.jpg",
       "date": "OCT 29 '26 \u2022 17:00 JST",
       "matched_theme": "Fushimi Vermilion Gates",
       "vibe": "Ancient Pilgrimage Stair",
@@ -394,11 +422,11 @@ export const siteConfig = {
         "#b19870"
       ]
     },
-    "frame_14": {
-      "id": "frame_14",
+    "frame_15": {
+      "id": "frame_15",
       "name": "Moss Lantern",
-      "frameNumber": 14,
-      "image": "images/exposures/frame-14.jpg",
+      "frameNumber": 15,
+      "image": "images/exposures/frame-15.jpg",
       "date": "OCT 29 '26 \u2022 17:02 JST",
       "matched_theme": "Kyoto Moss & Bamboo",
       "vibe": "Lichen-Covered Stone",
@@ -422,11 +450,11 @@ export const siteConfig = {
         "#bebeb7"
       ]
     },
-    "frame_15": {
-      "id": "frame_15",
+    "frame_16": {
+      "id": "frame_16",
       "name": "Alpine Mist",
-      "frameNumber": 15,
-      "image": "images/exposures/frame-15.jpg",
+      "frameNumber": 16,
+      "image": "images/exposures/frame-16.jpg",
       "date": "OCT 30 '26 \u2022 08:34 JST",
       "matched_theme": "Mount Fuji Mist & Dawn",
       "vibe": "Quiet Mountain Reservoir",
@@ -450,11 +478,11 @@ export const siteConfig = {
         "#e1d7c5"
       ]
     },
-    "frame_16": {
-      "id": "frame_16",
+    "frame_17": {
+      "id": "frame_17",
       "name": "Highland Basin",
-      "frameNumber": 16,
-      "image": "images/exposures/frame-16.jpg",
+      "frameNumber": 17,
+      "image": "images/exposures/frame-17.jpg",
       "date": "OCT 30 '26 \u2022 09:34 JST",
       "matched_theme": "Mount Fuji Mist & Dawn",
       "vibe": "Reflective Lake Horizon",
@@ -478,11 +506,11 @@ export const siteConfig = {
         "#d4e6e5"
       ]
     },
-    "frame_17": {
-      "id": "frame_17",
+    "frame_18": {
+      "id": "frame_18",
       "name": "Topographic Pulse",
-      "frameNumber": 17,
-      "image": "images/exposures/frame-17.jpg",
+      "frameNumber": 18,
+      "image": "images/exposures/frame-18.jpg",
       "date": "OCT 30 '26 \u2022 15:42 JST",
       "matched_theme": "Shinkansen Countryside",
       "vibe": "Rolling Foothill Expanses",
@@ -506,11 +534,11 @@ export const siteConfig = {
         "#b4c3c1"
       ]
     },
-    "frame_18": {
-      "id": "frame_18",
+    "frame_19": {
+      "id": "frame_19",
       "name": "Timber Canopy",
-      "frameNumber": 18,
-      "image": "images/exposures/frame-18.jpg",
+      "frameNumber": 19,
+      "image": "images/exposures/frame-19.jpg",
       "date": "OCT 31 '26 \u2022 06:34 JST",
       "matched_theme": "Kyoto Moss & Bamboo",
       "vibe": "Temple Courtyard Pines",
@@ -534,11 +562,11 @@ export const siteConfig = {
         "#a8a29a"
       ]
     },
-    "frame_19": {
-      "id": "frame_19",
+    "frame_20": {
+      "id": "frame_20",
       "name": "Torii Lattice",
-      "frameNumber": 19,
-      "image": "images/exposures/frame-19.jpg",
+      "frameNumber": 20,
+      "image": "images/exposures/frame-20.jpg",
       "date": "OCT 31 '26 \u2022 06:41 JST",
       "matched_theme": "Sens\u014d-ji Historic Crimson",
       "vibe": "Sacred Geometric Woods",
@@ -562,11 +590,11 @@ export const siteConfig = {
         "#a29782"
       ]
     },
-    "frame_20": {
-      "id": "frame_20",
+    "frame_21": {
+      "id": "frame_21",
       "name": "Incense Drift",
-      "frameNumber": 20,
-      "image": "images/exposures/frame-20.jpg",
+      "frameNumber": 21,
+      "image": "images/exposures/frame-21.jpg",
       "date": "OCT 31 '26 \u2022 16:29 JST",
       "matched_theme": "Sens\u014d-ji Historic Crimson",
       "vibe": "Asakusa Evening Smoke",
@@ -590,11 +618,11 @@ export const siteConfig = {
         "#c58e95"
       ]
     },
-    "frame_21": {
-      "id": "frame_21",
+    "frame_22": {
+      "id": "frame_22",
       "name": "Afternoon Tea",
-      "frameNumber": 21,
-      "image": "images/exposures/frame-21.jpg",
+      "frameNumber": 22,
+      "image": "images/exposures/frame-22.jpg",
       "date": "NOV 01 '26 \u2022 14:29 JST",
       "matched_theme": "Matcha & Wabi-Sabi",
       "vibe": "Golden Hour Neighbourhood",
@@ -618,11 +646,11 @@ export const siteConfig = {
         "#aeaca9"
       ]
     },
-    "frame_22": {
-      "id": "frame_22",
+    "frame_23": {
+      "id": "frame_23",
       "name": "Electric Pop",
-      "frameNumber": 22,
-      "image": "images/exposures/frame-22.jpg",
+      "frameNumber": 23,
+      "image": "images/exposures/frame-23.jpg",
       "date": "NOV 03 '26 \u2022 15:32 JST",
       "matched_theme": "Akihabara Electric Pop",
       "vibe": "Neon Canyon Glow",
@@ -644,34 +672,6 @@ export const siteConfig = {
         "#989397",
         "#a9a6a5",
         "#cac4be"
-      ]
-    },
-    "frame_23": {
-      "id": "frame_23",
-      "name": "Arcade Cadence",
-      "frameNumber": 23,
-      "image": "images/exposures/frame-23.jpg",
-      "date": "NOV 03 '26 \u2022 15:35 JST",
-      "matched_theme": "Akihabara Electric Pop",
-      "vibe": "Synthesized Rhythm & Color",
-      "colors": {
-        "bg": "#171311",
-        "surface": "#271d1a",
-        "border": "#402721",
-        "muted": "#52362d",
-        "accent": "#62483f",
-        "text": "#ded7d7",
-        "shadow": "0 10px 25px rgba(0, 0, 0, 0.45)"
-      },
-      "palette": [
-        "#171311",
-        "#271d1a",
-        "#402721",
-        "#52362d",
-        "#62483f",
-        "#74605a",
-        "#95857b",
-        "#c2bdb9"
       ]
     },
     "frame_24": {
