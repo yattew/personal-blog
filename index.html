@@ -3,17 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World — Personal Blog</title>
+  <title>Japan Journey — Mood & Color Palettes</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <main class="container">
-    <span class="badge">Japan Journey Themes Ready</span>
-    <h1>Japan Journey & Themes</h1>
-    <p class="subtitle">12 dynamic mood themes extracted locally from 353 photos using OpenCLIP on Apple Silicon MPS.</p>
+    <span class="badge" id="theme-badge">Local AI Mood Extraction</span>
+    <h1 id="theme-title">Japan Journey & Themes</h1>
+    
+    <blockquote id="theme-poetry" class="theme-poetry">
+      "Sunlit parchment and quiet morning cedar resting on tactile linen."
+    </blockquote>
 
-    <div class="theme-preview">
-      <!-- Dynamically populated from config.js by main.js -->
+    <div class="swatch-section">
+      <div class="swatch-header">
+        <span>Extracted 8-Color Palette</span>
+        <span class="photo-count" id="photo-count">Foundational Base</span>
+      </div>
+      <div class="palette-swatches" id="palette-swatches">
+        <!-- 8 swatches generated dynamically -->
+      </div>
+    </div>
+
+    <div class="theme-preview" id="theme-buttons">
+      <!-- Buttons dynamically populated from config.js -->
     </div>
   </main>
 
