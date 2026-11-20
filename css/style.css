@@ -189,8 +189,9 @@ body.film-aesthetic {
 .continuous-sprocket-track {
   position: relative;
   width: 100%;
-  height: clamp(38px, 5.2vh, 46px);
+  height: 46px;
   background: transparent;
+  background-color: transparent !important;
   flex-shrink: 0;
   overflow: hidden;
   border: none;
@@ -218,17 +219,18 @@ body.film-aesthetic {
   height: 100%;
   background-repeat: repeat-x;
   background-position: left center;
-  background-size: 38px 100%;
+  background-size: 38px 46px;
+  background-color: transparent !important;
 }
 
-/* Top track perforations along top edge (Seamless 100% opaque celluloid with clean transparent cutouts) */
+/* Top track perforations along top edge (Base64-encoded to guarantee zero URL fragment decoding corruption on reload) */
 .sprocket-perforations-continuous.top {
-  background-image: url("data:image/svg+xml,%3Csvg width='38' height='46' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' fill='%23050608' d='M-2,-2 H40 V50 H-2 Z M11,8 H27 A4,4 0 0 1 31,12 V22 A4,4 0 0 1 27,26 H11 A4,4 0 0 1 7,22 V12 A4,4 0 0 1 11,8 Z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOCIgaGVpZ2h0PSI0NiIgdmlld0JveD0iMCAwIDM4IDQ2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9InJnYig1LDYsOCkiIGQ9Ik0tMiwtMiBINDAgVjUwIEgtMiBaIE0xMSw4IEgyNyBBNCw0IDAgMCAxIDMxLDEyIFYyMiBBNCw0IDAgMCAxIDI3LDI2IEgxMSBBNCw0IDAgMCAxIDcsMjIgVjEyIEE0LDQgMCAwIDEgMTEsOCBaIi8+PC9zdmc+");
 }
 
-/* Bottom track perforations along bottom edge (Seamless 100% opaque celluloid with clean transparent cutouts) */
+/* Bottom track perforations along bottom edge (Base64-encoded to guarantee zero URL fragment decoding corruption on reload) */
 .sprocket-perforations-continuous.bottom {
-  background-image: url("data:image/svg+xml,%3Csvg width='38' height='46' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' fill='%23050608' d='M-2,-2 H40 V50 H-2 Z M11,20 H27 A4,4 0 0 1 31,24 V34 A4,4 0 0 1 27,38 H11 A4,4 0 0 1 7,34 V24 A4,4 0 0 1 11,20 Z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOCIgaGVpZ2h0PSI0NiIgdmlld0JveD0iMCAwIDM4IDQ2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9InJnYig1LDYsOCkiIGQ9Ik0tMiwtMiBINDAgVjUwIEgtMiBaIE0xMSwyMCBIMjcgQTQsNCAwIDAgMSAzMSwyNCBWMzQgQTQsNCAwIDAgMSAyNywzOCBIMTEgQTQsNCAwIDAgMSA3LDM0IFYyNCBBNCw0IDAgMCAxIDExLDIwIFoiLz48L3N2Zz4=");
 }
 
 /* Sprocket Edge Codes & Barcodes (Positioned in inner margin — NEVER overlapping punch holes) */
@@ -563,7 +565,7 @@ body.film-aesthetic {
 
 .leader-bottom-track {
   width: 100%;
-  height: clamp(38px, 5.2vh, 46px);
+  height: 46px;
   position: relative;
   flex-shrink: 0;
   margin-top: -2px;
@@ -1382,7 +1384,7 @@ body.film-aesthetic {
 
   .sprocket-perforations-continuous.top,
   .sprocket-perforations-continuous.bottom {
-    background-image: url("data:image/svg+xml,%3Csvg width='38' height='36' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' fill='%23050608' d='M-2,-2 H42 V40 H-2 Z M12,8 H26 A4,4 0 0 1 30,12 V24 A4,4 0 0 1 26,28 H12 A4,4 0 0 1 8,24 V12 A4,4 0 0 1 12,8 Z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNiIgdmlld0JveD0iMCAwIDM4IDM2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9InJnYig1LDYsOCkiIGQ9Ik0tMiwtMiBINDIgVjQwIEgtMiBaIE0xMiw4IEgyNiBBNCw0IDAgMCAxIDMwLDEyIFYyNCBBNCw0IDAgMCAxIDI2LDI4IEgxMiBBNCw0IDAgMCAxIDgsMjQgVjEyIEE0LDQgMCAwIDEgMTIsOCBaIi8+PC9zdmc+");
   }
 
   .sprocket-codes-layer {
@@ -1951,7 +1953,7 @@ body.film-aesthetic {
   .sprocket-perforations-continuous.top,
   .sprocket-perforations-continuous.bottom {
     background-size: 38px 36px !important;
-    background-image: url("data:image/svg+xml,%3Csvg width='38' height='36' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' fill='%23050608' d='M-2,-2 H40 V38 H-2 Z M10,8 H28 A4,4 0 0 1 32,12 V24 A4,4 0 0 1 28,28 H10 A4,4 0 0 1 6,24 V12 A4,4 0 0 1 10,8 Z'/%3E%3C/svg%3E") !important;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNiIgdmlld0JveD0iMCAwIDM4IDM2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9InJnYig1LDYsOCkiIGQ9Ik0tMiwtMiBINDAgVjM4IEgtMiBaIE0xMCw4IEgyOCBBNCw0IDAgMCAxIDMyLDEyIFYyNCBBNCw0IDAgMCAxIDI4LDI4IEgxMCBBNCw0IDAgMCAxIDYsMjQgVjEyIEE0LDQgMCAwIDEgMTAsOCBaIi8+PC9zdmc+") !important;
   }
 
   /* Leader Tongue on Mobile Landscape (Elongated authentic 35mm tongue) */
