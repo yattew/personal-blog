@@ -1,6 +1,8 @@
 # Personal Blog & Portfolio
 
-A minimal, config-driven blog and portfolio site built with zero-build frontend tooling, ready for GitHub Pages deployment.
+**Live Site:** [https://yattew.github.io/personal-blog/](https://yattew.github.io/personal-blog/)
+
+A minimal, config-driven blog and portfolio site built with zero-build frontend tooling, deployed on GitHub Pages.
 
 ## Features
 
