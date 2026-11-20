@@ -22,7 +22,6 @@ const FILM_STOCKS = {
  */
 const CANISTER_THEMES = {
   default: {
-    brandFont: "'Playfair Display', serif",
     speedType: "DAYLIGHT",
     spec1: "35mm COLOR NEGATIVE",
     spec2: "ISO 400/27° • 13 EXP",
@@ -35,7 +34,6 @@ const CANISTER_THEMES = {
     glow: "rgba(184, 84, 32, 0.35)"
   },
   tokyo_neon_noir: {
-    brandFont: "'Orbitron', sans-serif",
     speedType: "TUNGSTEN // NEON",
     spec1: "35mm CHROMA EMULSION",
     spec2: "ISO 400/27° • 13 EXP",
@@ -48,7 +46,6 @@ const CANISTER_THEMES = {
     glow: "rgba(56, 189, 248, 0.38)"
   },
   akihabara_electric_pop: {
-    brandFont: "'Syne', sans-serif",
     speedType: "VIVID // ELECTRIC",
     spec1: "35mm HIGH SATURATION",
     spec2: "ISO 400/27° • 13 EXP",
@@ -61,7 +58,6 @@ const CANISTER_THEMES = {
     glow: "rgba(249, 115, 22, 0.4)"
   },
   tokyo_neon_noir_amber: {
-    brandFont: "'Space Grotesk', sans-serif",
     speedType: "AMBER // WARM TONE",
     spec1: "35mm COLOR NEGATIVE",
     spec2: "ISO 400/27° • 13 EXP",
@@ -74,7 +70,6 @@ const CANISTER_THEMES = {
     glow: "rgba(198, 140, 87, 0.35)"
   },
   tokyo_neon_noir_slate: {
-    brandFont: "'JetBrains Mono', monospace",
     speedType: "SLATE // HI-CONTRAST",
     spec1: "35mm MONOCHROME / SLATE",
     spec2: "ISO 400/27° • 13 EXP",
@@ -87,7 +82,6 @@ const CANISTER_THEMES = {
     glow: "rgba(96, 165, 250, 0.35)"
   },
   shinkansen_countryside: {
-    brandFont: "'Space Grotesk', sans-serif",
     speedType: "HIGH SPEED // TRANSIT",
     spec1: "35mm ULTRA FINE GRAIN",
     spec2: "ISO 400/27° • 13 EXP",
@@ -100,7 +94,6 @@ const CANISTER_THEMES = {
     glow: "rgba(205, 137, 49, 0.35)"
   },
   tokyo_rain_melancholy: {
-    brandFont: "'Playfair Display', serif",
     speedType: "MIST // COOL TONE",
     spec1: "35mm ATMOSPHERIC CHROMA",
     spec2: "ISO 400/27° • 13 EXP",
@@ -113,7 +106,6 @@ const CANISTER_THEMES = {
     glow: "rgba(244, 114, 182, 0.35)"
   },
   sunlit_urban_afternoon: {
-    brandFont: "'Playfair Display', serif",
     speedType: "FINE GRAIN // SUNLIT",
     spec1: "35mm GOLDEN EMULSION",
     spec2: "ISO 400/27° • 13 EXP",
@@ -126,7 +118,6 @@ const CANISTER_THEMES = {
     glow: "rgba(245, 158, 11, 0.35)"
   },
   midnight_ramen_izakaya: {
-    brandFont: "'Orbitron', sans-serif",
     speedType: "MIDNIGHT // VAPOR",
     spec1: "35mm LOW-LIGHT EMULSION",
     spec2: "ISO 400/27° • 13 EXP",
@@ -139,7 +130,6 @@ const CANISTER_THEMES = {
     glow: "rgba(56, 189, 248, 0.38)"
   },
   shinkansen_countryside_indigo: {
-    brandFont: "'Syne', sans-serif",
     speedType: "TWILIGHT // INDIGO",
     spec1: "35mm DEEP EMULSION",
     spec2: "ISO 400/27° • 13 EXP",
@@ -152,7 +142,6 @@ const CANISTER_THEMES = {
     glow: "rgba(56, 189, 248, 0.35)"
   },
   sens_ji_historic_crimson: {
-    brandFont: "'Cinzel', serif",
     speedType: "VERMILION // HISTORIC",
     spec1: "35mm COLOR REVERSAL",
     spec2: "ISO 400/27° • 13 EXP",
@@ -165,7 +154,6 @@ const CANISTER_THEMES = {
     glow: "rgba(239, 68, 68, 0.4)"
   },
   kyoto_moss_bamboo: {
-    brandFont: "'Cinzel', serif",
     speedType: "BAMBOO // ZEN GARDEN",
     spec1: "35mm NATURAL CHROMA",
     spec2: "ISO 400/27° • 13 EXP",
@@ -178,7 +166,6 @@ const CANISTER_THEMES = {
     glow: "rgba(74, 222, 128, 0.35)"
   },
   sunlit_urban_afternoon_sand_slate: {
-    brandFont: "'Space Grotesk', sans-serif",
     speedType: "ARCHIVAL // DUOTONE",
     spec1: "35mm ARCHIVAL FINE GRAIN",
     spec2: "ISO 400/27° • 13 EXP",
@@ -860,7 +847,6 @@ function updateCanisterTheme(themeKey, isInitial = false) {
     // 2. Update CSS Variables on canister unit
     const canisterUnit = document.getElementById("film-canister-unit");
     if (canisterUnit) {
-      canisterUnit.style.setProperty("--canister-brand-font", meta.brandFont);
       canisterUnit.style.setProperty("--canister-accent", meta.accent);
       canisterUnit.style.setProperty("--canister-badge-bg", meta.badgeBg);
       canisterUnit.style.setProperty("--canister-badge-border", `color-mix(in srgb, ${meta.accent} 40%, rgba(255, 255, 255, 0.2))`);
