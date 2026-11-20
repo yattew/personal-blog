@@ -10,15 +10,15 @@ export const siteConfig = {
   // Theme palettes designed for dynamic context switching
   themes: {
     default: {
-      name: "Gruvbox Beige",
+      name: "Warm Beige",
       colors: {
-        bg: "#fbf1c7",
-        surface: "#f2e5bc",
-        text: "#3c3836",
-        muted: "#7c6f64",
-        accent: "#af3a03",
-        border: "#d5c4a1",
-        shadow: "0 10px 30px rgba(60, 56, 54, 0.08)"
+        bg: "#ebe3d5",
+        surface: "#dfd5c2",
+        text: "#342e29",
+        muted: "#786d62",
+        accent: "#b85420",
+        border: "#cbbda8",
+        shadow: "0 10px 25px rgba(52, 46, 41, 0.08)"
       }
     },
     japan: {
