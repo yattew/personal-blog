@@ -314,18 +314,22 @@ function renderContinuousFilmRibbon() {
   // Supports both Landscape (horizontal tongue on far right) and Mobile Portrait (vertical tongue on top)
   if (leaderUnit) {
     leaderUnit.innerHTML = `
-      <!-- 3A. Landscape Leader View (Tongue curves rightwards) -->
+      <!-- 3A. Landscape Leader View (Elongated authentic 35mm tongue unrolling to the right) -->
       <div class="leader-horizontal-view">
         <div class="leader-taper-zone">
-          <svg class="leader-taper-svg" viewBox="0 0 320 380" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 0,0 C 60,0 95,150 150,150 L 306,150 A 14,14 0 0 1 320,164 L 320,366 A 14,14 0 0 1 306,380 L 0,380 Z" fill="#050608"/>
-            <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" font-weight="800" letter-spacing="0.14em">
-              <text x="50" y="240">◀ LOAD FILM ──►</text>
-              <text x="50" y="270" font-size="8" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND THIS LINE</text>
-              <text x="50" y="305" font-size="9" fill="#f59e0b">35MM • CINESTILL 800T • EXP 13</text>
+          <svg class="leader-taper-svg" viewBox="0 0 520 380" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Solid celluloid body of the leader -->
+            <path d="M 0,0 L 60,0 C 110,0 160,145 230,145 L 504,145 A 16,16 0 0 1 520,161 L 520,364 A 16,16 0 0 1 504,380 L 0,380 Z" fill="#050608"/>
+            <!-- 1px acetate cut edge specular highlight (seamless match with top border) -->
+            <path d="M 0,0.5 L 60,0.5 C 110,0.5 160,145.5 230,145.5 L 504,145.5 A 16,16 0 0 1 519.5,161.5 L 519.5,364 A 16,16 0 0 1 504,379.5 L 0,379.5" fill="none" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1"/>
+            <!-- Technical factory stamps on leader tongue -->
+            <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="800" letter-spacing="0.14em">
+              <text x="120" y="240">◀ LOAD FILM ──►</text>
+              <text x="120" y="270" font-size="8.8" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND THIS LINE</text>
+              <text x="120" y="305" font-size="9.8" fill="#f59e0b">35MM • CINESTILL 800T • EXP 13</text>
             </g>
-            <line x1="80" y1="100" x2="80" y2="350" stroke="#f59e0b" stroke-dasharray="5,4" stroke-width="1.5" opacity="0.75"/>
-            <text x="70" y="225" fill="#f59e0b" opacity="0.85" font-family="ui-monospace, monospace" font-size="8" font-weight="700" transform="rotate(-90, 70, 225)">LOAD TO LINE ▶</text>
+            <line x1="180" y1="105" x2="180" y2="360" stroke="#f59e0b" stroke-dasharray="5,4" stroke-width="1.5" opacity="0.75"/>
+            <text x="170" y="235" fill="#f59e0b" opacity="0.85" font-family="ui-monospace, monospace" font-size="8.8" font-weight="700" transform="rotate(-90, 170, 235)">LOAD TO LINE ▶</text>
           </svg>
         </div>
         <div class="continuous-sprocket-track bottom leader-bottom-track" aria-hidden="true">
@@ -333,18 +337,22 @@ function renderContinuousFilmRibbon() {
         </div>
       </div>
 
-      <!-- 3B. Mobile Portrait Leader View (Tongue curves upwards away from bottom canister) -->
+      <!-- 3B. Mobile Portrait Leader View (Elongated authentic 35mm tongue unrolling upwards) -->
       <div class="leader-vertical-view">
         <div class="leader-vertical-zone">
-          <svg class="leader-vertical-svg" viewBox="0 0 340 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 0,180 L 340,180 L 340,140 C 340,95 240,40 170,40 L 170,12 A 12,12 0 0 0 158,0 L 12,0 A 12,12 0 0 0 0,12 Z" fill="#050608"/>
-            <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" font-weight="800" letter-spacing="0.14em">
-              <text x="42" y="55">▲ LOAD FILM ▲</text>
-              <text x="42" y="75" font-size="7.5" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND LINE</text>
-              <text x="42" y="98" font-size="8" fill="#f59e0b">35MM • CINESTILL 800T • EXP 13</text>
+          <svg class="leader-vertical-svg" viewBox="0 0 340 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Solid celluloid body of the vertical leader (starts at x=38 so left track is 100% transparent cutout!) -->
+            <path d="M 38,302 L 340,302 L 340,210 C 340,140 220,70 170,70 L 170,14 A 14,14 0 0 0 156,0 L 38,0 Z" fill="#050608"/>
+            <!-- 1px acetate cut edge specular highlight (seamless match with Frame 01 right border and left track) -->
+            <path d="M 38,0.5 L 156,0.5 A 13.5,13.5 0 0 1 169.5,14 L 169.5,70 C 220,70 339.5,140 339.5,210 L 339.5,302" fill="none" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1"/>
+            <!-- Technical factory stamps on vertical leader tongue -->
+            <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9.5" font-weight="800" letter-spacing="0.14em">
+              <text x="54" y="90">▲ LOAD FILM ▲</text>
+              <text x="54" y="115" font-size="8" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND LINE</text>
+              <text x="54" y="140" font-size="8.5" fill="#f59e0b">35MM • CINESTILL 800T • EXP 13</text>
             </g>
-            <line x1="42" y1="125" x2="310" y2="125" stroke="#f59e0b" stroke-dasharray="4,4" stroke-width="1.2" opacity="0.75"/>
-            <text x="42" y="140" fill="#f59e0b" opacity="0.85" font-family="ui-monospace, monospace" font-size="7.5" font-weight="700">LOAD TO LINE ▶</text>
+            <line x1="54" y1="172" x2="310" y2="172" stroke="#f59e0b" stroke-dasharray="4,4" stroke-width="1.2" opacity="0.75"/>
+            <text x="54" y="194" fill="#f59e0b" opacity="0.85" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700">LOAD TO LINE ▶</text>
           </svg>
         </div>
         <div class="continuous-sprocket-track top leader-vertical-left-track" aria-hidden="true">
@@ -463,7 +471,7 @@ function updateFilmPosition() {
 
     if (currentThemeIndex === 0) {
       // FRAME 01: Entire vertical leader tongue is fully inside the frame at top!
-      targetY = 16;
+      targetY = 12;
     } else {
       // ALL OTHER FRAMES: Active frame centered in visible stage above bottom canister!
       const slideTopInRibbon = getOffsetTopInContainer(activeSlide, ribbon);

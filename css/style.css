@@ -176,6 +176,8 @@ body.film-aesthetic {
   flex-shrink: 0;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-right: none !important;
+  border-left: none;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.85);
 }
 
@@ -518,8 +520,8 @@ body.film-aesthetic {
    Authentic tapered 35mm leader tongue with bottom sprockets & stamped markings
    ========================================================================== */
 .film-leader-unit {
-  flex: 0 0 clamp(260px, 26vw, 360px);
-  width: clamp(260px, 26vw, 360px);
+  flex: 0 0 clamp(420px, 34vw, 540px);
+  width: clamp(420px, 34vw, 540px);
   height: 100%;
   position: relative;
   display: flex;
@@ -527,8 +529,10 @@ body.film-aesthetic {
   cursor: pointer;
   flex-shrink: 0;
   box-sizing: border-box;
-  margin-left: -1px;
+  margin-left: -2px;
+  z-index: 5;
   background: transparent;
+  border: none !important;
 }
 
 .leader-horizontal-view {
@@ -561,6 +565,8 @@ body.film-aesthetic {
   position: relative;
   flex-shrink: 0;
   margin-top: -2px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-sizing: border-box;
 }
 
 /* ==========================================================================
@@ -1130,8 +1136,10 @@ body.film-aesthetic {
     height: auto;
     background: transparent;
     flex-shrink: 0;
-    border-left: 1px solid rgba(255, 255, 255, 0.14);
-    border-right: 1px solid rgba(255, 255, 255, 0.14);
+    border-top: none !important;
+    border-bottom: none !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.14) !important;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.85);
   }
 
@@ -1188,8 +1196,8 @@ body.film-aesthetic {
   /* Individual Exposure Slide */
   .film-frame-exposure {
     width: 100%;
-    height: clamp(380px, 52vh, 460px);
-    flex: 0 0 clamp(380px, 52vh, 460px);
+    height: clamp(340px, 46vh, 420px);
+    flex: 0 0 clamp(340px, 46vh, 420px);
     padding: 10px 6px;
     background: #050608;
     margin: 0;
@@ -1233,15 +1241,17 @@ body.film-aesthetic {
     align-items: center;
   }
 
-  /* Leader Unit at Top of Ribbon */
+  /* Leader Unit at Top of Ribbon (Elongated authentic 35mm tongue pointing up) */
   .film-leader-unit {
-    width: 100%;
-    height: clamp(140px, 18vh, 180px);
-    flex: 0 0 clamp(140px, 18vh, 180px);
-    margin: 0 0 -1px 0;
+    width: 100% !important;
+    height: clamp(260px, 32vh, 320px) !important;
+    flex: 0 0 clamp(260px, 32vh, 320px) !important;
+    margin: 0 0 -2px 0 !important;
     background: transparent;
     position: relative;
     cursor: pointer;
+    z-index: 5;
+    border: none !important;
   }
 
   .leader-horizontal-view {
@@ -1280,6 +1290,9 @@ body.film-aesthetic {
     right: auto !important;
     margin: 0 !important;
     z-index: 5 !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border-radius: 14px 0 0 0 !important;
+    box-sizing: border-box !important;
   }
 
   /* Photorealistic 3D Metal Canister Anchored Across Bottom */
@@ -1601,15 +1614,19 @@ body.film-aesthetic {
     background-image: url("data:image/svg+xml,%3Csvg width='38' height='36' viewBox='0 0 38 36' shape-rendering='geometricPrecision' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' fill='%23050608' d='M-2,-2 H40 V38 H-2 Z M10,8 H28 A4,4 0 0 1 32,12 V24 A4,4 0 0 1 28,28 H10 A4,4 0 0 1 6,24 V12 A4,4 0 0 1 10,8 Z' /%3E%3Crect x='6' y='8' width='26' height='20' rx='4' ry='4' fill='none' stroke='%23ffffff' stroke-opacity='0.16' stroke-width='1'/%3E%3C/svg%3E") !important;
   }
 
-  /* Leader Tongue on Mobile Landscape */
+  /* Leader Tongue on Mobile Landscape (Elongated authentic 35mm tongue) */
   .film-leader-unit {
-    flex: 0 0 clamp(180px, 24vw, 240px) !important;
-    width: clamp(180px, 24vw, 240px) !important;
+    flex: 0 0 clamp(300px, 38vw, 390px) !important;
+    width: clamp(300px, 38vw, 390px) !important;
     height: 100% !important;
+    margin-left: -2px !important;
+    z-index: 5 !important;
+    border: none !important;
   }
 
   .leader-bottom-track {
     height: 36px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
   }
 
   /* Frame width: scaled so Frame 01 does not overlap the canister */
