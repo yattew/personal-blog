@@ -317,19 +317,22 @@ function renderContinuousFilmRibbon() {
       <!-- 3A. Landscape Leader View (Elongated authentic 35mm tongue unrolling to the right) -->
       <div class="leader-horizontal-view">
         <div class="leader-taper-zone">
-          <svg class="leader-taper-svg" viewBox="0 0 520 380" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="leader-taper-svg" viewBox="0 0 460 380" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <!-- Solid celluloid body of the leader -->
-            <path d="M 0,0 L 60,0 C 110,0 160,145 230,145 L 504,145 A 16,16 0 0 1 520,161 L 520,364 A 16,16 0 0 1 504,380 L 0,380 Z" fill="#050608"/>
+            <path d="M 0,0 L 30,0 C 65,0 95,130 130,130 L 444,130 A 16,16 0 0 1 460,146 L 460,364 A 16,16 0 0 1 444,380 L 0,380 Z" fill="#050608"/>
             <!-- 1px acetate cut edge specular highlight (seamless match with top border) -->
-            <path d="M 0,0.5 L 60,0.5 C 110,0.5 160,145.5 230,145.5 L 504,145.5 A 16,16 0 0 1 519.5,161.5 L 519.5,364 A 16,16 0 0 1 504,379.5 L 0,379.5" fill="none" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1"/>
-            <!-- Technical factory stamps on leader tongue -->
-            <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" font-weight="800" letter-spacing="0.14em">
-              <text x="120" y="240">◀ LOAD FILM ──►</text>
-              <text x="120" y="270" font-size="8.8" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND THIS LINE</text>
-              <text x="120" y="305" font-size="9.8" fill="#f59e0b">35MM • CINESTILL 800T • EXP 13</text>
+            <path d="M 0,0.5 L 30,0.5 C 65,0.5 95,130.5 130,130.5 L 444,130.5 A 15.5,15.5 0 0 1 459.5,146 L 459.5,364 A 15.5,15.5 0 0 1 444,379.5 L 0,379.5" fill="none" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1"/>
+            
+            <!-- Orange Load Line and Label (Cleanly separated, zero collisions) -->
+            <line x1="155" y1="135" x2="155" y2="375" stroke="#f59e0b" stroke-dasharray="5,4" stroke-width="1.5" opacity="0.8"/>
+            <text x="145" y="240" fill="#f59e0b" opacity="0.9" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700" transform="rotate(-90, 145, 240)">LOAD TO LINE ▶</text>
+
+            <!-- Technical factory stamps cleanly on the tongue to the right of the line -->
+            <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-weight="800" letter-spacing="0.14em">
+              <text x="195" y="225" font-size="11">◀ LOAD FILM ──►</text>
+              <text x="195" y="255" font-size="9" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND THIS LINE</text>
+              <text x="195" y="290" font-size="10" fill="#f59e0b">35MM • CINESTILL 800T • EXP 13</text>
             </g>
-            <line x1="180" y1="105" x2="180" y2="360" stroke="#f59e0b" stroke-dasharray="5,4" stroke-width="1.5" opacity="0.75"/>
-            <text x="170" y="235" fill="#f59e0b" opacity="0.85" font-family="ui-monospace, monospace" font-size="8.8" font-weight="700" transform="rotate(-90, 170, 235)">LOAD TO LINE ▶</text>
           </svg>
         </div>
         <div class="continuous-sprocket-track bottom leader-bottom-track" aria-hidden="true">
@@ -340,19 +343,22 @@ function renderContinuousFilmRibbon() {
       <!-- 3B. Mobile Portrait Leader View (Elongated authentic 35mm tongue unrolling upwards) -->
       <div class="leader-vertical-view">
         <div class="leader-vertical-zone">
-          <svg class="leader-vertical-svg" viewBox="0 0 340 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="leader-vertical-svg" viewBox="0 0 340 360" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <!-- Solid celluloid body of the vertical leader (starts at x=38 so left track is 100% transparent cutout!) -->
-            <path d="M 38,302 L 340,302 L 340,210 C 340,140 220,70 170,70 L 170,14 A 14,14 0 0 0 156,0 L 38,0 Z" fill="#050608"/>
+            <path d="M 38,362 L 340,362 L 340,325 C 340,285 190,280 190,235 L 190,14 A 14,14 0 0 0 176,0 L 38,0 Z" fill="#050608"/>
             <!-- 1px acetate cut edge specular highlight (seamless match with Frame 01 right border and left track) -->
-            <path d="M 38,0.5 L 156,0.5 A 13.5,13.5 0 0 1 169.5,14 L 169.5,70 C 220,70 339.5,140 339.5,210 L 339.5,302" fill="none" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1"/>
-            <!-- Technical factory stamps on vertical leader tongue -->
-            <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9.5" font-weight="800" letter-spacing="0.14em">
-              <text x="54" y="90">▲ LOAD FILM ▲</text>
-              <text x="54" y="115" font-size="8" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND LINE</text>
-              <text x="54" y="140" font-size="8.5" fill="#f59e0b">35MM • CINESTILL 800T • EXP 13</text>
+            <path d="M 38,0.5 L 176,0.5 A 13.5,13.5 0 0 1 189.5,14 L 189.5,235 C 189.5,280 339.5,285 339.5,325 L 339.5,362" fill="none" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1"/>
+            
+            <!-- Technical factory stamps on vertical leader tongue (spaced down the 235-unit tongue) -->
+            <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-weight="800" letter-spacing="0.1em">
+              <text x="50" y="70" font-size="9">▲ LOAD FILM ▲</text>
+              <text x="50" y="95" font-size="7.5" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE</text>
+              <text x="50" y="110" font-size="7.5" fill="#c4bcb0" opacity="0.85">BEYOND LINE</text>
+              <text x="50" y="136" font-size="7.8" fill="#f59e0b">CINESTILL 800T</text>
+              <text x="50" y="152" font-size="7.2" fill="#f59e0b" opacity="0.9">35MM // 13 EXP</text>
             </g>
-            <line x1="54" y1="172" x2="310" y2="172" stroke="#f59e0b" stroke-dasharray="4,4" stroke-width="1.2" opacity="0.75"/>
-            <text x="54" y="194" fill="#f59e0b" opacity="0.85" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700">LOAD TO LINE ▶</text>
+            <line x1="48" y1="180" x2="182" y2="180" stroke="#f59e0b" stroke-dasharray="4,4" stroke-width="1.2" opacity="0.75"/>
+            <text x="50" y="202" fill="#f59e0b" opacity="0.85" font-family="ui-monospace, monospace" font-size="8" font-weight="700">LOAD TO LINE ▶</text>
           </svg>
         </div>
         <div class="continuous-sprocket-track top leader-vertical-left-track" aria-hidden="true">
@@ -639,14 +645,28 @@ function setupControls() {
   if (prevBtn) prevBtn.addEventListener("click", () => advanceFrame(-1));
   if (nextBtn) nextBtn.addEventListener("click", () => advanceFrame(1));
 
-  // Keyboard navigation: Right/Down/Space advances, Left/Up rewinds
+  // Keyboard navigation:
+  // Desktop Landscape: ArrowLeft advances (pulling film to the right), ArrowRight rewinds
+  // Portrait: ArrowDown advances, ArrowUp rewinds
   window.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowRight" || e.key === " " || e.key === "ArrowDown") {
-      e.preventDefault();
-      advanceFrame(1);
-    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-      e.preventDefault();
-      advanceFrame(-1);
+    const isPortrait = isPortraitMode();
+    if (isPortrait) {
+      if (e.key === "ArrowDown" || e.key === " ") {
+        e.preventDefault();
+        advanceFrame(1);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        advanceFrame(-1);
+      }
+    } else {
+      // Desktop Landscape: reversed arrow keys per user request
+      if (e.key === "ArrowLeft" || e.key === " ") {
+        e.preventDefault();
+        advanceFrame(1);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        advanceFrame(-1);
+      }
     }
   });
 

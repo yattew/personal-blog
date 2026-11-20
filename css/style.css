@@ -330,7 +330,7 @@ body.film-aesthetic {
 /* Individual Frame Column on the Ribbon (100% Seamless Celluloid Base) */
 .film-frame-exposure {
   flex: 0 0 auto;
-  width: 58vw;
+  width: clamp(520px, 48vw, 700px);
   height: 100%;
   position: relative;
   background: #050608;
@@ -520,8 +520,8 @@ body.film-aesthetic {
    Authentic tapered 35mm leader tongue with bottom sprockets & stamped markings
    ========================================================================== */
 .film-leader-unit {
-  flex: 0 0 clamp(420px, 34vw, 540px);
-  width: clamp(420px, 34vw, 540px);
+  flex: 0 0 clamp(440px, 34vw, 500px);
+  width: clamp(440px, 34vw, 500px);
   height: 100%;
   position: relative;
   display: flex;
@@ -1244,8 +1244,8 @@ body.film-aesthetic {
   /* Leader Unit at Top of Ribbon (Elongated authentic 35mm tongue pointing up) */
   .film-leader-unit {
     width: 100% !important;
-    height: clamp(260px, 32vh, 320px) !important;
-    flex: 0 0 clamp(260px, 32vh, 320px) !important;
+    height: clamp(340px, 44vh, 420px) !important;
+    flex: 0 0 clamp(340px, 44vh, 420px) !important;
     margin: 0 0 -2px 0 !important;
     background: transparent;
     position: relative;
