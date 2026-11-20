@@ -640,6 +640,18 @@ body.film-aesthetic {
   z-index: 5;
 }
 
+/* Dynamic Anodized Metallic Sheen Tint on Canister Cylinder */
+.canister-cylinder::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 25% 50%, var(--canister-glow, rgba(255, 255, 255, 0.12)) 0%, transparent 75%);
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0.65;
+  transition: background 0.8s ease, opacity 0.8s ease;
+}
+
 /* Top & Bottom Stamped Chrome Crimped Caps */
 .canister-end-cap {
   height: 28px;
@@ -762,92 +774,112 @@ body.film-aesthetic {
   pointer-events: none;
 }
 
-/* Anodized Lithographed Livery (Cinestill 800T) */
+/* Anodized Lithographed Livery (Dyna-Still 400 Dynamic Theming) */
 .canister-label {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 16px 12px;
-  background: 
-    linear-gradient(135deg, 
-      #781010 0%, 
-      #ba1c1c 18%, 
-      #e02828 32%, 
-      #991414 56%, 
-      #520909 82%, 
-      #220303 100%
-    );
+  background: transparent !important;
   color: #ffffff;
   font-family: var(--font-mono);
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7);
   position: relative;
   overflow: hidden;
+  transition: box-shadow 0.8s ease;
+}
+
+/* Dual Background Layers for Canister Theme Crossfade */
+.canister-bg-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.75s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity;
+}
+
+.canister-bg-layer.active {
+  opacity: 1;
 }
 
 .label-sheen-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(115deg, rgba(255, 255, 255, 0.15) 0%, transparent 40%, rgba(0, 0, 0, 0.45) 85%);
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.18) 0%, transparent 40%, rgba(0, 0, 0, 0.45) 85%);
   pointer-events: none;
+  z-index: 2;
 }
 
 /* Silver Foil Embossed Brand */
 .canister-brand-row {
   display: flex;
   align-items: baseline;
-  gap: 4px;
-  z-index: 2;
+  gap: 5px;
+  position: relative;
+  z-index: 3;
 }
 
 .canister-brand {
-  font-family: var(--font-sans);
-  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-family: var(--canister-brand-font, var(--font-sans));
+  font-size: clamp(0.95rem, 1.35vw, 1.22rem);
   font-weight: 900;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 55%, #94a3b8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85));
   line-height: 1;
+  transition: font-family 0.45s ease;
 }
 
 .canister-subbrand {
   font-size: 0.55rem;
   font-weight: 800;
-  letter-spacing: 0.1em;
-  color: #fca5a5;
+  letter-spacing: 0.12em;
+  color: var(--canister-subbrand-color, #fca5a5);
+  font-family: var(--canister-badge-font, var(--font-mono));
+  transition: color 0.6s ease;
 }
 
-/* 800T High-Contrast Badge */
+/* Dyna-Still 400 High-Contrast Dynamic Thematic Badge */
 .canister-speed-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #0f172a;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: var(--canister-badge-bg, #0f172a);
+  border: 1px solid var(--canister-badge-border, rgba(255, 255, 255, 0.25));
   border-radius: 4px;
   padding: 3px 6px;
   width: fit-content;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
-  z-index: 2;
+  position: relative;
+  z-index: 3;
   margin: 4px 0;
+  transition: background-color 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
 }
 
 .speed-iso {
   font-size: clamp(0.75rem, 1.1vw, 0.9rem);
   font-weight: 900;
-  color: #f59e0b;
+  color: var(--canister-badge-color, #f59e0b);
   letter-spacing: 0.08em;
+  font-family: var(--canister-badge-font, var(--font-mono));
+  transition: color 0.6s ease;
 }
 
 .speed-type {
-  font-size: 0.55rem;
+  font-size: 0.52rem;
   font-weight: 800;
-  color: #38bdf8;
+  color: var(--canister-type-color, #38bdf8);
   letter-spacing: 0.08em;
-  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  border-left: 1px solid var(--canister-badge-border, rgba(255, 255, 255, 0.25));
   padding-left: 5px;
+  font-family: var(--canister-badge-font, var(--font-mono));
+  transition: color 0.6s ease, border-color 0.6s ease;
 }
 
 /* CAS Auto-ISO Conductive Sensor Grid (12-pad DX Matrix) */
@@ -863,7 +895,8 @@ body.film-aesthetic {
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 2px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
-  z-index: 2;
+  position: relative;
+  z-index: 3;
   margin: 6px 0;
 }
 
@@ -889,7 +922,10 @@ body.film-aesthetic {
   color: #f1f5f9;
   line-height: 1.35;
   opacity: 0.95;
-  z-index: 2;
+  position: relative;
+  z-index: 3;
+  font-family: var(--canister-body-font, var(--font-mono));
+  transition: opacity 0.6s ease;
 }
 
 .spec-line {
@@ -900,10 +936,13 @@ body.film-aesthetic {
 .canister-emulsion-stamp {
   font-size: 0.52rem;
   letter-spacing: 0.06em;
-  color: #fef08a;
-  opacity: 0.88;
-  z-index: 2;
+  color: var(--canister-stamp-color, #fef08a);
+  opacity: 0.92;
+  position: relative;
+  z-index: 3;
   margin-top: 4px;
+  font-family: var(--canister-body-font, var(--font-mono));
+  transition: color 0.6s ease;
 }
 
 .canister-barcode-graphic {

@@ -10,7 +10,10 @@
   <meta name="apple-mobile-web-app-title" content="Film Archive" />
   
   <title>Japan Journey — 35mm Continuous Film Roll</title>
-  <link rel="stylesheet" href="css/style.css?v=39" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@700;800&family=Orbitron:wght@700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Grotesk:wght@600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=40" />
 </head>
 <body class="film-aesthetic">
   <!-- Dual-Layer Ambient Backdrop for Ultra-Smooth Organic Color Crossfading -->
@@ -47,20 +50,22 @@
             <div class="cap-rim-highlight"></div>
           </div>
           
-          <!-- Anodized Lithographed Livery (Cinestill 800T) -->
-          <div class="canister-label">
+          <!-- Anodized Lithographed Livery (Dyna-Still 400 Dynamic Theming) -->
+          <div class="canister-label" id="canister-label">
+            <div class="canister-bg-layer layer-a active" id="canister-bg-a"></div>
+            <div class="canister-bg-layer layer-b" id="canister-bg-b"></div>
             <div class="label-sheen-overlay"></div>
             
             <!-- Metallic Foil Brand Title -->
             <div class="canister-brand-row">
-              <span class="canister-brand">CINESTILL</span>
-              <span class="canister-subbrand">FILM</span>
+              <span class="canister-brand">DYNA-STILL</span>
+              <span class="canister-subbrand" id="canister-subbrand">400</span>
             </div>
 
-            <!-- 800T High-Contrast Badge -->
-            <div class="canister-speed-badge">
-              <span class="speed-iso">800T</span>
-              <span class="speed-type">TUNGSTEN</span>
+            <!-- Dyna-Still 400 Dynamic Thematic Badge -->
+            <div class="canister-speed-badge" id="canister-speed-badge">
+              <span class="speed-iso" id="canister-speed-iso">400</span>
+              <span class="speed-type" id="canister-speed-type">DAYLIGHT</span>
             </div>
 
             <!-- CAS Auto-ISO Conductive Sensor Grid (12-pad DX matrix) -->
@@ -75,19 +80,19 @@
               <div class="cas-pad silver"></div>
               <div class="cas-pad black"></div>
               <div class="cas-pad silver"></div>
-              <div class="cas-pad black"></div>
               <div class="cas-pad silver"></div>
+              <div class="cas-pad black"></div>
             </div>
 
             <!-- Technical Film Specs -->
-            <div class="canister-specs">
-              <span class="spec-line">35mm COLOR NEGATIVE</span>
-              <span class="spec-line">ISO 800/30° • 13 EXP</span>
-              <span class="spec-line">PROCESS C-41 / ECN-2</span>
+            <div class="canister-specs" id="canister-specs">
+              <span class="spec-line" id="canister-spec-1">35mm COLOR NEGATIVE</span>
+              <span class="spec-line" id="canister-spec-2">ISO 400/27° • 13 EXP</span>
+              <span class="spec-line" id="canister-spec-3">PROCESS C-41 // PARCHMENT & CEDAR</span>
             </div>
 
             <!-- Dot-Matrix Factory Emulsion Code -->
-            <div class="canister-emulsion-stamp">EMUL 800T-2409 • EXP 11/26</div>
+            <div class="canister-emulsion-stamp" id="canister-emulsion-stamp">EMUL DS400-01 // WARM BEIGE</div>
           </div>
 
           <!-- Bottom Stamped Chrome Cap -->
@@ -154,7 +159,7 @@
           <span class="led-sep">//</span>
           <span class="led-total" id="total-frames-num">13</span>
         </div>
-        <span class="counter-stock" id="current-stock-tag">CINESTILL 800T</span>
+        <span class="counter-stock" id="current-stock-tag">DYNA-STILL 400</span>
       </div>
 
       <!-- Physical Advance Button -->
@@ -169,6 +174,6 @@
   <!-- Native Mobile Floating Toast -->
   <div id="mobile-toast" class="mobile-toast" role="status" aria-live="polite"></div>
 
-  <script type="module" src="js/main.js?v=39"></script>
+  <script type="module" src="js/main.js?v=40"></script>
 </body>
 </html>

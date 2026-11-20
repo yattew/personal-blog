@@ -1,19 +1,195 @@
 import { siteConfig } from "../config.js";
 
 const FILM_STOCKS = {
-  tokyo_neon_noir: "CINESTILL 800T",
-  tokyo_neon_noir_amber: "KODAK PORTRA 800",
-  tokyo_neon_noir_slate: "ILFORD HP5 PLUS",
-  akihabara_electric_pop: "FUJIFILM VELVIA 50",
-  tokyo_rain_melancholy: "CINESTILL 800T",
-  shinkansen_countryside: "KODAK EKTAR 100",
-  shinkansen_countryside_indigo: "FUJIFILM PROVIA 100F",
-  sens_ji_historic_crimson: "KODAK PORTRA 400",
-  kyoto_moss_bamboo: "FUJIFILM PROVIA 100F",
-  midnight_ramen_izakaya: "CINESTILL 800T",
-  sunlit_urban_afternoon: "KODAK PORTRA 160",
-  sunlit_urban_afternoon_sand_slate: "KODAK TRI-X 400",
-  default: "KODAK PORTRA 400"
+  tokyo_neon_noir: "DYNA-STILL 400",
+  tokyo_neon_noir_amber: "DYNA-STILL 400",
+  tokyo_neon_noir_slate: "DYNA-STILL 400",
+  akihabara_electric_pop: "DYNA-STILL 400",
+  tokyo_rain_melancholy: "DYNA-STILL 400",
+  shinkansen_countryside: "DYNA-STILL 400",
+  shinkansen_countryside_indigo: "DYNA-STILL 400",
+  sens_ji_historic_crimson: "DYNA-STILL 400",
+  kyoto_moss_bamboo: "DYNA-STILL 400",
+  midnight_ramen_izakaya: "DYNA-STILL 400",
+  sunlit_urban_afternoon: "DYNA-STILL 400",
+  sunlit_urban_afternoon_sand_slate: "DYNA-STILL 400",
+  default: "DYNA-STILL 400"
+};
+
+/**
+ * Photorealistic 3D Metal Canister Theme Configurations
+ * Driven dynamically by current exposure theming with mechanical unwind animation delay.
+ */
+const CANISTER_THEMES = {
+  default: {
+    brandFont: "'Playfair Display', serif",
+    speedType: "DAYLIGHT",
+    spec1: "35mm COLOR NEGATIVE",
+    spec2: "ISO 400/27° • 13 EXP",
+    gradient: "linear-gradient(135deg, #1f1914 0%, #3b2e23 18%, #694f38 34%, #9e6c43 50%, #523b28 68%, #261c14 85%, #140e0a 100%)",
+    accent: "#b85420",
+    badgeBg: "#1e1712",
+    badgeColor: "#f59e0b",
+    typeColor: "#e2c9a5",
+    stampColor: "#fef08a",
+    glow: "rgba(184, 84, 32, 0.35)"
+  },
+  tokyo_neon_noir: {
+    brandFont: "'Orbitron', sans-serif",
+    speedType: "TUNGSTEN // NEON",
+    spec1: "35mm CHROMA EMULSION",
+    spec2: "ISO 400/27° • 13 EXP",
+    gradient: "linear-gradient(135deg, #090c17 0%, #131e42 18%, #1f3b96 36%, #8b2c5c 52%, #1b1c36 70%, #0a0a14 88%, #05060a 100%)",
+    accent: "#38bdf8",
+    badgeBg: "#0c1024",
+    badgeColor: "#38bdf8",
+    typeColor: "#f43f5e",
+    stampColor: "#67e8f9",
+    glow: "rgba(56, 189, 248, 0.38)"
+  },
+  akihabara_electric_pop: {
+    brandFont: "'Syne', sans-serif",
+    speedType: "VIVID // ELECTRIC",
+    spec1: "35mm HIGH SATURATION",
+    spec2: "ISO 400/27° • 13 EXP",
+    gradient: "linear-gradient(135deg, #1c0e06 0%, #4a220b 18%, #914414 36%, #d97724 50%, #73310a 68%, #2e1203 86%, #140801 100%)",
+    accent: "#f97316",
+    badgeBg: "#1a0c04",
+    badgeColor: "#fb923c",
+    typeColor: "#fde047",
+    stampColor: "#fed7aa",
+    glow: "rgba(249, 115, 22, 0.4)"
+  },
+  tokyo_neon_noir_amber: {
+    brandFont: "'Space Grotesk', sans-serif",
+    speedType: "AMBER // WARM TONE",
+    spec1: "35mm COLOR NEGATIVE",
+    spec2: "ISO 400/27° • 13 EXP",
+    gradient: "linear-gradient(135deg, #170f07 0%, #3d2411 18%, #78451e 36%, #c68c57 52%, #573012 70%, #241407 88%, #0f0803 100%)",
+    accent: "#c68c57",
+    badgeBg: "#1f1308",
+    badgeColor: "#fbbf24",
+    typeColor: "#fde68a",
+    stampColor: "#fde047",
+    glow: "rgba(198, 140, 87, 0.35)"
+  },
+  tokyo_neon_noir_slate: {
+    brandFont: "'JetBrains Mono', monospace",
+    speedType: "SLATE // HI-CONTRAST",
+    spec1: "35mm MONOCHROME / SLATE",
+    spec2: "ISO 400/27° • 13 EXP",
+    gradient: "linear-gradient(135deg, #090c12 0%, #151e2d 18%, #28446b 36%, #4f78a8 50%, #213145 68%, #0f1520 86%, #06080d 100%)",
+    accent: "#60a5fa",
+    badgeBg: "#0b111a",
+    badgeColor: "#60a5fa",
+    typeColor: "#93c5fd",
+    stampColor: "#bfdbfe",
+    glow: "rgba(96, 165, 250, 0.35)"
+  },
+  shinkansen_countryside: {
+    brandFont: "'Space Grotesk', sans-serif",
+    speedType: "HIGH SPEED // TRANSIT",
+    spec1: "35mm ULTRA FINE GRAIN",
+    spec2: "ISO 400/27° • 13 EXP",
+    gradient: "linear-gradient(135deg, #081021 0%, #11254a 18%, #1a4282 36%, #cd8931 52%, #1b3561 70%, #0d1729 88%, #050a12 100%)",
+    accent: "#38bdf8",
+    badgeBg: "#091629",
+    badgeColor: "#38bdf8",
+    typeColor: "#fbbf24",
+    stampColor: "#fef08a",
+    glow: "rgba(205, 137, 49, 0.35)"
+  },
+  tokyo_rain_melancholy: {
+    brandFont: "'Playfair Display', serif",
+    speedType: "MIST // COOL TONE",
+    spec1: "35mm ATMOSPHERIC CHROMA",
+    spec2: "ISO 400/27° • 13 EXP",
+    gradient: "linear-gradient(135deg, #140912 0%, #2e1428 18%, #57254b 36%, #a33e38 52%, #38152c 70%, #1a0814 88%, #0c0409 100%)",
+    accent: "#f472b6",
+    badgeBg: "#1c0d19",
+    badgeColor: "#f472b6",
+    typeColor: "#fda4af",
+    stampColor: "#fbcfe8",
+    glow: "rgba(244, 114, 182, 0.35)"
+  },
+  sunlit_urban_afternoon: {
+    brandFont: "'Playfair Display', serif",
+    speedType: "FINE GRAIN // SUNLIT",
+    spec1: "35mm GOLDEN EMULSION",
+    spec2: "ISO 400/27° • 13 EXP",
+    gradient: "linear-gradient(135deg, #1a1006 0%, #3d230d 18%, #784318 36%, #bf7c37 52%, #522d0d 70%, #241305 88%, #0f0702 100%)",
+    accent: "#f59e0b",
+    badgeBg: "#1c1106",
+    badgeColor: "#f59e0b",
+    typeColor: "#fcd34d",
+    stampColor: "#fef3c7",
+    glow: "rgba(245, 158, 11, 0.35)"
+  },
+  midnight_ramen_izakaya: {
+    brandFont: "'Orbitron', sans-serif",
+    speedType: "MIDNIGHT // VAPOR",
+    spec1: "35mm LOW-LIGHT EMULSION",
+    spec2: "ISO 400/27° • 13 EXP",
+    gradient: "linear-gradient(135deg, #040c17 0%, #0a1f3d 18%, #133e75 36%, #b57c3e 52%, #132b4d 70%, #081324 88%, #03070d 100%)",
+    accent: "#38bdf8",
+    badgeBg: "#071526",
+    badgeColor: "#38bdf8",
+    typeColor: "#fb923c",
+    stampColor: "#fed7aa",
+    glow: "rgba(56, 189, 248, 0.38)"
+  },
+  shinkansen_countryside_indigo: {
+    brandFont: "'Syne', sans-serif",
+    speedType: "TWILIGHT // INDIGO",
+    spec1: "35mm DEEP EMULSION",
+    spec2: "ISO 400/27° • 13 EXP",
+    gradient: "linear-gradient(135deg, #030d17 0%, #07223b 18%, #0b4978 36%, #4d8fb8 50%, #0c3352 68%, #061929 86%, #020a12 100%)",
+    accent: "#38bdf8",
+    badgeBg: "#051829",
+    badgeColor: "#38bdf8",
+    typeColor: "#7dd3fc",
+    stampColor: "#bae6fd",
+    glow: "rgba(56, 189, 248, 0.35)"
+  },
+  sens_ji_historic_crimson: {
+    brandFont: "'Cinzel', serif",
+    speedType: "VERMILION // HISTORIC",
+    spec1: "35mm COLOR REVERSAL",
+    spec2: "ISO 400/27° • 13 EXP",
+    gradient: "linear-gradient(135deg, #240504 0%, #520f0c 18%, #8f1f18 36%, #d4472c 50%, #61110c 68%, #2e0605 86%, #140202 100%)",
+    accent: "#ef4444",
+    badgeBg: "#240706",
+    badgeColor: "#ef4444",
+    typeColor: "#fca5a5",
+    stampColor: "#fef08a",
+    glow: "rgba(239, 68, 68, 0.4)"
+  },
+  kyoto_moss_bamboo: {
+    brandFont: "'Cinzel', serif",
+    speedType: "BAMBOO // ZEN GARDEN",
+    spec1: "35mm NATURAL CHROMA",
+    spec2: "ISO 400/27° • 13 EXP",
+    gradient: "linear-gradient(135deg, #091209 0%, #152917 18%, #264a2b 36%, #52804f 50%, #203d23 68%, #102111 86%, #060c06 100%)",
+    accent: "#4ade80",
+    badgeBg: "#0c1c0e",
+    badgeColor: "#4ade80",
+    typeColor: "#86efac",
+    stampColor: "#bbf7d0",
+    glow: "rgba(74, 222, 128, 0.35)"
+  },
+  sunlit_urban_afternoon_sand_slate: {
+    brandFont: "'Space Grotesk', sans-serif",
+    speedType: "ARCHIVAL // DUOTONE",
+    spec1: "35mm ARCHIVAL FINE GRAIN",
+    spec2: "ISO 400/27° • 13 EXP",
+    gradient: "linear-gradient(135deg, #111317 0%, #242933 18%, #414a5c 36%, #8696ab 50%, #303745 68%, #1a1e26 86%, #0b0d10 100%)",
+    accent: "#94a3b8",
+    badgeBg: "#161a22",
+    badgeColor: "#cbd5e1",
+    typeColor: "#94a3b8",
+    stampColor: "#f1f5f9",
+    glow: "rgba(148, 163, 184, 0.35)"
+  }
 };
 
 const DATE_STAMPS = [
@@ -187,7 +363,7 @@ function renderContinuousFilmRibbon() {
   spoolLead.className = "film-canister-spool-lead";
   spoolLead.innerHTML = `
     <div class="spool-lead-inner">
-      <span class="spool-lead-mark">◀ CINESTILL 800T // FILM SPOOL ──►</span>
+      <span class="spool-lead-mark">◀ DYNA-STILL 400 // FILM SPOOL ──►</span>
       <span class="spool-lead-sub">DO NOT DETACH FROM SPOOL CORE</span>
     </div>
   `;
@@ -331,7 +507,7 @@ function renderContinuousFilmRibbon() {
             <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-weight="800" letter-spacing="0.14em">
               <text x="195" y="225" font-size="11">◀ LOAD FILM ──►</text>
               <text x="195" y="255" font-size="9" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND THIS LINE</text>
-              <text x="195" y="290" font-size="10" fill="#f59e0b">35MM • CINESTILL 800T • EXP 13</text>
+              <text x="195" y="290" font-size="10" fill="#f59e0b">35MM • DYNA-STILL 400 • EXP 13</text>
             </g>
           </svg>
         </div>
@@ -354,7 +530,7 @@ function renderContinuousFilmRibbon() {
               <text x="50" y="38" font-size="8.8">▲ LOAD FILM ▲</text>
               <text x="50" y="55" font-size="7.2" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE</text>
               <text x="50" y="67" font-size="7.2" fill="#c4bcb0" opacity="0.85">BEYOND LINE</text>
-              <text x="50" y="85" font-size="7.5" fill="#f59e0b">CINESTILL 800T</text>
+              <text x="50" y="85" font-size="7.5" fill="#f59e0b">DYNA-STILL 400</text>
               <text x="50" y="97" font-size="7" fill="#f59e0b" opacity="0.9">35MM // 13 EXP</text>
             </g>
             <line x1="48" y1="112" x2="182" y2="112" stroke="#f59e0b" stroke-dasharray="4,4" stroke-width="1.2" opacity="0.75"/>
@@ -644,6 +820,89 @@ function applyTheme(themeKey, isInitial = false) {
 
   const stockTagEl = document.getElementById("current-stock-tag");
   if (stockTagEl) stockTagEl.textContent = `${stockName} // ${theme.name}`;
+
+  // 6. Dynamically theme the 35mm metal canister with liquid crossfade & physical unwind delay
+  updateCanisterTheme(themeKey, isInitial);
+}
+
+let canisterThemeTimer = null;
+let activeCanisterLayer = "a";
+
+/**
+ * Dynamically themes the photorealistic 3D metal film canister
+ * Includes a physical latency delay (~280ms) to allow the film to roll out before morphing colors
+ */
+function updateCanisterTheme(themeKey, isInitial = false) {
+  if (canisterThemeTimer) {
+    clearTimeout(canisterThemeTimer);
+    canisterThemeTimer = null;
+  }
+
+  const applyCanisterUpdates = () => {
+    const meta = CANISTER_THEMES[themeKey] || CANISTER_THEMES.default;
+    const theme = siteConfig.themes[themeKey] || siteConfig.themes.default;
+    const originalIdx = themeKeys.indexOf(themeKey);
+    const framePadded = String((originalIdx >= 0 ? originalIdx : 0) + 1).padStart(2, "0");
+
+    // 1. Dual-layer crossfade for the anodized gradient
+    const layerA = document.getElementById("canister-bg-a");
+    const layerB = document.getElementById("canister-bg-b");
+    if (layerA && layerB) {
+      const incomingLayer = activeCanisterLayer === "a" ? layerB : layerA;
+      const outgoingLayer = activeCanisterLayer === "a" ? layerA : layerB;
+      
+      incomingLayer.style.background = meta.gradient;
+      incomingLayer.classList.add("active");
+      outgoingLayer.classList.remove("active");
+      activeCanisterLayer = activeCanisterLayer === "a" ? "b" : "a";
+    }
+
+    // 2. Update CSS Variables on canister unit
+    const canisterUnit = document.getElementById("film-canister-unit");
+    if (canisterUnit) {
+      canisterUnit.style.setProperty("--canister-brand-font", meta.brandFont);
+      canisterUnit.style.setProperty("--canister-accent", meta.accent);
+      canisterUnit.style.setProperty("--canister-badge-bg", meta.badgeBg);
+      canisterUnit.style.setProperty("--canister-badge-border", `color-mix(in srgb, ${meta.accent} 40%, rgba(255, 255, 255, 0.2))`);
+      canisterUnit.style.setProperty("--canister-badge-color", meta.badgeColor);
+      canisterUnit.style.setProperty("--canister-type-color", meta.typeColor);
+      canisterUnit.style.setProperty("--canister-subbrand-color", meta.typeColor);
+      canisterUnit.style.setProperty("--canister-stamp-color", meta.stampColor);
+      canisterUnit.style.setProperty("--canister-glow", meta.glow);
+    }
+
+    // 3. Update badges, stamps and specs
+    const speedIso = document.getElementById("canister-speed-iso");
+    if (speedIso) speedIso.textContent = "400";
+
+    const speedType = document.getElementById("canister-speed-type");
+    if (speedType) speedType.textContent = meta.speedType;
+
+    const spec1 = document.getElementById("canister-spec-1");
+    if (spec1) spec1.textContent = meta.spec1;
+
+    const spec2 = document.getElementById("canister-spec-2");
+    if (spec2) spec2.textContent = meta.spec2;
+
+    const spec3 = document.getElementById("canister-spec-3");
+    if (spec3) spec3.textContent = `PROCESS DS-41 // ${theme.name.toUpperCase()}`;
+
+    const stamp = document.getElementById("canister-emulsion-stamp");
+    if (stamp) stamp.textContent = `EMUL DS400-${framePadded} // ${theme.name.toUpperCase()}`;
+  };
+
+  if (isInitial) {
+    const layerA = document.getElementById("canister-bg-a");
+    const meta = CANISTER_THEMES[themeKey] || CANISTER_THEMES.default;
+    if (layerA) {
+      layerA.style.background = meta.gradient;
+      layerA.classList.add("active");
+    }
+    applyCanisterUpdates();
+  } else {
+    // Mechanical delay: film ribbon begins advancing across gate first (~280ms), then canister morphs!
+    canisterThemeTimer = setTimeout(applyCanisterUpdates, 280);
+  }
 }
 
 /**
