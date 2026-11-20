@@ -1,19 +1,19 @@
 import { siteConfig } from "../config.js?v=43";
 
 const FILM_STOCKS = {
-  tokyo_neon_noir: "DYNA-STILL 400",
-  tokyo_neon_noir_amber: "DYNA-STILL 400",
-  tokyo_neon_noir_slate: "DYNA-STILL 400",
-  akihabara_electric_pop: "DYNA-STILL 400",
-  tokyo_rain_melancholy: "DYNA-STILL 400",
-  shinkansen_countryside: "DYNA-STILL 400",
-  shinkansen_countryside_indigo: "DYNA-STILL 400",
-  sens_ji_historic_crimson: "DYNA-STILL 400",
-  kyoto_moss_bamboo: "DYNA-STILL 400",
-  midnight_ramen_izakaya: "DYNA-STILL 400",
-  sunlit_urban_afternoon: "DYNA-STILL 400",
-  sunlit_urban_afternoon_sand_slate: "DYNA-STILL 400",
-  default: "DYNA-STILL 400"
+  tokyo_neon_noir: "DynaStill400X",
+  tokyo_neon_noir_amber: "DynaStill400X",
+  tokyo_neon_noir_slate: "DynaStill400X",
+  akihabara_electric_pop: "DynaStill400X",
+  tokyo_rain_melancholy: "DynaStill400X",
+  shinkansen_countryside: "DynaStill400X",
+  shinkansen_countryside_indigo: "DynaStill400X",
+  sens_ji_historic_crimson: "DynaStill400X",
+  kyoto_moss_bamboo: "DynaStill400X",
+  midnight_ramen_izakaya: "DynaStill400X",
+  sunlit_urban_afternoon: "DynaStill400X",
+  sunlit_urban_afternoon_sand_slate: "DynaStill400X",
+  default: "DynaStill400X"
 };
 
 /**
@@ -311,7 +311,7 @@ function renderContinuousFilmRibbon() {
   spoolLead.className = "film-canister-spool-lead";
   spoolLead.innerHTML = `
     <div class="spool-lead-inner">
-      <span class="spool-lead-mark">◀ DYNA-STILL 400 // FILM SPOOL ──►</span>
+      <span class="spool-lead-mark">◀ DynaStill400X // FILM SPOOL ──►</span>
       <span class="spool-lead-sub">DO NOT DETACH FROM SPOOL CORE</span>
     </div>
   `;
@@ -451,7 +451,7 @@ function renderContinuousFilmRibbon() {
             <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-weight="800" letter-spacing="0.14em">
               <text x="195" y="225" font-size="11">◀ LOAD FILM ──►</text>
               <text x="195" y="255" font-size="9" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND THIS LINE</text>
-              <text x="195" y="290" font-size="10" fill="#f59e0b">35MM • DYNA-STILL 400 • EXP 13</text>
+              <text x="195" y="290" font-size="10" fill="#f59e0b">35MM • DynaStill400X • EXP 13</text>
             </g>
           </svg>
         </div>
@@ -474,7 +474,7 @@ function renderContinuousFilmRibbon() {
               <text x="50" y="38" font-size="8.8">▲ LOAD FILM ▲</text>
               <text x="50" y="55" font-size="7.2" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE</text>
               <text x="50" y="67" font-size="7.2" fill="#c4bcb0" opacity="0.85">BEYOND LINE</text>
-              <text x="50" y="85" font-size="7.5" fill="#f59e0b">DYNA-STILL 400</text>
+              <text x="50" y="85" font-size="7.5" fill="#f59e0b">DynaStill400X</text>
               <text x="50" y="97" font-size="7" fill="#f59e0b" opacity="0.9">35MM // 13 EXP</text>
             </g>
             <line x1="48" y1="112" x2="182" y2="112" stroke="#f59e0b" stroke-dasharray="4,4" stroke-width="1.2" opacity="0.75"/>
@@ -950,10 +950,21 @@ function setupControls() {
   }, { passive: true });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function init() {
   initFilmGrain();
   renderContinuousFilmRibbon();
   setupControls();
   applyTheme(themeKeys[0] || "default", true);
   console.log(`${siteConfig.title} liquid color transition film ribbon loaded.`);
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
+}
+
+window.addEventListener("load", () => {
+  positionSprocketCodes();
+  updateFilmPosition();
 });
