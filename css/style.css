@@ -354,7 +354,7 @@ body.film-aesthetic {
 }
 
 /* Inactive in Desktop Landscape: Handled by continuous sprocket tracks above & below */
-.frame-edge-bar {
+.frame-edge-vertical {
   display: none;
 }
 
@@ -1323,12 +1323,12 @@ body.film-aesthetic {
     align-items: flex-start;
   }
 
-  /* Film Roll Ribbon runs vertically in column-reverse, taking up 90% of screen width */
+  /* Film Roll Ribbon runs vertically in column-reverse, taking up 92% of screen width */
   .film-roll-ribbon {
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
-    width: min(90vw, 440px);
+    width: clamp(320px, 92vw, 420px);
     height: auto;
     position: absolute;
     left: 50%;
@@ -1355,9 +1355,9 @@ body.film-aesthetic {
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.85);
   }
 
-  /* Vertical Sprocket Tracks with Slim 24px Borders to Maximize Photo Space */
+  /* Vertical Sprocket Tracks with Thick, Authentic 8px Celluloid Borders */
   .continuous-sprocket-track {
-    width: 24px;
+    width: 38px !important;
     height: auto;
     flex-shrink: 0;
     position: relative;
@@ -1379,26 +1379,26 @@ body.film-aesthetic {
   .sprocket-perforations-continuous {
     background-repeat: repeat-y;
     background-position: center top;
-    background-size: 24px 34px;
+    background-size: 38px 36px;
   }
 
   .sprocket-perforations-continuous.top,
   .sprocket-perforations-continuous.bottom {
-    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIzNCIgdmlld0JveD0iMCAwIDI0IDM0Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9InJnYig1LDYsOCkiIGQ9Ik0tMiwtMiBIMjYgVjM4IEgtMiBaIE01LDggSDE5IEE0LDQgMCAwIDEgMjMsMTIgVjIyIEE0LDQgMCAwIDEgMTksMjYgSDUgQTQsNCAwIDAgMSA5LDIyIFYxMiBBNCw0IDAgMCAxIDUsOCBaIi8+PC9zdmc+");
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNiIgdmlld0JveD0iMCAwIDM4IDM2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9InJnYig1LDYsOCkiIGQ9Ik0tMiwtMiBINDIgVjQwIEgtMiBaIE0xMiw4IEgyNiBBNCw0IDAgMCAxIDMwLDEyIFYyNCBBNCw0IDAgMCAxIDI2LDI4IEgxMiBBNCw0IDAgMCAxIDgsMjQgVjEyIEE0LDQgMCAwIDEgMTIsOCBaIi8+PC9zdmc+");
   }
 
   .sprocket-codes-layer {
-    display: none; /* In vertical mode, codes are placed above & below each photo */
+    display: none; /* In vertical mode, codes run vertically along the film edge flanking each photo */
   }
 
-  /* Center Exposures Column takes 100% minus the two 24px sprocket tracks */
+  /* Center Exposures Column takes 100% minus the two 38px sprocket tracks */
   .film-exposures-track {
     display: flex;
     flex-direction: column-reverse;
     flex: 1;
     min-width: 0;
     min-height: 0;
-    width: calc(100% - 48px);
+    width: calc(100% - 76px);
     gap: 0;
     margin: 0;
     padding: 0;
@@ -1410,71 +1410,55 @@ body.film-aesthetic {
     width: 100%;
     height: auto;
     flex: 0 0 auto;
-    padding: 4px 0 6px 0;
+    padding: 10px 0;
     background: #050608;
     margin: 0;
     border: none;
     display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    flex-direction: row;
+    align-items: center;
     justify-content: center;
+    gap: 0;
+    box-sizing: border-box;
   }
 
-  /* Little amber text on the borders of the film in mobile */
-  .frame-edge-bar {
+  /* Vertical text running along the length / edge of the film strip */
+  .frame-edge-vertical {
     display: flex !important;
-    justify-content: space-between;
     align-items: center;
-    width: 100%;
-    box-sizing: border-box;
-    font-family: var(--font-mono);
-    color: var(--film-code-amber, #f59e0b);
-    font-weight: 800;
-    text-transform: uppercase;
+    justify-content: center;
+    width: 16px;
+    height: 100%;
+    flex-shrink: 0;
     user-select: none;
     pointer-events: none;
-  }
-
-  .frame-edge-bar.top {
-    height: 18px;
-    padding: 0 4px;
-    font-size: clamp(0.48rem, 2vw, 0.58rem);
-    letter-spacing: 0.12em;
-    opacity: 0.95;
-  }
-
-  .frame-edge-bar.bottom {
-    height: 16px;
-    padding: 0 4px;
-    font-size: clamp(0.42rem, 1.8vw, 0.52rem);
-    letter-spacing: 0.1em;
-    opacity: 0.85;
-  }
-
-  .frame-edge-bar .edge-title {
-    max-width: 48%;
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
   }
 
-  .frame-edge-bar .edge-date {
+  .v-edge-text {
+    writing-mode: vertical-rl;
+    font-family: var(--font-mono);
+    font-size: clamp(0.46rem, 1.9vw, 0.54rem);
+    font-weight: 800;
+    color: var(--film-code-amber, #f59e0b);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
     white-space: nowrap;
-    opacity: 0.9;
-  }
-
-  .frame-edge-bar .frame-tag {
-    white-space: nowrap;
+    opacity: 0.95;
+    text-shadow: 0 0 5px color-mix(in srgb, var(--film-code-amber, #f59e0b) 50%, transparent);
   }
 
   .slide-exposure-inner {
-    width: 100%;
+    flex: 1;
+    width: auto;
+    min-width: 0;
     height: auto;
     aspect-ratio: 4 / 3;
     border-radius: 6px;
     padding: 0;
     margin: 0;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.85);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.85);
+    overflow: hidden;
   }
 
   .exposure-content-wrap {
