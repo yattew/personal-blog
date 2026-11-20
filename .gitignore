@@ -8,3 +8,11 @@ Thumbs.db
 
 # Local logs & temp
 *.log
+
+# Python environment & cache
+.venv/
+__pycache__/
+*.pyc
+.cache/
+.open_clip_cache/
+
