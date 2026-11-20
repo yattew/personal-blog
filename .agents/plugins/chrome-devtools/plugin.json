@@ -1,0 +1,5 @@
+{
+  "name": "chrome-devtools",
+  "description": "Chrome DevTools MCP plugin for browser automation, DOM inspection, live site testing, and console debugging.",
+  "author": "Chrome DevTools Team"
+}

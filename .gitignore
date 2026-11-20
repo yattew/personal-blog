@@ -8,6 +8,7 @@ Thumbs.db
 
 # Local logs & temp
 *.log
+screenshots/
 
 # Python environment & cache
 .venv/
