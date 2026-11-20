@@ -2,33 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0" />
+  <meta name="theme-color" content="#ebe3d5" id="meta-theme-color" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Journeys" />
+  <meta name="format-detection" content="telephone=no" />
+  
   <title>Japan Journey — Mood & Color Palettes</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <main class="container">
-    <span class="badge" id="theme-badge">Local AI Mood Extraction</span>
-    <h1 id="theme-title">Japan Journey & Themes</h1>
-    
-    <blockquote id="theme-poetry" class="theme-poetry">
-      "Sunlit parchment and quiet morning cedar resting on tactile linen."
-    </blockquote>
+  <div class="site-wrapper">
+    <main class="container">
+      <header class="card-header">
+        <span class="badge" id="theme-badge">Local AI Mood Extraction</span>
+        <h1 id="theme-title">Japan Journey & Themes</h1>
+      </header>
+      
+      <blockquote id="theme-poetry" class="theme-poetry">
+        "Sunlit parchment and quiet morning cedar resting on tactile linen."
+      </blockquote>
 
-    <div class="swatch-section">
-      <div class="swatch-header">
-        <span>Extracted 8-Color Palette</span>
-        <span class="photo-count" id="photo-count">Foundational Base</span>
-      </div>
-      <div class="palette-swatches" id="palette-swatches">
-        <!-- 8 swatches generated dynamically -->
-      </div>
-    </div>
+      <section class="swatch-section" aria-label="Color Palette">
+        <div class="swatch-header">
+          <span class="section-title">Extracted 8-Color Palette</span>
+          <span class="photo-count" id="photo-count">Foundational Base</span>
+        </div>
+        <div class="palette-scroll-container">
+          <div class="palette-swatches" id="palette-swatches" role="list">
+            <!-- 8 swatches generated dynamically -->
+          </div>
+        </div>
+      </section>
 
-    <div class="theme-preview" id="theme-buttons">
-      <!-- Buttons dynamically populated from config.js -->
-    </div>
-  </main>
+      <section class="themes-section" aria-label="Theme Selection">
+        <div class="themes-header">
+          <span class="section-title">Select Journey Theme</span>
+          <span class="theme-hint">Swipe to explore</span>
+        </div>
+        <div class="themes-scroll-wrapper">
+          <div class="theme-preview" id="theme-buttons" role="tablist">
+            <!-- Buttons dynamically populated from config.js -->
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Native Mobile Toast -->
+  <div id="mobile-toast" class="mobile-toast" role="status" aria-live="polite"></div>
 
   <script type="module" src="js/main.js"></script>
 </body>

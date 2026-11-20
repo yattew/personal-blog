@@ -1,5 +1,28 @@
 import { siteConfig } from "../config.js";
 
+let toastTimeout = null;
+
+function showToast(message) {
+  const toast = document.getElementById("mobile-toast");
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.add("visible");
+
+  if (toastTimeout) clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => {
+    toast.classList.remove("visible");
+  }, 1800);
+}
+
+function triggerHaptic(duration = 10) {
+  if ("vibrate" in navigator) {
+    try {
+      navigator.vibrate(duration);
+    } catch (e) {}
+  }
+}
+
 function getContrastColor(hexColor) {
   const hex = hexColor.replace("#", "");
   const r = parseInt(hex.substring(0, 2), 16);
@@ -9,7 +32,7 @@ function getContrastColor(hexColor) {
   return lum > 140 ? "#1a1816" : "#f5f3f0";
 }
 
-function applyTheme(themeKey) {
+function applyTheme(themeKey, autoScroll = false) {
   const theme = siteConfig.themes[themeKey] || siteConfig.themes.default;
   const root = document.documentElement;
 
@@ -18,7 +41,13 @@ function applyTheme(themeKey) {
     root.style.setProperty(`--${key}`, value);
   }
 
-  // 2. Set multi-color palette variables (8 colors)
+  // 2. Dynamically sync mobile browser status bar / theme color
+  const metaTheme = document.getElementById("meta-theme-color");
+  if (metaTheme && theme.colors.bg) {
+    metaTheme.setAttribute("content", theme.colors.bg);
+  }
+
+  // 3. Set multi-color palette variables (8 colors)
   const palette = theme.palette || [
     theme.colors.bg,
     theme.colors.surface,
@@ -32,23 +61,23 @@ function applyTheme(themeKey) {
     root.style.setProperty(`--palette-${idx}`, color);
   });
 
-  // 3. Update Poetic quote
+  // 4. Update Poetic quote
   const poetryEl = document.getElementById("theme-poetry");
   if (poetryEl && theme.poetry) {
     poetryEl.textContent = `"${theme.poetry}"`;
   }
 
-  // 4. Update photo count badge
+  // 5. Update photo count badge
   const countEl = document.getElementById("photo-count");
   if (countEl) {
     if (themeKey === "default") {
-      countEl.textContent = "Foundational Base";
+      countEl.textContent = "Base Minimal";
     } else {
-      countEl.textContent = `${theme.name} Palette`;
+      countEl.textContent = `${theme.name}`;
     }
   }
 
-  // 5. Render 8 Color Swatches
+  // 6. Render 8 Color Swatches
   const swatchesContainer = document.getElementById("palette-swatches");
   if (swatchesContainer) {
     swatchesContainer.innerHTML = "";
@@ -58,22 +87,27 @@ function applyTheme(themeKey) {
       swatch.style.backgroundColor = hex;
       swatch.style.color = getContrastColor(hex);
       swatch.textContent = hex;
-      swatch.title = `Click to copy ${hex}`;
+      swatch.setAttribute("role", "button");
+      swatch.setAttribute("aria-label", `Copy color ${hex}`);
+      
       swatch.addEventListener("click", () => {
+        triggerHaptic(12);
         navigator.clipboard.writeText(hex);
-        const originalText = swatch.textContent;
-        swatch.textContent = "COPIED";
-        setTimeout(() => {
-          swatch.textContent = originalText;
-        }, 1200);
+        showToast(`Copied ${hex}`);
       });
       swatchesContainer.appendChild(swatch);
     });
   }
 
-  // 6. Update button active states
+  // 7. Update button active states and auto-scroll on mobile
   document.querySelectorAll(".theme-btn").forEach((btn) => {
-    btn.classList.toggle("active", btn.dataset.theme === themeKey);
+    const isActive = btn.dataset.theme === themeKey;
+    btn.classList.toggle("active", isActive);
+    btn.setAttribute("aria-selected", isActive ? "true" : "false");
+    
+    if (isActive && autoScroll) {
+      btn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    }
   });
 }
 
@@ -87,13 +121,19 @@ function renderThemeButtons() {
     btn.className = "theme-btn" + (themeKey === "default" ? " active" : "");
     btn.dataset.theme = themeKey;
     btn.textContent = themeData.name;
-    btn.addEventListener("click", () => applyTheme(themeKey));
+    btn.setAttribute("role", "tab");
+    btn.setAttribute("aria-selected", themeKey === "default" ? "true" : "false");
+    
+    btn.addEventListener("click", () => {
+      triggerHaptic(8);
+      applyTheme(themeKey, true);
+    });
     container.appendChild(btn);
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   renderThemeButtons();
-  applyTheme("default");
-  console.log(`${siteConfig.title} initialized with ${Object.keys(siteConfig.themes).length} dynamic themes.`);
+  applyTheme("default", false);
+  console.log(`${siteConfig.title} initialized in mobile-native mode.`);
 });
