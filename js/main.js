@@ -1,4 +1,4 @@
-import { siteConfig } from "../config.js?v=59";
+import { siteConfig } from "../config.js?v=60";
 
 const FILM_STOCKS = {
   tokyo_neon_noir: "DynaStill400X",
@@ -350,6 +350,11 @@ function renderContinuousFilmRibbon() {
     const photoUrl = theme.image || `images/exposures/frame-${framePadded}.jpg`;
 
     slide.innerHTML = `
+      <div class="frame-edge-bar top" aria-hidden="true">
+        <span class="edge-title" title="${theme.name}">${theme.name.toUpperCase()}</span>
+        <span class="edge-date">${dateStr}</span>
+        <span class="frame-tag">▶ ${framePadded}A</span>
+      </div>
       <div class="slide-exposure-inner" style="background: radial-gradient(at 15% 25%, ${p4}30 0px, transparent 65%), radial-gradient(at 85% 75%, ${p5}30 0px, transparent 65%), linear-gradient(180deg, #0b0c10 0%, #101218 50%, #0b0c10 100%);">
         <div class="exposure-content-wrap">
           <div class="exposure-photo-frame" title="Click to inspect 35mm slide" data-key="${key}" data-frame="${framePadded}">
@@ -360,6 +365,10 @@ function renderContinuousFilmRibbon() {
             </div>
           </div>
         </div>
+      </div>
+      <div class="frame-edge-bar bottom" aria-hidden="true">
+        <span class="edge-code">DYNASTILL EMULSION • TOKYO</span>
+        <span class="frame-tag-bottom">${framePadded}</span>
       </div>
     `;
 
