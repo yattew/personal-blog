@@ -1,6 +1,126 @@
 import { siteConfig } from "../config.js";
 
+const FILM_STOCKS = {
+  tokyo_neon_noir: "CINESTILL 800T",
+  tokyo_neon_noir_amber: "KODAK PORTRA 800",
+  tokyo_neon_noir_slate: "ILFORD HP5 PLUS",
+  akihabara_electric_pop: "FUJIFILM VELVIA 50",
+  tokyo_rain_melancholy: "CINESTILL 800T",
+  shinkansen_countryside: "KODAK EKTAR 100",
+  shinkansen_countryside_indigo: "FUJIFILM PROVIA 100F",
+  sens_ji_historic_crimson: "KODAK PORTRA 400",
+  kyoto_moss_bamboo: "FUJIFILM PROVIA 100F",
+  midnight_ramen_izakaya: "CINESTILL 800T",
+  sunlit_urban_afternoon: "KODAK PORTRA 160",
+  sunlit_urban_afternoon_sand_slate: "KODAK TRI-X 400",
+  default: "KODAK PORTRA 400"
+};
+
+const DATE_STAMPS = [
+  "OCT 20 '26 • 09:15 JST",
+  "OCT 24 '26 • 23:42 JST",
+  "OCT 25 '26 • 19:10 JST",
+  "OCT 26 '26 • 22:15 JST",
+  "OCT 26 '26 • 23:58 JST",
+  "OCT 27 '26 • 16:30 JST",
+  "OCT 28 '26 • 11:20 JST",
+  "OCT 28 '26 • 18:45 JST",
+  "OCT 29 '26 • 14:10 JST",
+  "OCT 30 '26 • 08:30 JST",
+  "OCT 30 '26 • 01:15 JST",
+  "OCT 31 '26 • 15:40 JST",
+  "NOV 01 '26 • 13:25 JST"
+];
+
+const THEME_COORDINATES = {
+  default: "35°41'22\"N • 139°41'30\"E // Base Emulsion",
+  tokyo_neon_noir: "35°41'38\"N • 139°42'12\"E // Shinjuku Nightfall",
+  akihabara_electric_pop: "35°41'54\"N • 139°46'19\"E // Electric Town",
+  tokyo_neon_noir_amber: "35°41'42\"N • 139°42'05\"E // Golden Gai Alleys",
+  tokyo_neon_noir_slate: "35°41'30\"N • 139°42'00\"E // Omoide Yokocho",
+  tokyo_rain_melancholy: "35°39'31\"N • 139°42'04\"E // Shibuya Crossing Rain",
+  shinkansen_countryside: "35°15'00\"N • 139°00'00\"E // Tokaido Line Westbound",
+  shinkansen_countryside_indigo: "35°00'42\"N • 135°46'06\"E // Twilight Transit",
+  sens_ji_historic_crimson: "35°42'52\"N • 139°47'48\"E // Asakusa Temple",
+  kyoto_moss_bamboo: "35°01'00\"N • 135°40'21\"E // Sagano Bamboo Path",
+  midnight_ramen_izakaya: "35°41'45\"N • 139°42'15\"E // Kabukicho Midnight",
+  sunlit_urban_afternoon: "35°39'50\"N • 139°42'30\"E // Harajuku Alleyways",
+  sunlit_urban_afternoon_sand_slate: "35°40'55\"N • 139°45'40\"E // Ginza Concrete"
+};
+
+let currentThemeIndex = 0;
+let themeKeys = [];
 let toastTimeout = null;
+let activeAmbientLayer = "a"; // 'a' or 'b'
+
+/**
+ * Generates an organic ambient gradient mesh from an 8-color theme palette
+ * NO horizontal black bands. Continuous ambient glow across entire viewport.
+ */
+function buildThemeGradient(palette, accent) {
+  const p0 = palette[0] || "#090a0d";
+  const p1 = palette[1] || p0;
+  const p2 = palette[2] || accent;
+  const p3 = palette[3] || accent;
+  const p4 = palette[4] || accent;
+  const p5 = palette[5] || accent;
+  const p6 = palette[6] || accent;
+  const p7 = palette[7] || accent;
+
+  return `
+    radial-gradient(ellipse 80% 55% at 20% 12%, ${p4}cc 0%, transparent 68%),
+    radial-gradient(ellipse 80% 55% at 80% 12%, ${p5}cc 0%, transparent 68%),
+    radial-gradient(ellipse 70% 55% at 50% 50%, ${p3}88 0%, transparent 65%),
+    radial-gradient(ellipse 80% 55% at 15% 88%, ${p2}cc 0%, transparent 68%),
+    radial-gradient(ellipse 80% 55% at 85% 88%, ${p6}cc 0%, transparent 68%),
+    radial-gradient(ellipse 90% 65% at 50% 92%, ${p7}aa 0%, transparent 72%),
+    linear-gradient(145deg, ${p0} 0%, ${p1} 100%)
+  `;
+}
+
+/**
+ * Initializes authentic, visible 35mm silver-halide film grain
+ */
+function initFilmGrain() {
+  const canvas = document.getElementById("grain-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+
+  const tile = document.createElement("canvas");
+  tile.width = 256;
+  tile.height = 256;
+  const tCtx = tile.getContext("2d");
+  const imgData = tCtx.createImageData(256, 256);
+  const d = imgData.data;
+
+  // Rich, visible analog silver-halide crystals
+  for (let i = 0; i < d.length; i += 4) {
+    const r = Math.random();
+    if (r < 0.28) {
+      const val = Math.floor(Math.random() * 25);
+      d[i] = val; d[i+1] = val; d[i+2] = val;
+      d[i+3] = Math.floor(Math.random() * 85) + 35;
+    } else if (r > 0.72) {
+      const val = 225 + Math.floor(Math.random() * 30);
+      d[i] = val; d[i+1] = val; d[i+2] = val;
+      d[i+3] = Math.floor(Math.random() * 85) + 35;
+    } else {
+      d[i+3] = 0;
+    }
+  }
+  tCtx.putImageData(imgData, 0, 0);
+
+  function resizeAndDraw() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const pattern = ctx.createPattern(tile, "repeat");
+    ctx.fillStyle = pattern;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  resizeAndDraw();
+  window.addEventListener("resize", resizeAndDraw, { passive: true });
+}
 
 function showToast(message) {
   const toast = document.getElementById("mobile-toast");
@@ -23,31 +143,308 @@ function triggerHaptic(duration = 10) {
   }
 }
 
-function getContrastColor(hexColor) {
-  const hex = hexColor.replace("#", "");
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
-  const lum = 0.299 * r + 0.587 * g + 0.114 * b;
-  return lum > 140 ? "#1a1816" : "#f5f3f0";
+/**
+ * Builds the one continuous unbroken 35mm film roll ribbon
+ * - Canister is permanently anchored on the far left of the film gate
+ * - Film strip unrolls from left to right (Frame 13 deepest in canister -> Frame 01)
+ * - Tapered 35mm leader tongue is on the far right (after Frame 01)
+ * - Leader is only visible on Frame 01 and moves out of the screen on Frame 02
+ */
+function renderContinuousFilmRibbon() {
+  const exposuresTrack = document.getElementById("film-exposures-track");
+  const topCodesTrack = document.getElementById("top-sprocket-codes");
+  const bottomCodesTrack = document.getElementById("bottom-sprocket-codes");
+  const ribbon = document.getElementById("film-roll-ribbon");
+  const leaderUnit = document.getElementById("film-leader-unit");
+  const canisterUnit = document.getElementById("film-canister-unit");
+  if (!exposuresTrack || !topCodesTrack || !bottomCodesTrack || !ribbon) return;
+
+  exposuresTrack.innerHTML = "";
+  topCodesTrack.innerHTML = "";
+  bottomCodesTrack.innerHTML = "";
+  themeKeys = Object.keys(siteConfig.themes);
+
+  // 1. Canister Click Navigation (Fixed on Far Left)
+  if (canisterUnit) {
+    canisterUnit.onclick = () => {
+      triggerHaptic(12);
+      if (currentThemeIndex === themeKeys.length - 1) {
+        showToast("Rewinding roll back to Frame 01...");
+        applyTheme(themeKeys[0]);
+      } else {
+        advanceFrame(1);
+      }
+    };
+  }
+
+  // 2. Render 13 Consecutive Middle Exposure Frames
+  // Prepend Film Spool Lead (tucked deep into the canister on the far left of Frame 13)
+  const spoolLead = document.createElement("div");
+  spoolLead.className = "film-canister-spool-lead";
+  spoolLead.innerHTML = `
+    <div class="spool-lead-inner">
+      <span class="spool-lead-mark">◀ CINESTILL 800T // FILM SPOOL ──►</span>
+      <span class="spool-lead-sub">DO NOT DETACH FROM SPOOL CORE</span>
+    </div>
+  `;
+  exposuresTrack.appendChild(spoolLead);
+
+  // Frames run from Frame 13 (leftmost, deepest in canister) down to Frame 01 (rightmost, at leader)
+  const reversedKeys = [...themeKeys].reverse();
+
+  reversedKeys.forEach((key, rIdx) => {
+    const originalIdx = themeKeys.indexOf(key);
+    const theme = siteConfig.themes[key];
+    const frameNumber = originalIdx + 1;
+    const framePadded = String(frameNumber).padStart(2, "0");
+    const stockName = FILM_STOCKS[key] || "KODAK PORTRA 400";
+    const dateStr = DATE_STAMPS[originalIdx % DATE_STAMPS.length];
+    const coordsStr = THEME_COORDINATES[key] || "35°41'22\"N • 139°41'30\"E";
+
+    const palette = theme.palette || [
+      theme.colors.bg,
+      theme.colors.surface,
+      theme.colors.border,
+      theme.colors.muted,
+      theme.colors.accent,
+      theme.colors.text
+    ];
+
+    // Middle Exposure Slide
+    const slide = document.createElement("div");
+    slide.className = "film-frame-exposure" + (originalIdx === 0 ? " active-frame" : "");
+    slide.dataset.theme = key;
+    slide.dataset.index = originalIdx;
+
+    const swatchesHtml = palette.map((hex, sIdx) => `
+      <div class="swatch-chip" 
+           style="background-color: ${hex};" 
+           data-hex="${hex}" 
+           title="Tone 0${sIdx + 1}: ${hex} (Click to copy)" 
+           role="button" 
+           aria-label="Copy color ${hex}">
+      </div>
+    `).join("");
+
+    // Frame's own aperture background
+    const p4 = palette[4] || theme.colors.accent;
+    const p5 = palette[5] || theme.colors.accent;
+
+    slide.innerHTML = `
+      <div class="slide-exposure-inner" style="background: radial-gradient(at 15% 25%, ${p4}40 0px, transparent 65%), radial-gradient(at 85% 75%, ${p5}38 0px, transparent 65%), linear-gradient(180deg, #0b0c10 0%, #101218 50%, #0b0c10 100%);">
+        <div class="exposure-content-wrap">
+          <header class="exposure-header">
+            <div class="exposure-meta-row">
+              <span class="film-stamp-badge">
+                <span class="stamp-icon">🎞️</span>
+                <span class="stamp-text">EXP ${framePadded} // 35MM</span>
+              </span>
+              <span class="date-stamp">${dateStr}</span>
+              <span class="exposure-coords">${coordsStr}</span>
+            </div>
+            <h1 class="theme-title">${theme.name}</h1>
+          </header>
+
+          <blockquote class="theme-poetry">
+            "${theme.poetry || "Atmospheric tones captured across the journey."}"
+          </blockquote>
+
+          <div class="emulsion-swatch-row">
+            <div class="swatch-meta">
+              <span class="swatch-label">Emulsion Palette (8 Tones)</span>
+              <span class="photo-count">${theme.name} Emulsion</span>
+            </div>
+            <div class="swatches-strip" role="list">
+              ${swatchesHtml}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Click on a peaking frame -> immediately roll to it!
+    slide.addEventListener("click", () => {
+      if (originalIdx !== currentThemeIndex) {
+        triggerHaptic(10);
+        applyTheme(key);
+      }
+    });
+
+    // Click-to-copy color chip
+    slide.querySelectorAll(".swatch-chip").forEach((chip) => {
+      chip.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const hex = chip.dataset.hex;
+        triggerHaptic(12);
+        navigator.clipboard.writeText(hex);
+        showToast(`Copied ${hex}`);
+      });
+    });
+
+    exposuresTrack.appendChild(slide);
+
+    // Top Sprocket Meta Code
+    const topMeta = document.createElement("div");
+    topMeta.className = "frame-sprocket-meta";
+    topMeta.dataset.index = originalIdx;
+    topMeta.innerHTML = `
+      <span class="edge-code">SAFETY FILM • ${stockName}</span>
+      <span class="dx-barcode">|| | | ||| | || |||</span>
+      <span class="frame-tag">▶ ${framePadded}A</span>
+    `;
+    topCodesTrack.appendChild(topMeta);
+
+    // Bottom Sprocket Meta Code
+    const bottomMeta = document.createElement("div");
+    bottomMeta.className = "frame-sprocket-meta";
+    bottomMeta.dataset.index = originalIdx;
+    bottomMeta.innerHTML = `
+      <span class="edge-code">PORTRA EMULSION • TOKYO</span>
+      <span class="frame-tag-bottom">${framePadded}</span>
+      <span class="dx-barcode">| ||| || | | ||||</span>
+    `;
+    bottomCodesTrack.appendChild(bottomMeta);
+  });
+
+  // 3. Render Classic 35mm Tapered Film Leader Tongue on the FAR RIGHT (after Frame 01)
+  // Uses identical bottom sprocket track CSS so hole size & alignment are 100% pixel-perfect!
+  if (leaderUnit) {
+    leaderUnit.innerHTML = `
+      <div class="leader-taper-zone">
+        <svg class="leader-taper-svg" viewBox="0 0 320 380" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Tapered tongue cut: Starts at full height (0,0 to 0,380) on the left, S-curves down from y=0 to y=150 at x=140, runs to x=306 at y=150 with rounded tip (rx=14) down to y=380 -->
+          <path d="M 0,0 C 60,0 95,150 150,150 L 306,150 A 14,14 0 0 1 320,164 L 320,366 A 14,14 0 0 1 306,380 L 0,380 Z" fill="#050608"/>
+          <!-- Stamped Markings -->
+          <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" font-weight="800" letter-spacing="0.14em">
+            <text x="50" y="240">◀ LOAD FILM ──►</text>
+            <text x="50" y="270" font-size="8" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND THIS LINE</text>
+            <text x="50" y="305" font-size="9" fill="#f59e0b">35MM • CINESTILL 800T • EXP 13</text>
+          </g>
+          <!-- Loading Mark -->
+          <line x1="80" y1="100" x2="80" y2="350" stroke="#f59e0b" stroke-dasharray="5,4" stroke-width="1.5" opacity="0.75"/>
+          <text x="70" y="225" fill="#f59e0b" opacity="0.85" font-family="ui-monospace, monospace" font-size="8" font-weight="700" transform="rotate(-90, 70, 225)">LOAD TO LINE ▶</text>
+        </svg>
+      </div>
+      <!-- Bottom Track with 100% IDENTICAL CSS class & SVG pattern to main film strip! -->
+      <div class="continuous-sprocket-track bottom leader-bottom-track" aria-hidden="true">
+        <div class="sprocket-perforations-continuous bottom"></div>
+      </div>
+    `;
+    leaderUnit.onclick = () => {
+      triggerHaptic(10);
+      showToast("Pulling film out of canister...");
+      advanceFrame(1);
+    };
+  }
+
+  // Calculate layout geometry
+  positionSprocketCodes();
 }
 
-function applyTheme(themeKey, autoScroll = false) {
-  const theme = siteConfig.themes[themeKey] || siteConfig.themes.default;
-  const root = document.documentElement;
+/**
+ * Positions top and bottom sprocket margin codes above each frame column
+ */
+function positionSprocketCodes() {
+  const slides = document.querySelectorAll(".film-frame-exposure");
+  const mainStrip = document.getElementById("film-main-strip");
+  const ribbon = document.getElementById("film-roll-ribbon");
+  const leaderUnit = document.getElementById("film-leader-unit");
 
-  // 1. Set core token variables
-  for (const [key, value] of Object.entries(theme.colors)) {
-    root.style.setProperty(`--${key}`, value);
+  slides.forEach((slide) => {
+    const origIdx = parseInt(slide.dataset.index, 10);
+    const left = slide.offsetLeft;
+    const width = slide.offsetWidth;
+
+    // Match top and bottom meta elements by dataset.index
+    const topMeta = document.querySelector(`#top-sprocket-codes .frame-sprocket-meta[data-index="${origIdx}"]`);
+    const bottomMeta = document.querySelector(`#bottom-sprocket-codes .frame-sprocket-meta[data-index="${origIdx}"]`);
+
+    if (topMeta) {
+      topMeta.style.left = `${left}px`;
+      topMeta.style.width = `${width}px`;
+    }
+    if (bottomMeta) {
+      bottomMeta.style.left = `${left}px`;
+      bottomMeta.style.width = `${width}px`;
+    }
+  });
+
+  // Update total strip width to fit all frames exactly
+  if (slides.length > 0) {
+    const lastSlide = slides[slides.length - 1];
+    const totalStripWidth = lastSlide.offsetLeft + lastSlide.offsetWidth;
+    if (mainStrip) mainStrip.style.width = `${totalStripWidth}px`;
+    
+    const leaderWidth = leaderUnit ? leaderUnit.offsetWidth : 0;
+    if (ribbon) ribbon.style.width = `${totalStripWidth + leaderWidth}px`;
+  }
+}
+
+/**
+ * Calculates position so the active frame is displayed with authentic mechanical camera physics:
+ * - FRAME 01: ENTIRE leading edge tongue is 100% in-frame on the right! Always lands reliably.
+ * - FRAME 13 (LAST FRAME): Emerges cleanly from the canister mouth with no dead empty void!
+ * - INTERMEDIATE FRAMES: Dead-centered in the stage between canister and right screen edge.
+ * - NO WRAP-AROUND.
+ */
+function updateFilmPosition() {
+  const activeSlide = document.querySelector(`.film-frame-exposure[data-index="${currentThemeIndex}"]`);
+  const slides = document.querySelectorAll(".film-frame-exposure");
+  const ribbon = document.getElementById("film-roll-ribbon");
+  const gate = document.getElementById("film-gate");
+  const canister = document.getElementById("film-canister-unit");
+  const leaderUnit = document.getElementById("film-leader-unit");
+  if (!activeSlide || !slides.length || !ribbon || !gate) return;
+
+  const gateWidth = gate.offsetWidth || window.innerWidth;
+  const canisterWidth = canister ? canister.offsetWidth : 190;
+  const stageWidth = gateWidth - canisterWidth;
+  const stageCenter = canisterWidth + (stageWidth / 2);
+
+  let targetX = 0;
+
+  if (currentThemeIndex === 0) {
+    // FRAME 01: Entire leading edge tongue must be fully inside the frame on the right!
+    const ribbonWidth = ribbon.offsetWidth;
+    targetX = gateWidth - 28 - ribbonWidth;
+  } else {
+    // ALL OTHER FRAMES (including Frame 13): Dead-centered in the visible stage!
+    // The spool lead on the left of Frame 13 ensures the film strip is ALWAYS physically connected to the canister!
+    const slideWidth = activeSlide.offsetWidth;
+    const slideCenter = activeSlide.offsetLeft + (slideWidth / 2);
+    targetX = stageCenter - slideCenter;
   }
 
-  // 2. Dynamically sync mobile browser status bar / theme color
-  const metaTheme = document.getElementById("meta-theme-color");
-  if (metaTheme && theme.colors.bg) {
-    metaTheme.setAttribute("content", theme.colors.bg);
-  }
+  ribbon.style.transform = `translateX(${targetX}px)`;
 
-  // 3. Set multi-color palette variables (8 colors)
+  slides.forEach((s) => {
+    const origIdx = parseInt(s.dataset.index, 10);
+    const isActive = origIdx === currentThemeIndex;
+    s.classList.toggle("active-frame", isActive);
+    s.setAttribute("aria-hidden", isActive ? "false" : "true");
+  });
+
+  // Sync external winder buttons disabled state (Strict No Wrap-Around)
+  const prevBtn = document.getElementById("prev-scene-btn");
+  const nextBtn = document.getElementById("next-scene-btn");
+  if (prevBtn) {
+    prevBtn.disabled = (currentThemeIndex === 0);
+    prevBtn.classList.toggle("disabled", currentThemeIndex === 0);
+  }
+  if (nextBtn) {
+    nextBtn.disabled = (currentThemeIndex === themeKeys.length - 1);
+    nextBtn.classList.toggle("disabled", currentThemeIndex === themeKeys.length - 1);
+  }
+}
+
+/**
+ * Transitions ambient background colors smoothly using dual-layer crossfading
+ */
+function transitionAmbientColors(theme) {
+  const layerA = document.getElementById("ambient-layer-a");
+  const layerB = document.getElementById("ambient-layer-b");
+  if (!layerA || !layerB) return;
+
   const palette = theme.palette || [
     theme.colors.bg,
     theme.colors.surface,
@@ -56,84 +453,154 @@ function applyTheme(themeKey, autoScroll = false) {
     theme.colors.accent,
     theme.colors.text
   ];
+  const accent = theme.colors.accent || "#e07a38";
 
-  palette.forEach((color, idx) => {
-    root.style.setProperty(`--palette-${idx}`, color);
-  });
+  const newGradient = buildThemeGradient(palette, accent);
 
-  // 4. Update Poetic quote
-  const poetryEl = document.getElementById("theme-poetry");
-  if (poetryEl && theme.poetry) {
-    poetryEl.textContent = `"${theme.poetry}"`;
+  // Crossfade between Layer A and Layer B
+  if (activeAmbientLayer === "a") {
+    layerB.style.background = newGradient;
+    layerB.classList.add("active");
+    layerA.classList.remove("active");
+    activeAmbientLayer = "b";
+  } else {
+    layerA.style.background = newGradient;
+    layerA.classList.add("active");
+    layerB.classList.remove("active");
+    activeAmbientLayer = "a";
   }
-
-  // 5. Update photo count badge
-  const countEl = document.getElementById("photo-count");
-  if (countEl) {
-    if (themeKey === "default") {
-      countEl.textContent = "Base Minimal";
-    } else {
-      countEl.textContent = `${theme.name}`;
-    }
-  }
-
-  // 6. Render 8 Color Swatches
-  const swatchesContainer = document.getElementById("palette-swatches");
-  if (swatchesContainer) {
-    swatchesContainer.innerHTML = "";
-    palette.forEach((hex) => {
-      const swatch = document.createElement("div");
-      swatch.className = "swatch";
-      swatch.style.backgroundColor = hex;
-      swatch.style.color = getContrastColor(hex);
-      swatch.textContent = hex;
-      swatch.setAttribute("role", "button");
-      swatch.setAttribute("aria-label", `Copy color ${hex}`);
-      
-      swatch.addEventListener("click", () => {
-        triggerHaptic(12);
-        navigator.clipboard.writeText(hex);
-        showToast(`Copied ${hex}`);
-      });
-      swatchesContainer.appendChild(swatch);
-    });
-  }
-
-  // 7. Update button active states and auto-scroll on mobile
-  document.querySelectorAll(".theme-btn").forEach((btn) => {
-    const isActive = btn.dataset.theme === themeKey;
-    btn.classList.toggle("active", isActive);
-    btn.setAttribute("aria-selected", isActive ? "true" : "false");
-    
-    if (isActive && autoScroll) {
-      btn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-    }
-  });
 }
 
-function renderThemeButtons() {
-  const container = document.getElementById("theme-buttons");
-  if (!container) return;
+/**
+ * Advances or rewinds the continuous physical film roll
+ * STRICT NO WRAP-AROUND: At Frame 13, user must rewind back.
+ */
+function advanceFrame(direction = 1) {
+  triggerHaptic(8);
+  const newIdx = currentThemeIndex + direction;
 
-  container.innerHTML = "";
-  for (const [themeKey, themeData] of Object.entries(siteConfig.themes)) {
-    const btn = document.createElement("button");
-    btn.className = "theme-btn" + (themeKey === "default" ? " active" : "");
-    btn.dataset.theme = themeKey;
-    btn.textContent = themeData.name;
-    btn.setAttribute("role", "tab");
-    btn.setAttribute("aria-selected", themeKey === "default" ? "true" : "false");
-    
-    btn.addEventListener("click", () => {
-      triggerHaptic(8);
-      applyTheme(themeKey, true);
-    });
-    container.appendChild(btn);
+  if (newIdx < 0) {
+    showToast("Frame 01 • Start of roll");
+    return; // NO WRAP AROUND
   }
+  if (newIdx >= themeKeys.length) {
+    showToast("End of roll • Use Rewind to return");
+    return; // NO WRAP AROUND
+  }
+
+  applyTheme(themeKeys[newIdx]);
+}
+
+/**
+ * Applies the active theme and rolls the film to the selected frame
+ */
+function applyTheme(themeKey, isInitial = false) {
+  const theme = siteConfig.themes[themeKey] || siteConfig.themes.default;
+  const root = document.documentElement;
+
+  currentThemeIndex = themeKeys.indexOf(themeKey);
+  if (currentThemeIndex === -1) currentThemeIndex = 0;
+
+  const frameNumber = currentThemeIndex + 1;
+  const framePadded = String(frameNumber).padStart(2, "0");
+  const totalFrames = String(themeKeys.length).padStart(2, "0");
+  const stockName = FILM_STOCKS[themeKey] || "KODAK PORTRA 400";
+
+  // 1. Physically roll the unbroken ribbon so active frame is centered with 20% peaking left & right
+  updateFilmPosition();
+
+  // 2. Liquid, ultra-smooth ambient background color transition (dual-layer crossfade)
+  if (isInitial) {
+    const layerA = document.getElementById("ambient-layer-a");
+    if (layerA) {
+      layerA.style.background = buildThemeGradient(theme.palette, theme.colors.accent);
+      layerA.classList.add("active");
+    }
+  } else {
+    transitionAmbientColors(theme);
+  }
+
+  // 3. Update CSS custom properties
+  root.style.setProperty("--accent", theme.colors.accent || "#e07a38");
+
+  // 4. Mobile status bar theme color
+  const metaTheme = document.getElementById("meta-theme-color");
+  if (metaTheme && theme.colors.bg) {
+    metaTheme.setAttribute("content", theme.colors.bg);
+  }
+
+  // 5. Update External Physical Frame Counter
+  const currentFrameEl = document.getElementById("current-frame-num");
+  if (currentFrameEl) currentFrameEl.textContent = `EXP ${framePadded}`;
+
+  const totalFramesEl = document.getElementById("total-frames-num");
+  if (totalFramesEl) totalFramesEl.textContent = totalFrames;
+
+  const stockTagEl = document.getElementById("current-stock-tag");
+  if (stockTagEl) stockTagEl.textContent = `${stockName} // ${theme.name}`;
+}
+
+/**
+ * Configures winder buttons, keyboard arrows, and touch swipe gestures
+ */
+function setupControls() {
+  const prevBtn = document.getElementById("prev-scene-btn");
+  const nextBtn = document.getElementById("next-scene-btn");
+
+  if (prevBtn) prevBtn.addEventListener("click", () => advanceFrame(-1));
+  if (nextBtn) nextBtn.addEventListener("click", () => advanceFrame(1));
+
+  // Keyboard navigation: Right arrow / space advances, left arrow rewinds
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight" || e.key === " ") {
+      e.preventDefault();
+      advanceFrame(1);
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      advanceFrame(-1);
+    }
+  });
+
+  // Touch swipe on the film gate
+  const gate = document.getElementById("film-gate");
+  if (gate) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    gate.addEventListener("touchstart", (e) => {
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    gate.addEventListener("touchend", (e) => {
+      if (e.changedTouches.length === 1) {
+        const deltaX = e.changedTouches[0].clientX - touchStartX;
+        const deltaY = e.changedTouches[0].clientY - touchStartY;
+        // Horizontal swipe: left swipe advances, right swipe rewinds
+        if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.4) {
+          if (deltaX < 0) {
+            advanceFrame(1); // Swipe left -> advance film roll
+          } else {
+            advanceFrame(-1); // Swipe right -> rewind film roll
+          }
+        }
+      }
+    }, { passive: true });
+  }
+
+  // Recalculate layout on window resize
+  window.addEventListener("resize", () => {
+    positionSprocketCodes();
+    updateFilmPosition();
+  }, { passive: true });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderThemeButtons();
-  applyTheme("default", false);
-  console.log(`${siteConfig.title} initialized in mobile-native mode.`);
+  initFilmGrain();
+  renderContinuousFilmRibbon();
+  setupControls();
+  applyTheme(themeKeys[0] || "default", true);
+  console.log(`${siteConfig.title} liquid color transition film ribbon loaded.`);
 });

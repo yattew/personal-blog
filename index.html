@@ -2,57 +2,173 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0" />
-  <meta name="theme-color" content="#ebe3d5" id="meta-theme-color" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0a0b0e" id="meta-theme-color" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Journeys" />
-  <meta name="format-detection" content="telephone=no" />
+  <meta name="apple-mobile-web-app-title" content="Film Archive" />
   
-  <title>Japan Journey — Mood & Color Palettes</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <title>Japan Journey — 35mm Continuous Film Roll</title>
+  <link rel="stylesheet" href="css/style.css?v=30" />
 </head>
-<body>
-  <div class="site-wrapper">
-    <main class="container">
-      <header class="card-header">
-        <span class="badge" id="theme-badge">Local AI Mood Extraction</span>
-        <h1 id="theme-title">Japan Journey & Themes</h1>
-      </header>
-      
-      <blockquote id="theme-poetry" class="theme-poetry">
-        "Sunlit parchment and quiet morning cedar resting on tactile linen."
-      </blockquote>
-
-      <section class="swatch-section" aria-label="Color Palette">
-        <div class="swatch-header">
-          <span class="section-title">Extracted 8-Color Palette</span>
-          <span class="photo-count" id="photo-count">Foundational Base</span>
-        </div>
-        <div class="palette-scroll-container">
-          <div class="palette-swatches" id="palette-swatches" role="list">
-            <!-- 8 swatches generated dynamically -->
-          </div>
-        </div>
-      </section>
-
-      <section class="themes-section" aria-label="Theme Selection">
-        <div class="themes-header">
-          <span class="section-title">Select Journey Theme</span>
-          <span class="theme-hint">Swipe to explore</span>
-        </div>
-        <div class="themes-scroll-wrapper">
-          <div class="theme-preview" id="theme-buttons" role="tablist">
-            <!-- Buttons dynamically populated from config.js -->
-          </div>
-        </div>
-      </section>
-    </main>
+<body class="film-aesthetic">
+  <!-- Dual-Layer Ambient Backdrop for Ultra-Smooth Organic Color Crossfading -->
+  <div class="ambient-backdrop" id="ambient-backdrop" aria-hidden="true">
+    <div class="ambient-layer ambient-layer-a active" id="ambient-layer-a"></div>
+    <div class="ambient-layer ambient-layer-b" id="ambient-layer-b"></div>
   </div>
 
-  <!-- Native Mobile Toast -->
+  <!-- 1 Global Optical Lens Vignette & Fine Film Grain -->
+  <div class="analog-vignette" aria-hidden="true"></div>
+  <canvas id="grain-canvas" class="master-film-grain" aria-hidden="true"></canvas>
+
+  <!-- Viewport Stage (Zero Vertical Scroll Lock) -->
+  <div class="viewport-stage">
+    
+    <!-- Top Ambient Breathing Spacer -->
+    <div class="top-ambient-spacer" aria-hidden="true"></div>
+
+    <!-- 80% Height 35mm Continuous Film Gate -->
+    <main class="film-gate" id="film-gate" aria-label="35mm Film Roll Viewer">
+      
+      <!-- 1. Authentic High-End 3D Metal Film Canister (Permanently Anchored on Far Left) -->
+      <aside class="film-canister-unit" id="film-canister-unit" role="region" aria-label="35mm Metal Film Canister">
+        <!-- 3D Cylindrical Metal Canister Body -->
+        <div class="canister-cylinder" aria-hidden="true">
+          <!-- Top Stamped Chrome Cap with Spool Spindle Hub -->
+          <div class="canister-end-cap top">
+            <div class="spool-spindle-nub">
+              <div class="spindle-core"></div>
+              <div class="spindle-tooth tooth-1"></div>
+              <div class="spindle-tooth tooth-2"></div>
+              <div class="spindle-tooth tooth-3"></div>
+            </div>
+            <div class="cap-rim-highlight"></div>
+          </div>
+          
+          <!-- Anodized Lithographed Livery (Cinestill 800T) -->
+          <div class="canister-label">
+            <div class="label-sheen-overlay"></div>
+            
+            <!-- Metallic Foil Brand Title -->
+            <div class="canister-brand-row">
+              <span class="canister-brand">CINESTILL</span>
+              <span class="canister-subbrand">FILM</span>
+            </div>
+
+            <!-- 800T High-Contrast Badge -->
+            <div class="canister-speed-badge">
+              <span class="speed-iso">800T</span>
+              <span class="speed-type">TUNGSTEN</span>
+            </div>
+
+            <!-- CAS Auto-ISO Conductive Sensor Grid (12-pad DX matrix) -->
+            <div class="cas-sensor-grid" title="DX Auto-Sensing Contact Matrix">
+              <div class="cas-pad silver"></div>
+              <div class="cas-pad black"></div>
+              <div class="cas-pad silver"></div>
+              <div class="cas-pad silver"></div>
+              <div class="cas-pad black"></div>
+              <div class="cas-pad silver"></div>
+              <div class="cas-pad silver"></div>
+              <div class="cas-pad silver"></div>
+              <div class="cas-pad black"></div>
+              <div class="cas-pad silver"></div>
+              <div class="cas-pad black"></div>
+              <div class="cas-pad silver"></div>
+            </div>
+
+            <!-- Technical Film Specs -->
+            <div class="canister-specs">
+              <span class="spec-line">35mm COLOR NEGATIVE</span>
+              <span class="spec-line">ISO 800/30° • 13 EXP</span>
+              <span class="spec-line">PROCESS C-41 / ECN-2</span>
+            </div>
+
+            <!-- Dot-Matrix Factory Emulsion Code -->
+            <div class="canister-emulsion-stamp">EMUL 800T-2409 • EXP 11/26</div>
+          </div>
+
+          <!-- Bottom Stamped Chrome Cap -->
+          <div class="canister-end-cap bottom">
+            <div class="cap-rim-highlight"></div>
+            <div class="bottom-dimple"></div>
+          </div>
+        </div>
+
+        <!-- Velvet Plush Felt Light-Trap Snout (Film Emerges from this Slit) -->
+        <div class="canister-snout" aria-hidden="true">
+          <div class="snout-metal-lip top"></div>
+          <div class="velvet-slit">
+            <div class="velvet-felt-texture"></div>
+            <div class="slit-depth-shadow"></div>
+          </div>
+          <div class="snout-metal-lip bottom"></div>
+        </div>
+      </aside>
+
+      <!-- 2. One Unified Unbroken 35mm Celluloid Ribbon (Unrolls to the Right) -->
+      <div class="film-roll-ribbon" id="film-roll-ribbon">
+        
+        <!-- Continuous Celluloid Film Strip Body (Frames 13 to 01) -->
+        <div class="film-main-strip" id="film-main-strip">
+          <!-- Continuous Top Sprocket Track -->
+          <div class="continuous-sprocket-track top" id="top-sprocket-track" aria-hidden="true">
+            <div class="sprocket-perforations-continuous top"></div>
+            <div class="sprocket-codes-layer" id="top-sprocket-codes"></div>
+          </div>
+
+          <!-- Middle Exposure Frames (Zero Seams, Natural Celluloid Rebates) -->
+          <div class="film-exposures-track" id="film-exposures-track">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Continuous Bottom Sprocket Track -->
+          <div class="continuous-sprocket-track bottom" id="bottom-sprocket-track" aria-hidden="true">
+            <div class="sprocket-perforations-continuous bottom"></div>
+            <div class="sprocket-codes-layer" id="bottom-sprocket-codes"></div>
+          </div>
+        </div>
+
+        <!-- 3. Classic 35mm Tapered Film Leader (Far Right Tongue Moving Away from Canister) -->
+        <div class="film-leader-unit" id="film-leader-unit" role="button" tabindex="0" aria-label="35mm Film Leader Tongue">
+          <!-- Rendered dynamically with tapered celluloid tongue pointing right -->
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Physical Film Controls Stationed Outside the Film Roll -->
+    <footer class="external-film-controls" aria-label="Film Navigation Controls">
+      <!-- Physical Rewind Button -->
+      <button class="physical-winder-btn prev" id="prev-scene-btn" aria-label="Rewind to Previous Frame">
+        <span class="winder-icon">◀</span>
+        <span class="winder-text">Rewind</span>
+      </button>
+
+      <!-- Physical Film Frame Counter & Emulsion Tag -->
+      <div class="physical-frame-counter">
+        <div class="counter-led">
+          <span class="led-num" id="current-frame-num">EXP 02</span>
+          <span class="led-sep">//</span>
+          <span class="led-total" id="total-frames-num">13</span>
+        </div>
+        <span class="counter-stock" id="current-stock-tag">CINESTILL 800T</span>
+      </div>
+
+      <!-- Physical Advance Button -->
+      <button class="physical-winder-btn next" id="next-scene-btn" aria-label="Advance to Next Frame">
+        <span class="winder-text">Advance</span>
+        <span class="winder-icon">▶</span>
+      </button>
+    </footer>
+
+  </div>
+
+  <!-- Native Mobile Floating Toast -->
   <div id="mobile-toast" class="mobile-toast" role="status" aria-live="polite"></div>
 
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/main.js?v=30"></script>
 </body>
 </html>

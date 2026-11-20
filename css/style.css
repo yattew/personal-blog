@@ -1,13 +1,20 @@
 :root {
-  --bg: #ebe3d5;
-  --surface: #dfd5c2;
-  --text: #342e29;
-  --muted: #786d62;
-  --accent: #b85420;
-  --border: #cbbda8;
-  --shadow: 0 10px 25px rgba(52, 46, 41, 0.08);
+  --bg: #090a0d;
+  --surface: #12141a;
+  --surface-alt: #1a1d26;
+  --text: #f4efe6;
+  --film-text: #f7f2ea;
+  --muted: #a39b8e;
+  --accent: #e07a38;
+  --border: rgba(255, 255, 255, 0.12);
 
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  --film-base: #07080a;
+  --film-sprocket-bg: transparent;
+  --film-rebate-color: #040507;
+  --film-code-amber: #f59e0b;
+  --film-code-red: #ef4444;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
   --font-serif: "Georgia", "Cambria", "Times New Roman", serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
@@ -24,305 +31,986 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* STRICT ZERO-SCROLL LOCK */
+html, body {
+  height: 100%;
+  height: 100dvh;
+  width: 100%;
+  width: 100vw;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #06070a;
+}
+
 html {
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
   touch-action: manipulation;
-  height: 100%;
 }
 
-body {
-  min-height: 100vh;
-  min-height: 100dvh;
-  background-color: var(--bg);
-  background-image: 
-    radial-gradient(at 15% 15%, var(--palette-4, var(--accent)) 0px, transparent 55%),
-    radial-gradient(at 85% 15%, var(--palette-5, var(--accent)) 0px, transparent 50%),
-    radial-gradient(at 50% 85%, var(--palette-3, var(--border)) 0px, transparent 55%),
-    radial-gradient(at 85% 85%, var(--palette-6, var(--surface)) 0px, transparent 50%),
-    linear-gradient(135deg, var(--palette-0, var(--bg)) 0%, var(--palette-1, var(--bg)) 50%, var(--palette-2, var(--surface)) 100%);
-  background-attachment: fixed;
-  background-size: cover;
-  color: var(--text);
-  font-family: var(--font-sans);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: max(1.25rem, var(--safe-top)) max(1rem, var(--safe-right)) max(1.5rem, var(--safe-bottom)) max(1rem, var(--safe-left));
-  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s ease;
-  line-height: 1.5;
-  overflow-x: hidden;
-}
-
-.site-wrapper {
-  width: 100%;
-  max-width: 760px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.container {
-  width: 100%;
-  text-align: center;
-  padding: 2.25rem 1.75rem;
-  background: color-mix(in srgb, var(--surface) 90%, transparent);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  box-shadow: var(--shadow);
-  transition: background-color 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
-}
-
-.card-header {
-  margin-bottom: 0.5rem;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.35rem 0.9rem;
-  font-size: 0.75rem;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
-  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
-  border-radius: 9999px;
-  margin-bottom: 1.25rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  transition: all 0.4s ease;
-}
-
-h1 {
-  font-size: clamp(1.75rem, 5.5vw, 2.75rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  margin-bottom: 0.5rem;
-  color: var(--text);
-  background: linear-gradient(135deg, var(--text) 70%, var(--muted) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: color 0.4s ease;
-}
-
-.theme-poetry {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(1rem, 3.2vw, 1.15rem);
-  color: var(--text);
-  margin: 1.25rem auto 1.75rem auto;
-  padding: 0.85rem 1.25rem;
-  max-width: 600px;
-  border-left: 3px solid var(--accent);
-  background: color-mix(in srgb, var(--surface) 60%, transparent);
-  border-radius: 0 12px 12px 0;
-  line-height: 1.5;
-  text-align: left;
-  transition: all 0.4s ease;
-}
-
-/* Sections */
-.swatch-section, .themes-section {
-  margin: 1.5rem 0;
-  text-align: left;
-}
-
-.swatch-header, .themes-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.6rem;
-  padding: 0 0.2rem;
-  font-size: 0.78rem;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--muted);
-}
-
-.section-title {
-  font-weight: 600;
-}
-
-.photo-count, .theme-hint {
-  font-weight: 600;
-  color: var(--accent);
-}
-
-/* Palette Swatches (Scroll-snap on Mobile) */
-.palette-scroll-container {
-  overflow-x: auto;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  border-radius: 16px;
-  padding: 2px;
-}
-.palette-scroll-container::-webkit-scrollbar {
-  display: none;
-}
-
-.palette-swatches {
-  display: flex;
-  gap: 0.5rem;
-  border-radius: 16px;
-  padding: 0.5rem;
-  background: color-mix(in srgb, var(--bg) 75%, transparent);
-  border: 1px solid var(--border);
-  min-width: 100%;
-  width: max-content;
-  scroll-snap-type: x mandatory;
-}
-
-.swatch {
-  flex: 0 0 72px;
-  height: 52px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  padding-bottom: 5px;
-  font-size: 0.68rem;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  cursor: pointer;
-  scroll-snap-align: start;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  user-select: none;
-}
-
-.swatch:active {
-  transform: scale(0.92);
-}
-
-@media (hover: hover) {
-  .swatch:hover {
-    transform: translateY(-3px) scale(1.04);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
-  }
-}
-
-/* Theme Buttons Horizontal Scroll Carousel */
-.themes-scroll-wrapper {
-  position: relative;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  border-radius: 16px;
-  padding: 4px 0;
-}
-.themes-scroll-wrapper::-webkit-scrollbar {
-  display: none;
-}
-
-.theme-preview {
-  display: inline-flex;
-  gap: 0.5rem;
-  scroll-snap-type: x mandatory;
-  padding: 0.25rem 0.25rem;
-  width: max-content;
-}
-
-.theme-btn {
-  flex: 0 0 auto;
-  background: color-mix(in srgb, var(--surface) 85%, var(--bg));
-  border: 1px solid var(--border);
-  color: var(--muted);
-  padding: 0.65rem 1rem;
-  font-size: 0.85rem;
-  border-radius: 9999px;
-  cursor: pointer;
-  scroll-snap-align: center;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  font-family: var(--font-sans);
-  font-weight: 500;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-}
-
-.theme-btn:active {
-  transform: scale(0.94);
-}
-
-@media (hover: hover) {
-  .theme-btn:hover {
-    color: var(--text);
-    border-color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
-  }
-}
-
-.theme-btn.active {
-  color: var(--accent);
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 18%, var(--surface));
-  font-weight: 600;
-  box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 25%, transparent);
-}
-
-/* Floating Mobile Toast Notification */
-.mobile-toast {
+/* ==========================================================================
+   AMBIENT BACKDROP: DUAL-LAYER CROSSFADE (SUPER SMOOTH LIQUID TRANSITIONS)
+   NO HORIZONTAL BLACK BARS ANYWHERE
+   ========================================================================== */
+.ambient-backdrop {
   position: fixed;
-  bottom: max(1.5rem, calc(var(--safe-bottom) + 0.75rem));
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid var(--border);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-  padding: 0.65rem 1.25rem;
-  border-radius: 9999px;
-  font-size: 0.82rem;
-  font-family: var(--font-mono);
-  font-weight: 600;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
   pointer-events: none;
-  opacity: 0;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
-  z-index: 1000;
+  overflow: hidden;
 }
 
-.mobile-toast.visible {
-  transform: translateX(-50%) translateY(0);
+.ambient-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  /* Super smooth, organic 1.2s cubic ease for liquid color transitions */
+  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity;
+}
+
+.ambient-layer.active {
   opacity: 1;
 }
 
-/* Tablet & Desktop Adjustments */
-@media (min-width: 640px) {
-  .container {
-    padding: 3rem 2.5rem;
+/* Base Body Typography */
+body.film-aesthetic {
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   1 GLOBAL VIGNETTE & FINE 35MM GRAIN
+   ========================================================================== */
+/* 1. Exactly 1 Global Optical Lens Vignette */
+.analog-vignette {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 85;
+  background: radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(5, 5, 8, 0.4) 85%, rgba(2, 2, 4, 0.75) 100%);
+}
+
+/* 2. Authentic 35mm Silver-Halide Grain (Clearly Visible & Tactile) */
+.master-film-grain {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 95;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+}
+
+/* ==========================================================================
+   VIEWPORT STAGE
+   ========================================================================== */
+.viewport-stage {
+  width: 100vw;
+  height: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  padding: max(0.4rem, var(--safe-top)) 0 max(0.6rem, var(--safe-bottom)) 0;
+}
+
+.top-ambient-spacer {
+  height: 2vh;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   80% HEIGHT 35MM CONTINUOUS FILM GATE & RIBBON
+   ========================================================================== */
+.film-gate {
+  width: 100vw;
+  height: 80vh;
+  height: 80dvh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
+/* One Continuous Unbroken Physical 35mm Celluloid Ribbon */
+.film-roll-ribbon {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  background: transparent;
+}
+
+/* Main Film Strip Body (Transparent behind sprockets so ambient colors glow through holes!) */
+.film-main-strip {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: transparent;
+  position: relative;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   CONTINUOUS SPROCKET TRACKS WITH REAL TRANSPARENT PUNCH HOLES!
+   The background colors shine right through the holes! Zero seams.
+   ========================================================================== */
+.continuous-sprocket-track {
+  position: relative;
+  width: 100%;
+  height: clamp(38px, 5.2vh, 46px);
+  background: transparent;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.continuous-sprocket-track.top {
+  margin-bottom: -2px;
+  position: relative;
+  z-index: 2;
+}
+
+.continuous-sprocket-track.bottom {
+  margin-top: -2px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Seamless Continuous Perforations with Transparent Cutout Holes (Zero Gaps) */
+.sprocket-perforations-continuous {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: repeat-x;
+  background-position: left center;
+  background-size: 38px 100%;
+}
+
+/* Top track perforations along top edge (Zero vertical seams: path extends from x=-2 to x=40) */
+.sprocket-perforations-continuous.top {
+  background-image: url("data:image/svg+xml,%3Csvg width='38' height='46' viewBox='0 0 38 46' shape-rendering='geometricPrecision' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' fill='%23050608' d='M-2,-2 H40 V50 H-2 Z M7,6 H29 A3.5,3.5 0 0 1 32.5,9.5 V22.5 A3.5,3.5 0 0 1 29,26 H7 A3.5,3.5 0 0 1 3.5,22.5 V9.5 A3.5,3.5 0 0 1 7,6 Z' /%3E%3Crect x='3.5' y='6' width='29' height='20' rx='3.5' ry='3.5' fill='none' stroke='%23ffffff' stroke-opacity='0.15' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+/* Bottom track perforations along bottom edge (Zero vertical seams: path extends from x=-2 to x=40) */
+.sprocket-perforations-continuous.bottom {
+  background-image: url("data:image/svg+xml,%3Csvg width='38' height='46' viewBox='0 0 38 46' shape-rendering='geometricPrecision' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' fill='%23050608' d='M-2,-2 H40 V50 H-2 Z M7,20 H29 A3.5,3.5 0 0 1 32.5,23.5 V36.5 A3.5,3.5 0 0 1 29,40 H7 A3.5,3.5 0 0 1 3.5,36.5 V23.5 A3.5,3.5 0 0 1 7,20 Z' /%3E%3Crect x='3.5' y='20' width='29' height='20' rx='3.5' ry='3.5' fill='none' stroke='%23ffffff' stroke-opacity='0.15' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+/* Sprocket Edge Codes & Barcodes (Positioned in inner margin — NEVER overlapping punch holes) */
+.sprocket-codes-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.frame-sprocket-meta {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.2rem;
+  font-family: var(--font-mono);
+  font-size: clamp(0.55rem, 1.1vw, 0.65rem);
+  font-weight: 800;
+  color: var(--film-code-amber);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.95;
+  box-sizing: border-box;
+}
+
+.continuous-sprocket-track.top .frame-sprocket-meta {
+  bottom: 2px;
+  top: auto;
+}
+
+.continuous-sprocket-track.bottom .frame-sprocket-meta {
+  top: 2px;
+  bottom: auto;
+}
+
+.dx-barcode {
+  letter-spacing: 0.02em;
+  color: rgba(245, 158, 11, 0.75);
+}
+
+/* ==========================================================================
+   MIDDLE CONSECUTIVE EXPOSURES (AUTHENTIC 35MM APERTURE FRAMES)
+   Organic frame rebates, no harsh cuts, seamless celluloid continuity
+   ========================================================================== */
+.film-exposures-track {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 0;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  background: #050608;
+}
+
+/* Film Canister Spool Lead (Tucked into the canister on the left of Frame 13) */
+.film-canister-spool-lead {
+  flex: 0 0 clamp(200px, 20vw, 280px);
+  width: clamp(200px, 20vw, 280px);
+  height: 100%;
+  position: relative;
+  background: #050608;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: 0 1rem;
+}
+
+.spool-lead-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  color: var(--film-code-amber);
+  opacity: 0.85;
+  text-align: center;
+  pointer-events: none;
+}
+
+.spool-lead-mark {
+  font-size: clamp(0.58rem, 1vw, 0.68rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.spool-lead-sub {
+  font-size: clamp(0.5rem, 0.85vw, 0.58rem);
+  color: #c4bcb0;
+  letter-spacing: 0.1em;
+}
+
+/* Individual Frame Column on the Ribbon (100% Seamless Celluloid Base) */
+.film-frame-exposure {
+  flex: 0 0 auto;
+  width: 58vw;
+  height: 100%;
+  position: relative;
+  background: #050608;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 12px; /* 24px natural unexposed celluloid rebate between frames */
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .film-frame-exposure {
+    width: 72vw;
+    padding: 0 8px;
   }
+}
+
+/* Authentic Continuous 35mm Exposure Window (Aperture Gate Frame) */
+.slide-exposure-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.95);
+  padding: clamp(0.75rem, 2.5vh, 2rem) clamp(1rem, 2.5vw, 2.2rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: opacity 0.5s ease, filter 0.5s ease;
   
-  .palette-swatches {
-    width: 100%;
-  }
+  /* Peaking frames have soft analog depth */
+  opacity: 0.48;
+  filter: brightness(0.75);
+  transform: none;
+}
 
-  .swatch {
-    flex: 1;
-    height: 52px;
-  }
+.film-frame-exposure:hover:not(.active-frame) .slide-exposure-inner {
+  opacity: 0.78;
+  filter: brightness(0.88);
+}
 
-  .theme-preview {
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-  }
+/* Active Main Center Frame Window */
+.film-frame-exposure.active-frame {
+  cursor: default;
+}
 
-  .theme-btn {
-    border-radius: 10px;
-    padding: 0.5rem 0.9rem;
-    min-height: 40px;
-  }
+.film-frame-exposure.active-frame .slide-exposure-inner {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
 
-  .theme-hint {
-    display: none;
-  }
+.exposure-content-wrap {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  gap: clamp(0.4rem, 1.5vh, 1rem);
+}
+
+/* Header & Meta */
+.exposure-header {
+  width: 100%;
+}
+
+.exposure-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.4rem, 1.5vw, 0.8rem);
+  flex-wrap: wrap;
+  margin-bottom: clamp(0.2rem, 0.8vh, 0.45rem);
+}
+
+.film-stamp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.65rem;
+  font-size: clamp(0.65rem, 1.4vw, 0.72rem);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.date-stamp, .exposure-coords {
+  font-family: var(--font-mono);
+  font-size: clamp(0.62rem, 1.3vw, 0.7rem);
+  color: #c4bcb0;
+  letter-spacing: 0.04em;
+}
+
+.date-stamp {
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  padding-left: clamp(0.4rem, 1.5vw, 0.8rem);
+}
+
+.theme-title {
+  font-size: clamp(1.35rem, 4.2vh, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--film-text, #f7f2ea);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+  word-break: break-word;
+  max-width: 95%;
+}
+
+/* Memory Narrative Poetry */
+.theme-poetry {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(0.9rem, 2.2vh, 1.15rem);
+  color: #f7f2ea;
+  line-height: 1.55;
+  max-width: 680px;
+  padding: clamp(0.5rem, 1.4vh, 0.9rem) clamp(0.9rem, 2vw, 1.4rem);
+  border-left: 3px solid var(--accent);
+  background: rgba(10, 12, 17, 0.78);
+  border-radius: 0 8px 8px 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* 8-Color Emulsion Swatches */
+.emulsion-swatch-row {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.swatch-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: clamp(0.6rem, 1.3vw, 0.68rem);
+  font-weight: 600;
+  color: #a39b8e;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 0.2rem;
+}
+
+.photo-count {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.swatches-strip {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: clamp(4px, 0.8vw, 8px);
+  width: 100%;
+}
+
+.swatch-chip {
+  height: clamp(26px, 3.6vh, 36px);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+}
+
+.swatch-chip:hover {
+  transform: translateY(-2px) scale(1.08);
+  z-index: 10;
+  border-color: #ffffff;
+}
+
+/* ==========================================================================
+   CLASSIC 35MM FILM LEADER (FAR RIGHT TONGUE MOVING AWAY FROM CANISTER)
+   Authentic tapered 35mm leader tongue with bottom sprockets & stamped markings
+   ========================================================================== */
+.film-leader-unit {
+  flex: 0 0 clamp(260px, 26vw, 360px);
+  width: clamp(260px, 26vw, 360px);
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  margin-left: -1px;
+  background: transparent;
+}
+
+.leader-taper-zone {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  min-height: 0;
+}
+
+.leader-taper-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.leader-bottom-track {
+  width: 100%;
+  height: clamp(38px, 5.2vh, 46px);
+  position: relative;
+  flex-shrink: 0;
+  margin-top: -2px;
+}
+
+/* ==========================================================================
+   HIGH-END PHOTOREALISTIC 3D 35MM METAL CANISTER (ANCHORED ON FAR LEFT)
+   Cylindrical brushed metal body, stamped chrome caps, plush velvet light-trap
+   ========================================================================== */
+.film-canister-unit {
+  position: absolute;
+  left: 0;
+  top: -14px;
+  bottom: -14px;
+  width: clamp(170px, 15vw, 215px);
+  height: calc(100% + 28px);
+  z-index: 60;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  box-sizing: border-box;
+  pointer-events: auto;
+  cursor: pointer;
+  filter: drop-shadow(18px 0 35px rgba(0, 0, 0, 0.96)) drop-shadow(4px 0 12px rgba(0, 0, 0, 0.85));
+}
+
+/* 3D Cylindrical Metal Canister Body */
+.canister-cylinder {
+  flex: 1;
+  height: 100%;
+  border-radius: 8px 0 0 8px;
+  background: 
+    linear-gradient(90deg, 
+      #08090d 0%, 
+      #1b1f28 4%, 
+      #3c4656 10%, 
+      #5c6b81 14%, /* Specular catch-light */
+      #2b323f 21%, 
+      #12141c 34%, 
+      #171b24 55%, 
+      #101218 80%, 
+      #06070a 96%, 
+      #030405 100%
+    );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  border-left: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.85);
+  box-sizing: border-box;
+}
+
+/* Brushed Metal Grain Texture */
+.canister-cylinder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0px, transparent 1px, rgba(0, 0, 0, 0.05) 2px),
+    linear-gradient(90deg, transparent 8%, rgba(255, 255, 255, 0.2) 13%, rgba(255, 255, 255, 0.35) 15%, rgba(255, 255, 255, 0.12) 18%, transparent 26%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Top & Bottom Stamped Chrome Crimped Caps */
+.canister-end-cap {
+  height: 28px;
+  background: linear-gradient(90deg, #181b22 0%, #464f5e 10%, #9ca9bc 18%, #dce5f0 23%, #687486 35%, #242933 65%, #111318 100%);
+  position: relative;
+  flex-shrink: 0;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.85);
+  box-shadow: inset 0 1.5px 3px rgba(255, 255, 255, 0.55), inset 0 -1.5px 3px rgba(0, 0, 0, 0.7);
+}
+
+.canister-end-cap.bottom {
+  border-bottom: none;
+  border-top: 2px solid rgba(0, 0, 0, 0.85);
+  box-shadow: inset 0 -1.5px 3px rgba(255, 255, 255, 0.45), inset 0 1.5px 3px rgba(0, 0, 0, 0.8);
+}
+
+.cap-rim-highlight {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 12%, rgba(255, 255, 255, 0.5) 22%, transparent 32%);
+  pointer-events: none;
+}
+
+/* Plastic Spool Spindle Hub Protruding at Top */
+.spool-spindle-nub {
+  position: absolute;
+  top: -13px;
+  left: 45%;
+  transform: translateX(-50%);
+  width: 25px;
+  height: 14px;
+  background: linear-gradient(90deg, #15181e 0%, #3e4554 30%, #687384 50%, #181a20 100%);
+  border-radius: 4px 4px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 2px;
+  box-sizing: border-box;
+}
+
+.spindle-core {
+  width: 6px;
+  height: 6px;
+  background: #cbd5e1;
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+}
+
+.spindle-tooth {
+  width: 2.5px;
+  height: 7px;
+  background: #11141a;
+  border-radius: 1px;
+}
+
+/* Bottom Cap Dimple */
+.bottom-dimple {
+  position: absolute;
+  bottom: 6px;
+  left: 45%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0d0f14;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9), 0 1px 2px rgba(255, 255, 255, 0.25);
+}
+
+/* Velvet Plush Felt Light-Trap Snout (Film Emerges from this Slit) */
+.canister-snout {
+  width: 26px;
+  height: 100%;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #050608;
+  border-left: 1px solid #141720;
+}
+
+.snout-metal-lip {
+  height: 16px;
+  background: linear-gradient(90deg, #252a36 0%, #464f60 50%, #151820 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.snout-metal-lip.top {
+  border-radius: 0 4px 0 0;
+}
+
+.snout-metal-lip.bottom {
+  border-radius: 0 0 4px 0;
+}
+
+.velvet-slit {
+  flex: 1;
+  position: relative;
+  background: #040507;
+  overflow: hidden;
+  box-shadow: inset 4px 0 8px rgba(0, 0, 0, 0.98);
+}
+
+.velvet-felt-texture {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0px, transparent 1.5px, rgba(0, 0, 0, 0.7) 3px);
+  pointer-events: none;
+}
+
+.slit-depth-shadow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 6px;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.95) 100%);
+  pointer-events: none;
+}
+
+/* Anodized Lithographed Livery (Cinestill 800T) */
+.canister-label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 12px;
+  background: 
+    linear-gradient(135deg, 
+      #781010 0%, 
+      #ba1c1c 18%, 
+      #e02828 32%, 
+      #991414 56%, 
+      #520909 82%, 
+      #220303 100%
+    );
+  color: #ffffff;
+  font-family: var(--font-mono);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7);
+  position: relative;
+  overflow: hidden;
+}
+
+.label-sheen-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.15) 0%, transparent 40%, rgba(0, 0, 0, 0.45) 85%);
+  pointer-events: none;
+}
+
+/* Silver Foil Embossed Brand */
+.canister-brand-row {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  z-index: 2;
+}
+
+.canister-brand {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 55%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85));
+  line-height: 1;
+}
+
+.canister-subbrand {
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #fca5a5;
+}
+
+/* 800T High-Contrast Badge */
+.canister-speed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  padding: 3px 6px;
+  width: fit-content;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  margin: 4px 0;
+}
+
+.speed-iso {
+  font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+  font-weight: 900;
+  color: #f59e0b;
+  letter-spacing: 0.08em;
+}
+
+.speed-type {
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: #38bdf8;
+  letter-spacing: 0.08em;
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  padding-left: 5px;
+}
+
+/* CAS Auto-ISO Conductive Sensor Grid (12-pad DX Matrix) */
+.cas-sensor-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2px;
+  width: 72px;
+  height: 24px;
+  background: #020617;
+  padding: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 2px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
+  z-index: 2;
+  margin: 6px 0;
+}
+
+.cas-pad {
+  border-radius: 1px;
+}
+
+.cas-pad.silver {
+  background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 100%);
+  box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+.cas-pad.black {
+  background: #090d16;
+}
+
+/* Film Specs */
+.canister-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: clamp(0.5rem, 0.75vw, 0.58rem);
+  color: #f1f5f9;
+  line-height: 1.35;
+  opacity: 0.95;
+  z-index: 2;
+}
+
+.spec-line {
+  white-space: nowrap;
+}
+
+/* Emulsion Dot-Matrix Stamp */
+.canister-emulsion-stamp {
+  font-size: 0.52rem;
+  letter-spacing: 0.06em;
+  color: #fef08a;
+  opacity: 0.88;
+  z-index: 2;
+  margin-top: 4px;
+}
+
+.canister-barcode-graphic {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ==========================================================================
+   PHYSICAL FILM CONTROLS (OUTSIDE THE FILM ROLL)
+   ========================================================================== */
+.external-film-controls {
+  width: 100vw;
+  max-width: 680px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 max(1.2rem, var(--safe-left)) 0 max(1.2rem, var(--safe-right));
+  flex-shrink: 0;
+  margin-top: clamp(0.2rem, 1vh, 0.5rem);
+}
+
+/* Tangible Physical Winder Buttons */
+.physical-winder-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(18, 20, 27, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--film-text, #f7f2ea);
+  padding: clamp(0.4rem, 1vh, 0.55rem) clamp(0.9rem, 2.2vw, 1.4rem);
+  font-family: var(--font-mono);
+  font-size: clamp(0.7rem, 1.5vw, 0.82rem);
+  font-weight: 700;
+  border-radius: 9999px;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.physical-winder-btn:hover {
+  background: color-mix(in srgb, var(--accent) 30%, #1a1e28);
+  border-color: var(--accent);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+.physical-winder-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.physical-winder-btn:disabled,
+.physical-winder-btn.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(0.8);
+  box-shadow: none;
+  transform: none;
+}
+
+.winder-icon {
+  font-size: 0.75rem;
+  color: var(--accent);
+}
+
+/* Mechanical LED Frame Counter Outside the Film Roll */
+.physical-frame-counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-mono);
+  gap: 0.1rem;
+}
+
+.counter-led {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: clamp(0.75rem, 1.6vw, 0.9rem);
+  font-weight: 800;
+  color: var(--film-text, #f7f2ea);
+  letter-spacing: 0.08em;
+}
+
+.led-num {
+  color: var(--accent);
+}
+
+.led-sep {
+  color: #666;
+}
+
+.counter-stock {
+  font-size: clamp(0.52rem, 1.1vw, 0.65rem);
+  color: #a39b8e;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+  text-align: center;
+}
+
+/* Mobile Toast Notification */
+.mobile-toast {
+  position: fixed;
+  bottom: max(1.2rem, calc(var(--safe-bottom) + 0.8rem));
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(14, 16, 22, 0.94);
+  border: 1px solid var(--accent);
+  color: var(--text);
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 200;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.mobile-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
