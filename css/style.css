@@ -774,19 +774,17 @@ body.film-aesthetic {
   pointer-events: none;
 }
 
-/* Anodized Lithographed Livery (Dyna-Still 400 Dynamic Theming) */
+/* Anodized Lithographed Livery (Dyna-Still 400 3D Cylindrical Livery) */
 .canister-label {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 16px 12px;
+  position: relative;
+  overflow: hidden;
   background: transparent !important;
   color: #ffffff;
   font-family: var(--font-mono);
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7);
-  position: relative;
-  overflow: hidden;
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.8);
+  perspective: 900px;
+  transform-style: preserve-3d;
   transition: box-shadow 0.8s ease;
 }
 
@@ -806,79 +804,112 @@ body.film-aesthetic {
   opacity: 1;
 }
 
-.label-sheen-overlay {
+/* Photorealistic 3D Cylinder Curvature Shading (Overlays across all text) */
+.cylinder-curvature-shading {
   position: absolute;
   inset: 0;
-  background: linear-gradient(115deg, rgba(255, 255, 255, 0.18) 0%, transparent 40%, rgba(0, 0, 0, 0.45) 85%);
   pointer-events: none;
-  z-index: 2;
+  z-index: 8;
+  background: linear-gradient(90deg, 
+    rgba(0, 0, 0, 0.82) 0%, 
+    rgba(0, 0, 0, 0.42) 3.5%, 
+    rgba(0, 0, 0, 0.04) 8%, 
+    rgba(255, 255, 255, 0.45) 12%, 
+    rgba(255, 255, 255, 0.75) 15%, 
+    rgba(255, 255, 255, 0.3) 18%, 
+    transparent 28%, 
+    rgba(0, 0, 0, 0.12) 65%, 
+    rgba(0, 0, 0, 0.55) 86%, 
+    rgba(0, 0, 0, 0.92) 100%
+  );
+  mix-blend-mode: overlay;
 }
 
-/* Silver Foil Embossed Brand */
-.canister-brand-row {
-  display: flex;
-  align-items: baseline;
-  gap: 5px;
+.cylinder-curve-shadow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9;
+  background: linear-gradient(90deg, 
+    rgba(0, 0, 0, 0.6) 0%, 
+    transparent 10%, 
+    transparent 76%, 
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  mix-blend-mode: multiply;
+}
+
+/* 3D Cylindrical Content Layout: Vertical Brand Spine + Horizontal Technical Panel */
+.canister-cylinder-wrap {
   position: relative;
-  z-index: 3;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  padding: 18px 10px 18px 10px;
+  box-sizing: border-box;
+  transform: perspective(600px) rotateY(-7deg);
+  transform-origin: left center;
 }
 
-.canister-brand {
+/* Left Column: Iconic 3D Vertical Brand Spine */
+.canister-brand-spine {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 38px;
+  flex-shrink: 0;
+  border-right: 1.5px solid rgba(255, 255, 255, 0.14);
+  padding: 2px 7px 4px 0;
+  margin-right: 6px;
+  transform: perspective(500px) rotateY(-4deg);
+  transform-origin: left center;
+}
+
+.canister-brand-vertical {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
   font-family: var(--font-sans);
-  font-size: clamp(0.95rem, 1.35vw, 1.22rem);
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
   font-weight: 900;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.24em;
   background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 55%, #94a3b8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85));
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95));
   line-height: 1;
+  white-space: nowrap !important;
+  user-select: none;
 }
 
-.canister-subbrand {
-  font-size: 0.55rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  color: var(--canister-subbrand-color, #fca5a5);
+.canister-iso-spine {
   font-family: var(--font-mono);
-  transition: color 0.6s ease;
-}
-
-/* Dyna-Still 400 High-Contrast Dynamic Thematic Badge */
-.canister-speed-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--canister-badge-bg, #0f172a);
-  border: 1px solid var(--canister-badge-border, rgba(255, 255, 255, 0.25));
-  border-radius: 4px;
-  padding: 3px 6px;
-  width: fit-content;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
-  position: relative;
-  z-index: 3;
-  margin: 4px 0;
-  transition: background-color 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
-}
-
-.speed-iso {
-  font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+  font-size: 0.85rem;
   font-weight: 900;
+  letter-spacing: 0.12em;
   color: var(--canister-badge-color, #f59e0b);
-  letter-spacing: 0.08em;
-  font-family: var(--font-mono);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap !important;
+  user-select: none;
   transition: color 0.6s ease;
 }
 
-.speed-type {
-  font-size: 0.52rem;
-  font-weight: 800;
-  color: var(--canister-type-color, #38bdf8);
-  letter-spacing: 0.08em;
-  border-left: 1px solid var(--canister-badge-border, rgba(255, 255, 255, 0.25));
-  padding-left: 5px;
-  font-family: var(--font-mono);
-  transition: color 0.6s ease, border-color 0.6s ease;
+/* Right Column: Horizontal Technical Panel (Receding slightly in 3D perspective) */
+.canister-technical-panel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2px 0 4px 0;
+  transform: perspective(600px) rotateY(-9deg);
+  transform-origin: left center;
 }
 
 /* CAS Auto-ISO Conductive Sensor Grid (12-pad DX Matrix) */
@@ -887,16 +918,15 @@ body.film-aesthetic {
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 2px;
-  width: 72px;
-  height: 24px;
+  width: 66px;
+  height: 22px;
   background: #020617;
   padding: 2px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 2px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
-  position: relative;
-  z-index: 3;
-  margin: 6px 0;
+  margin: 2px 0;
+  flex-shrink: 0;
 }
 
 .cas-pad {
@@ -912,36 +942,86 @@ body.film-aesthetic {
   background: #090d16;
 }
 
+/* Dyna-Still 400 High-Contrast Thematic Badge */
+.canister-speed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--canister-badge-bg, #0f172a);
+  border: 1px solid var(--canister-badge-border, rgba(255, 255, 255, 0.25));
+  border-radius: 4px;
+  padding: 3px 5px;
+  width: fit-content;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  margin: 3px 0;
+  white-space: nowrap !important;
+  flex-shrink: 0;
+  transition: background-color 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
+}
+
+.speed-iso {
+  font-size: clamp(0.72rem, 1vw, 0.84rem);
+  font-weight: 900;
+  color: var(--canister-badge-color, #f59e0b);
+  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+  white-space: nowrap !important;
+  flex-shrink: 0;
+  transition: color 0.6s ease;
+}
+
+.speed-type {
+  font-size: 0.5rem;
+  font-weight: 800;
+  color: var(--canister-type-color, #38bdf8);
+  letter-spacing: 0.08em;
+  border-left: 1px solid var(--canister-badge-border, rgba(255, 255, 255, 0.25));
+  padding-left: 5px;
+  font-family: var(--font-mono);
+  white-space: nowrap !important;
+  flex-shrink: 0;
+  transition: color 0.6s ease, border-color 0.6s ease;
+}
+
 /* Film Specs */
 .canister-specs {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  font-size: clamp(0.5rem, 0.75vw, 0.58rem);
+  font-size: clamp(0.46rem, 0.65vw, 0.54rem);
   color: #f1f5f9;
   line-height: 1.35;
   opacity: 0.95;
-  position: relative;
-  z-index: 3;
   font-family: var(--font-mono);
+  white-space: nowrap !important;
+  flex-shrink: 0;
   transition: opacity 0.6s ease;
 }
 
 .spec-line {
-  white-space: nowrap;
+  white-space: nowrap !important;
+  flex-shrink: 0;
 }
 
 /* Emulsion Dot-Matrix Stamp */
 .canister-emulsion-stamp {
-  font-size: 0.52rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-size: 0.48rem;
   letter-spacing: 0.06em;
   color: var(--canister-stamp-color, #fef08a);
   opacity: 0.92;
-  position: relative;
-  z-index: 3;
-  margin-top: 4px;
+  margin-top: 2px;
   font-family: var(--font-mono);
+  white-space: nowrap !important;
+  flex-shrink: 0;
   transition: color 0.6s ease;
+}
+
+.stamp-line {
+  white-space: nowrap !important;
+  flex-shrink: 0;
 }
 
 .canister-barcode-graphic {
@@ -1493,61 +1573,129 @@ body.film-aesthetic {
     height: 12px;
   }
 
-  /* Canister Label (Horizontal Arrangement) */
+  /* Canister Label (Horizontal Arrangement on Mobile Portrait) */
   .canister-label {
     margin: 0 22px;
     width: calc(100% - 44px);
     height: 100%;
-    display: flex;
+    padding: 0;
+    box-sizing: border-box;
+    perspective: 800px;
+  }
+
+  .cylinder-curvature-shading {
+    background: linear-gradient(180deg, 
+      rgba(0, 0, 0, 0.75) 0%, 
+      rgba(0, 0, 0, 0.25) 4%, 
+      rgba(255, 255, 255, 0.45) 12%, 
+      rgba(255, 255, 255, 0.7) 16%, 
+      rgba(255, 255, 255, 0.25) 20%, 
+      transparent 32%, 
+      rgba(0, 0, 0, 0.15) 65%, 
+      rgba(0, 0, 0, 0.55) 86%, 
+      rgba(0, 0, 0, 0.9) 100%
+    );
+  }
+
+  .cylinder-curve-shadow {
+    background: linear-gradient(180deg, 
+      rgba(0, 0, 0, 0.6) 0%, 
+      transparent 12%, 
+      transparent 76%, 
+      rgba(0, 0, 0, 0.8) 100%
+    );
+  }
+
+  .canister-cylinder-wrap {
+    transform: none !important;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
-    padding: 4px 8px;
+    justify-content: space-between;
+    padding: 2px 8px;
+    height: 100%;
+    gap: 6px;
     box-sizing: border-box;
   }
 
-  .canister-brand-row {
-    flex-direction: column;
-    gap: 1px;
-    align-items: flex-start;
+  .canister-brand-spine {
+    writing-mode: horizontal-tb !important;
+    transform: none !important;
+    width: auto;
+    border-right: none;
+    border-bottom: none;
+    margin: 0;
+    padding: 0;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    gap: 1px !important;
+    flex-shrink: 0;
   }
 
-  .canister-brand {
-    font-size: 0.85rem;
+  .canister-brand-vertical {
+    writing-mode: horizontal-tb !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    font-size: 0.62rem !important;
+    letter-spacing: 0.04em !important;
+    line-height: 1.05 !important;
+    white-space: nowrap !important;
   }
 
-  .canister-subbrand {
-    font-size: 0.45rem;
+  .canister-iso-spine {
+    writing-mode: horizontal-tb !important;
+    transform: none !important;
+    font-size: 0.48rem !important;
+    letter-spacing: 0.04em !important;
+    line-height: 1 !important;
+  }
+
+  .canister-technical-panel {
+    transform: none !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    height: auto;
+    flex: 1;
+    min-width: 0;
+    padding: 0;
   }
 
   .canister-speed-badge {
     margin: 0;
     padding: 2px 4px;
-    gap: 4px;
+    gap: 3px;
+    flex-shrink: 0;
   }
 
   .speed-iso {
-    font-size: 0.7rem;
+    font-size: 0.62rem;
   }
 
   .speed-type {
-    font-size: 0.48rem;
+    font-size: 0.42rem;
+    padding-left: 3px;
   }
 
   .cas-sensor-grid {
     margin: 0;
-    width: 50px;
-    height: 16px;
-    gap: 1.5px;
+    width: 36px;
+    height: 13px;
+    gap: 1px;
+    flex-shrink: 0;
   }
 
   .canister-specs {
-    display: none; /* Hide dense 3-line text on small horizontal label to keep it ultra crisp */
+    display: none !important; /* Hide dense 3-line text on small horizontal label to keep it ultra crisp */
   }
 
   .canister-emulsion-stamp {
-    font-size: 0.44rem;
+    font-size: 0.38rem;
     margin: 0;
+    white-space: nowrap !important;
+    flex-shrink: 0;
   }
 }
 
@@ -1606,15 +1754,27 @@ body.film-aesthetic {
   }
 
   .canister-label {
-    padding: 6px 4px;
+    padding: 0;
   }
 
-  .canister-brand {
-    font-size: 0.8rem;
+  .canister-cylinder-wrap {
+    padding: 8px 4px;
+    transform: perspective(500px) rotateY(-5deg);
   }
 
-  .canister-subbrand {
-    font-size: 0.42rem;
+  .canister-brand-spine {
+    width: 26px;
+    margin-right: 4px;
+    padding-right: 4px;
+  }
+
+  .canister-brand-vertical {
+    font-size: clamp(0.72rem, 1.2vw, 0.88rem);
+    letter-spacing: 0.16em;
+  }
+
+  .canister-iso-spine {
+    font-size: 0.65rem;
   }
 
   .canister-speed-badge {
@@ -1623,11 +1783,11 @@ body.film-aesthetic {
   }
 
   .speed-iso {
-    font-size: 0.65rem;
+    font-size: 0.62rem;
   }
 
   .speed-type {
-    font-size: 0.44rem;
+    font-size: 0.42rem;
   }
 
   .cas-sensor-grid {
@@ -1637,11 +1797,13 @@ body.film-aesthetic {
   }
 
   .canister-specs {
-    font-size: 0.42rem;
+    font-size: 0.38rem;
+    gap: 1px;
   }
 
   .canister-emulsion-stamp {
-    font-size: 0.38rem;
+    font-size: 0.34rem;
+    margin-top: 1px;
   }
 
   .canister-snout {

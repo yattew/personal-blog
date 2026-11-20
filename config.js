@@ -79,7 +79,7 @@ export const siteConfig = {
           ]
       },
       "tokyo_neon_noir_amber": {
-          "name": "Tokyo Neon Noir (Amber)",
+          "name": "Golden Gai Nights",
           "poetry": "Amber whispers through neon-lit Tokyo, its shadows deep and cool, like a whispered secret.",
           "colors": {
               "bg": "#06080b",
@@ -102,7 +102,7 @@ export const siteConfig = {
           ]
       },
       "tokyo_neon_noir_slate": {
-          "name": "Tokyo Neon Noir (Slate)",
+          "name": "Omoide Yokocho",
           "poetry": "In Tokyo\u2019s neon noir, the streets whisper secrets in hues of slate and twilight.",
           "colors": {
               "bg": "#06070a",
@@ -148,7 +148,7 @@ export const siteConfig = {
           ]
       },
       "tokyo_rain_melancholy": {
-          "name": "Tokyo Rain & Melancholy",
+          "name": "Tokyo Rain",
           "poetry": "In Tokyo's melancholic heart, where rain dances over cobblestones, the city whispers its secrets under a night sky of soft pinks and purples, capturing the",
           "colors": {
               "bg": "#06070a",
@@ -194,7 +194,7 @@ export const siteConfig = {
           ]
       },
       "midnight_ramen_izakaya": {
-          "name": "Midnight Ramen & Izakaya",
+          "name": "Midnight Ramen",
           "poetry": "In the quietude of midnight, a ramen bowl whispers ancient tales in the shadows of an izakaya, its warm hues reflecting on the flickering candles and the soft",
           "colors": {
               "bg": "#06070a",
@@ -217,7 +217,7 @@ export const siteConfig = {
           ]
       },
       "shinkansen_countryside_indigo": {
-          "name": "Shinkansen Countryside (Indigo)",
+          "name": "Shinkansen Twilight",
           "poetry": "The Shinkansen countryside, painted in indigo hues and deep shadows of twilight, offers a hauntingly tranquil symphony for the eye.",
           "colors": {
               "bg": "#06070a",
@@ -240,7 +240,7 @@ export const siteConfig = {
           ]
       },
       "sens_ji_historic_crimson": {
-          "name": "Sens\u014d-ji Historic Crimson",
+          "name": "Sens\u014d-ji Crimson",
           "poetry": "In crimson hues and ancient stone, beneath silent skies and moonlit paths, the sacred temple whispers tales of time in its historic crimson.",
           "colors": {
               "bg": "#c5c8c7",
@@ -263,7 +263,7 @@ export const siteConfig = {
           ]
       },
       "kyoto_moss_bamboo": {
-          "name": "Kyoto Moss & Bamboo",
+          "name": "Kyoto Bamboo",
           "poetry": "In Kyoto, moss whispers secrets under towering bamboo archways, where the soft green leaves intertwine with golden hues of autumn, creating a canvas painted by the seasons.",
           "colors": {
               "bg": "#141714",
@@ -286,7 +286,7 @@ export const siteConfig = {
           ]
       },
       "sunlit_urban_afternoon_sand_slate": {
-          "name": "Sunlit Urban Afternoon (Sand & Slate)",
+          "name": "Ginza Afternoon",
           "poetry": "In hues of twilight and warmth, the city's streets reflect a serene ballet of sand and slate, where every step echoes with the rhythm of sunlit.",
           "colors": {
               "bg": "#c7c1bb",

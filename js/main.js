@@ -1,4 +1,4 @@
-import { siteConfig } from "../config.js";
+import { siteConfig } from "../config.js?v=43";
 
 const FILM_STOCKS = {
   tokyo_neon_noir: "DYNA-STILL 400",
@@ -22,9 +22,6 @@ const FILM_STOCKS = {
  */
 const CANISTER_THEMES = {
   default: {
-    speedType: "DAYLIGHT",
-    spec1: "35mm COLOR NEGATIVE",
-    spec2: "ISO 400/27° • 13 EXP",
     gradient: "linear-gradient(135deg, #1f1914 0%, #3b2e23 18%, #694f38 34%, #9e6c43 50%, #523b28 68%, #261c14 85%, #140e0a 100%)",
     accent: "#b85420",
     badgeBg: "#1e1712",
@@ -34,9 +31,6 @@ const CANISTER_THEMES = {
     glow: "rgba(184, 84, 32, 0.35)"
   },
   tokyo_neon_noir: {
-    speedType: "TUNGSTEN // NEON",
-    spec1: "35mm CHROMA EMULSION",
-    spec2: "ISO 400/27° • 13 EXP",
     gradient: "linear-gradient(135deg, #090c17 0%, #131e42 18%, #1f3b96 36%, #8b2c5c 52%, #1b1c36 70%, #0a0a14 88%, #05060a 100%)",
     accent: "#38bdf8",
     badgeBg: "#0c1024",
@@ -46,9 +40,6 @@ const CANISTER_THEMES = {
     glow: "rgba(56, 189, 248, 0.38)"
   },
   akihabara_electric_pop: {
-    speedType: "VIVID // ELECTRIC",
-    spec1: "35mm HIGH SATURATION",
-    spec2: "ISO 400/27° • 13 EXP",
     gradient: "linear-gradient(135deg, #1c0e06 0%, #4a220b 18%, #914414 36%, #d97724 50%, #73310a 68%, #2e1203 86%, #140801 100%)",
     accent: "#f97316",
     badgeBg: "#1a0c04",
@@ -58,9 +49,6 @@ const CANISTER_THEMES = {
     glow: "rgba(249, 115, 22, 0.4)"
   },
   tokyo_neon_noir_amber: {
-    speedType: "AMBER // WARM TONE",
-    spec1: "35mm COLOR NEGATIVE",
-    spec2: "ISO 400/27° • 13 EXP",
     gradient: "linear-gradient(135deg, #170f07 0%, #3d2411 18%, #78451e 36%, #c68c57 52%, #573012 70%, #241407 88%, #0f0803 100%)",
     accent: "#c68c57",
     badgeBg: "#1f1308",
@@ -70,9 +58,6 @@ const CANISTER_THEMES = {
     glow: "rgba(198, 140, 87, 0.35)"
   },
   tokyo_neon_noir_slate: {
-    speedType: "SLATE // HI-CONTRAST",
-    spec1: "35mm MONOCHROME / SLATE",
-    spec2: "ISO 400/27° • 13 EXP",
     gradient: "linear-gradient(135deg, #090c12 0%, #151e2d 18%, #28446b 36%, #4f78a8 50%, #213145 68%, #0f1520 86%, #06080d 100%)",
     accent: "#60a5fa",
     badgeBg: "#0b111a",
@@ -82,9 +67,6 @@ const CANISTER_THEMES = {
     glow: "rgba(96, 165, 250, 0.35)"
   },
   shinkansen_countryside: {
-    speedType: "HIGH SPEED // TRANSIT",
-    spec1: "35mm ULTRA FINE GRAIN",
-    spec2: "ISO 400/27° • 13 EXP",
     gradient: "linear-gradient(135deg, #081021 0%, #11254a 18%, #1a4282 36%, #cd8931 52%, #1b3561 70%, #0d1729 88%, #050a12 100%)",
     accent: "#38bdf8",
     badgeBg: "#091629",
@@ -94,9 +76,6 @@ const CANISTER_THEMES = {
     glow: "rgba(205, 137, 49, 0.35)"
   },
   tokyo_rain_melancholy: {
-    speedType: "MIST // COOL TONE",
-    spec1: "35mm ATMOSPHERIC CHROMA",
-    spec2: "ISO 400/27° • 13 EXP",
     gradient: "linear-gradient(135deg, #140912 0%, #2e1428 18%, #57254b 36%, #a33e38 52%, #38152c 70%, #1a0814 88%, #0c0409 100%)",
     accent: "#f472b6",
     badgeBg: "#1c0d19",
@@ -106,9 +85,6 @@ const CANISTER_THEMES = {
     glow: "rgba(244, 114, 182, 0.35)"
   },
   sunlit_urban_afternoon: {
-    speedType: "FINE GRAIN // SUNLIT",
-    spec1: "35mm GOLDEN EMULSION",
-    spec2: "ISO 400/27° • 13 EXP",
     gradient: "linear-gradient(135deg, #1a1006 0%, #3d230d 18%, #784318 36%, #bf7c37 52%, #522d0d 70%, #241305 88%, #0f0702 100%)",
     accent: "#f59e0b",
     badgeBg: "#1c1106",
@@ -118,9 +94,6 @@ const CANISTER_THEMES = {
     glow: "rgba(245, 158, 11, 0.35)"
   },
   midnight_ramen_izakaya: {
-    speedType: "MIDNIGHT // VAPOR",
-    spec1: "35mm LOW-LIGHT EMULSION",
-    spec2: "ISO 400/27° • 13 EXP",
     gradient: "linear-gradient(135deg, #040c17 0%, #0a1f3d 18%, #133e75 36%, #b57c3e 52%, #132b4d 70%, #081324 88%, #03070d 100%)",
     accent: "#38bdf8",
     badgeBg: "#071526",
@@ -130,9 +103,6 @@ const CANISTER_THEMES = {
     glow: "rgba(56, 189, 248, 0.38)"
   },
   shinkansen_countryside_indigo: {
-    speedType: "TWILIGHT // INDIGO",
-    spec1: "35mm DEEP EMULSION",
-    spec2: "ISO 400/27° • 13 EXP",
     gradient: "linear-gradient(135deg, #030d17 0%, #07223b 18%, #0b4978 36%, #4d8fb8 50%, #0c3352 68%, #061929 86%, #020a12 100%)",
     accent: "#38bdf8",
     badgeBg: "#051829",
@@ -142,9 +112,6 @@ const CANISTER_THEMES = {
     glow: "rgba(56, 189, 248, 0.35)"
   },
   sens_ji_historic_crimson: {
-    speedType: "VERMILION // HISTORIC",
-    spec1: "35mm COLOR REVERSAL",
-    spec2: "ISO 400/27° • 13 EXP",
     gradient: "linear-gradient(135deg, #240504 0%, #520f0c 18%, #8f1f18 36%, #d4472c 50%, #61110c 68%, #2e0605 86%, #140202 100%)",
     accent: "#ef4444",
     badgeBg: "#240706",
@@ -154,9 +121,6 @@ const CANISTER_THEMES = {
     glow: "rgba(239, 68, 68, 0.4)"
   },
   kyoto_moss_bamboo: {
-    speedType: "BAMBOO // ZEN GARDEN",
-    spec1: "35mm NATURAL CHROMA",
-    spec2: "ISO 400/27° • 13 EXP",
     gradient: "linear-gradient(135deg, #091209 0%, #152917 18%, #264a2b 36%, #52804f 50%, #203d23 68%, #102111 86%, #060c06 100%)",
     accent: "#4ade80",
     badgeBg: "#0c1c0e",
@@ -166,9 +130,6 @@ const CANISTER_THEMES = {
     glow: "rgba(74, 222, 128, 0.35)"
   },
   sunlit_urban_afternoon_sand_slate: {
-    speedType: "ARCHIVAL // DUOTONE",
-    spec1: "35mm ARCHIVAL FINE GRAIN",
-    spec2: "ISO 400/27° • 13 EXP",
     gradient: "linear-gradient(135deg, #111317 0%, #242933 18%, #414a5c 36%, #8696ab 50%, #303745 68%, #1a1e26 86%, #0b0d10 100%)",
     accent: "#94a3b8",
     badgeBg: "#161a22",
@@ -411,10 +372,6 @@ function renderContinuousFilmRibbon() {
             </div>
             <h1 class="theme-title">${theme.name}</h1>
           </header>
-
-          <blockquote class="theme-poetry">
-            "${theme.poetry || "Atmospheric tones captured across the journey."}"
-          </blockquote>
 
           <div class="emulsion-swatch-row">
             <div class="swatch-meta">
@@ -856,25 +813,6 @@ function updateCanisterTheme(themeKey, isInitial = false) {
       canisterUnit.style.setProperty("--canister-stamp-color", meta.stampColor);
       canisterUnit.style.setProperty("--canister-glow", meta.glow);
     }
-
-    // 3. Update badges, stamps and specs
-    const speedIso = document.getElementById("canister-speed-iso");
-    if (speedIso) speedIso.textContent = "400";
-
-    const speedType = document.getElementById("canister-speed-type");
-    if (speedType) speedType.textContent = meta.speedType;
-
-    const spec1 = document.getElementById("canister-spec-1");
-    if (spec1) spec1.textContent = meta.spec1;
-
-    const spec2 = document.getElementById("canister-spec-2");
-    if (spec2) spec2.textContent = meta.spec2;
-
-    const spec3 = document.getElementById("canister-spec-3");
-    if (spec3) spec3.textContent = `PROCESS DS-41 // ${theme.name.toUpperCase()}`;
-
-    const stamp = document.getElementById("canister-emulsion-stamp");
-    if (stamp) stamp.textContent = `EMUL DS400-${framePadded} // ${theme.name.toUpperCase()}`;
   };
 
   if (isInitial) {

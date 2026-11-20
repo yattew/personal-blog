@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@700;800&family=Orbitron:wght@700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Grotesk:wght@600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=41" />
+  <link rel="stylesheet" href="css/style.css?v=45" />
 </head>
 <body class="film-aesthetic">
   <!-- Dual-Layer Ambient Backdrop for Ultra-Smooth Organic Color Crossfading -->
@@ -50,49 +50,61 @@
             <div class="cap-rim-highlight"></div>
           </div>
           
-          <!-- Anodized Lithographed Livery (Dyna-Still 400 Dynamic Theming) -->
+          <!-- Anodized Lithographed Livery (Dyna-Still 400 3D Cylindrical Livery) -->
           <div class="canister-label" id="canister-label">
+            <!-- Dual-Layer Anodized Crossfade Backgrounds -->
             <div class="canister-bg-layer layer-a active" id="canister-bg-a"></div>
             <div class="canister-bg-layer layer-b" id="canister-bg-b"></div>
-            <div class="label-sheen-overlay"></div>
-            
-            <!-- Metallic Foil Brand Title -->
-            <div class="canister-brand-row">
-              <span class="canister-brand">DYNA-STILL</span>
-              <span class="canister-subbrand" id="canister-subbrand">400</span>
-            </div>
 
-            <!-- Dyna-Still 400 Dynamic Thematic Badge -->
-            <div class="canister-speed-badge" id="canister-speed-badge">
-              <span class="speed-iso" id="canister-speed-iso">400</span>
-              <span class="speed-type" id="canister-speed-type">DAYLIGHT</span>
-            </div>
+            <!-- Photorealistic 3D Cylinder Curvature Shading (Overlays across all text) -->
+            <div class="cylinder-curvature-shading" aria-hidden="true"></div>
+            <div class="cylinder-curve-shadow" aria-hidden="true"></div>
 
-            <!-- CAS Auto-ISO Conductive Sensor Grid (12-pad DX matrix) -->
-            <div class="cas-sensor-grid" title="DX Auto-Sensing Contact Matrix">
-              <div class="cas-pad silver"></div>
-              <div class="cas-pad black"></div>
-              <div class="cas-pad silver"></div>
-              <div class="cas-pad silver"></div>
-              <div class="cas-pad black"></div>
-              <div class="cas-pad silver"></div>
-              <div class="cas-pad silver"></div>
-              <div class="cas-pad silver"></div>
-              <div class="cas-pad black"></div>
-              <div class="cas-pad silver"></div>
-              <div class="cas-pad silver"></div>
-              <div class="cas-pad black"></div>
-            </div>
+            <!-- 3D Cylindrical Content Layout: Vertical Brand Spine + Horizontal Technical Panel -->
+            <div class="canister-cylinder-wrap">
+              <!-- Left Column: Iconic 3D Vertical Brand Spine -->
+              <div class="canister-brand-spine">
+                <div class="canister-brand-vertical">
+                  <span class="brand-dyna">DYNA-</span><span class="brand-still">STILL</span>
+                </div>
+                <div class="canister-iso-spine">400</div>
+              </div>
 
-            <!-- Technical Film Specs -->
-            <div class="canister-specs" id="canister-specs">
-              <span class="spec-line" id="canister-spec-1">35mm COLOR NEGATIVE</span>
-              <span class="spec-line" id="canister-spec-2">ISO 400/27° • 13 EXP</span>
-              <span class="spec-line" id="canister-spec-3">PROCESS C-41 // PARCHMENT & CEDAR</span>
-            </div>
+              <!-- Right Column: Horizontal Technical Panel & DX Contact Grid -->
+              <div class="canister-technical-panel">
+                <!-- DX CAS Auto-Sensing Conductive Matrix -->
+                <div class="cas-sensor-grid" title="DX Auto-Sensing Contact Matrix">
+                  <div class="cas-pad silver"></div>
+                  <div class="cas-pad black"></div>
+                  <div class="cas-pad silver"></div>
+                  <div class="cas-pad silver"></div>
+                  <div class="cas-pad black"></div>
+                  <div class="cas-pad silver"></div>
+                  <div class="cas-pad silver"></div>
+                  <div class="cas-pad silver"></div>
+                  <div class="cas-pad black"></div>
+                  <div class="cas-pad silver"></div>
+                  <div class="cas-pad silver"></div>
+                  <div class="cas-pad black"></div>
+                </div>
 
-            <!-- Dot-Matrix Factory Emulsion Code -->
-            <div class="canister-emulsion-stamp" id="canister-emulsion-stamp">EMUL DS400-01 // WARM BEIGE</div>
+                <!-- High-Contrast 35mm Speed Badge -->
+                <div class="canister-speed-badge" id="canister-speed-badge">
+                  <span class="speed-iso" id="canister-speed-iso">400</span>
+                  <span class="speed-type" id="canister-speed-type">DAYLIGHT</span>
+                </div>
+
+                <!-- Technical Film Specs (Static Lithography) -->
+                <div class="canister-specs" id="canister-specs">
+                  <span class="spec-line">35mm COLOR NEGATIVE</span>
+                  <span class="spec-line">ISO 400/27° • 13 EXP</span>
+                  <span class="spec-line">PROCESS C-41 / ECN-2</span>
+                </div>
+
+                <!-- Dot-Matrix Factory Emulsion Code -->
+                <div class="canister-emulsion-stamp" id="canister-emulsion-stamp">EMUL DS400-2409 • EXP 11/26</div>
+              </div>
+            </div>
           </div>
 
           <!-- Bottom Stamped Chrome Cap -->
@@ -174,6 +186,6 @@
   <!-- Native Mobile Floating Toast -->
   <div id="mobile-toast" class="mobile-toast" role="status" aria-live="polite"></div>
 
-  <script type="module" src="js/main.js?v=41"></script>
+  <script type="module" src="js/main.js?v=45"></script>
 </body>
 </html>
