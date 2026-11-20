@@ -344,31 +344,20 @@ function renderContinuousFilmRibbon() {
     slide.dataset.theme = key;
     slide.dataset.index = originalIdx;
 
-    const swatchesHtml = palette.map((hex, sIdx) => `
-      <div class="swatch-chip" 
-           style="background-color: ${hex};" 
-           data-hex="${hex}" 
-           title="Tone 0${sIdx + 1}: ${hex} (Click to copy)" 
-           role="button" 
-           aria-label="Copy color ${hex}">
-      </div>
-    `).join("");
-
     // Frame's own aperture background
     const p4 = palette[4] || theme.colors.accent;
     const p5 = palette[5] || theme.colors.accent;
     const photoUrl = theme.image || `images/exposures/frame-${framePadded}.jpg`;
 
     slide.innerHTML = `
-      <div class="slide-exposure-inner" style="background: radial-gradient(at 15% 25%, ${p4}40 0px, transparent 65%), radial-gradient(at 85% 75%, ${p5}38 0px, transparent 65%), linear-gradient(180deg, #0b0c10 0%, #101218 50%, #0b0c10 100%);">
+      <div class="slide-exposure-inner" style="background: radial-gradient(at 15% 25%, ${p4}30 0px, transparent 65%), radial-gradient(at 85% 75%, ${p5}30 0px, transparent 65%), linear-gradient(180deg, #0b0c10 0%, #101218 50%, #0b0c10 100%);">
         <div class="exposure-content-wrap">
-          <header class="exposure-header">
+          <header class="exposure-header compact">
             <div class="exposure-meta-row">
               <span class="film-stamp-badge">
                 <span class="stamp-icon">🎞️</span>
                 <span class="stamp-text">EXP ${framePadded} // 35MM</span>
               </span>
-              <span class="date-stamp">${dateStr}</span>
             </div>
             <h1 class="theme-title">${theme.name}</h1>
           </header>
@@ -378,18 +367,6 @@ function renderContinuousFilmRibbon() {
             <div class="photo-inspect-cue">
               <span class="cue-icon">🔍</span>
               <span class="cue-text">EXP ${framePadded}</span>
-            </div>
-          </div>
-
-          <p class="exposure-poetry">${theme.poetry || ""}</p>
-
-          <div class="emulsion-swatch-row">
-            <div class="swatch-meta">
-              <span class="swatch-label">Emulsion Palette (8 Tones)</span>
-              <span class="photo-count">${theme.matched_theme || theme.name}</span>
-            </div>
-            <div class="swatches-strip" role="list">
-              ${swatchesHtml}
             </div>
           </div>
         </div>
@@ -415,26 +392,15 @@ function renderContinuousFilmRibbon() {
       }
     });
 
-    // Click-to-copy color chip
-    slide.querySelectorAll(".swatch-chip").forEach((chip) => {
-      chip.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const hex = chip.dataset.hex;
-        triggerHaptic(12);
-        navigator.clipboard.writeText(hex);
-        showToast(`Copied ${hex}`);
-      });
-    });
-
     exposuresTrack.appendChild(slide);
 
-    // Top Sprocket Meta Code
+    // Top Sprocket Meta Code (Actual Date in margin instead of barcode bars!)
     const topMeta = document.createElement("div");
     topMeta.className = "frame-sprocket-meta";
     topMeta.dataset.index = originalIdx;
     topMeta.innerHTML = `
       <span class="edge-code">SAFETY FILM • ${stockName}</span>
-      <span class="dx-barcode">|| | | ||| | || |||</span>
+      <span class="edge-date">${dateStr}</span>
       <span class="frame-tag">▶ ${framePadded}A</span>
     `;
     topCodesTrack.appendChild(topMeta);
@@ -446,7 +412,6 @@ function renderContinuousFilmRibbon() {
     bottomMeta.innerHTML = `
       <span class="edge-code">DYNASTILL EMULSION • TOKYO</span>
       <span class="frame-tag-bottom">${framePadded}</span>
-      <span class="dx-barcode">| ||| || | | ||||</span>
     `;
     bottomCodesTrack.appendChild(bottomMeta);
   });
@@ -908,7 +873,6 @@ function openLightbox(key, theme, framePadded) {
   const badge = document.getElementById("lightbox-badge");
   const date = document.getElementById("lightbox-date");
   const title = document.getElementById("lightbox-title");
-  const poetry = document.getElementById("lightbox-poetry");
 
   const photoUrl = theme.image || `images/exposures/frame-${framePadded}.jpg`;
   if (photoImg) {
@@ -918,7 +882,6 @@ function openLightbox(key, theme, framePadded) {
   if (badge) badge.textContent = `EXP ${framePadded} // 35MM`;
   if (date) date.textContent = theme.date || "";
   if (title) title.textContent = theme.name || "";
-  if (poetry) poetry.textContent = theme.poetry || "";
 
   modal.classList.add("is-open");
   modal.setAttribute("aria-hidden", "false");
