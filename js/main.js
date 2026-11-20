@@ -438,20 +438,18 @@ function renderContinuousFilmRibbon() {
       <div class="leader-horizontal-view">
         <div class="leader-taper-zone">
           <svg class="leader-taper-svg" viewBox="0 0 460 380" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Solid celluloid body of the leader -->
-            <path d="M 0,0 L 30,0 C 65,0 95,130 130,130 L 444,130 A 16,16 0 0 1 460,146 L 460,380 L 0,380 Z" fill="#050608"/>
-            <!-- 1px acetate cut edge specular highlight (seamless match with top border) -->
-            <path d="M 0,0.5 L 30,0.5 C 65,0.5 95,130.5 130,130.5 L 444,130.5 A 15.5,15.5 0 0 1 459.5,146 L 459.5,380" fill="none" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1"/>
+            <!-- Solid celluloid body of the leader with organic, smooth taper curve -->
+            <path d="M 0,0 L 20,0 C 65,0 105,130 155,130 L 444,130 A 16,16 0 0 1 460,146 L 460,380 L 0,380 Z" fill="#050608"/>
             
             <!-- Orange Load Line and Label (Cleanly separated, zero collisions) -->
-            <line x1="155" y1="135" x2="155" y2="375" stroke="#f59e0b" stroke-dasharray="5,4" stroke-width="1.5" opacity="0.8"/>
-            <text x="145" y="240" fill="#f59e0b" opacity="0.9" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700" transform="rotate(-90, 145, 240)">LOAD TO LINE ▶</text>
+            <line x1="175" y1="135" x2="175" y2="375" stroke="#f59e0b" stroke-dasharray="5,4" stroke-width="1.5" opacity="0.8"/>
+            <text x="165" y="240" fill="#f59e0b" opacity="0.9" font-family="ui-monospace, monospace" font-size="8.5" font-weight="700" transform="rotate(-90, 165, 240)">LOAD TO LINE ▶</text>
 
             <!-- Technical factory stamps cleanly on the tongue to the right of the line -->
             <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-weight="800" letter-spacing="0.14em">
-              <text x="195" y="225" font-size="11">◀ LOAD FILM ──►</text>
-              <text x="195" y="255" font-size="9" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND THIS LINE</text>
-              <text x="195" y="290" font-size="10" fill="#f59e0b">35MM • DynaStill400X • EXP 13</text>
+              <text x="205" y="225" font-size="11">◀ LOAD FILM ──►</text>
+              <text x="205" y="255" font-size="9" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND THIS LINE</text>
+              <text x="205" y="290" font-size="10" fill="#f59e0b">35MM • DynaStill400X • EXP 13</text>
             </g>
           </svg>
         </div>
@@ -466,8 +464,6 @@ function renderContinuousFilmRibbon() {
           <svg class="leader-vertical-svg" viewBox="0 0 340 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <!-- Solid celluloid body of the vertical leader (starts at x=38 so left track is 100% transparent cutout!) -->
             <path d="M 38,222 L 340,222 L 340,195 C 340,165 188,160 188,135 L 188,14 A 14,14 0 0 0 174,0 L 38,0 Z" fill="#050608"/>
-            <!-- 1px acetate cut edge specular highlight (seamless match with Frame 01 right border and left track) -->
-            <path d="M 38,0.5 L 174,0.5 A 13.5,13.5 0 0 1 187.5,14 L 187.5,135 C 187.5,160 339.5,165 339.5,195 L 339.5,222" fill="none" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1"/>
             
             <!-- Technical factory stamps on vertical leader tongue (spaced down the narrow tongue) -->
             <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-weight="800" letter-spacing="0.1em">
