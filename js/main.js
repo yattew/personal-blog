@@ -340,25 +340,25 @@ function renderContinuousFilmRibbon() {
         </div>
       </div>
 
-      <!-- 3B. Mobile Portrait Leader View (Elongated authentic 35mm tongue unrolling upwards) -->
+      <!-- 3B. Mobile Portrait Leader View (Authentic 35mm tongue unrolling upwards) -->
       <div class="leader-vertical-view">
         <div class="leader-vertical-zone">
-          <svg class="leader-vertical-svg" viewBox="0 0 340 360" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="leader-vertical-svg" viewBox="0 0 340 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <!-- Solid celluloid body of the vertical leader (starts at x=38 so left track is 100% transparent cutout!) -->
-            <path d="M 38,362 L 340,362 L 340,325 C 340,285 190,280 190,235 L 190,14 A 14,14 0 0 0 176,0 L 38,0 Z" fill="#050608"/>
+            <path d="M 38,222 L 340,222 L 340,195 C 340,165 188,160 188,135 L 188,14 A 14,14 0 0 0 174,0 L 38,0 Z" fill="#050608"/>
             <!-- 1px acetate cut edge specular highlight (seamless match with Frame 01 right border and left track) -->
-            <path d="M 38,0.5 L 176,0.5 A 13.5,13.5 0 0 1 189.5,14 L 189.5,235 C 189.5,280 339.5,285 339.5,325 L 339.5,362" fill="none" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1"/>
+            <path d="M 38,0.5 L 174,0.5 A 13.5,13.5 0 0 1 187.5,14 L 187.5,135 C 187.5,160 339.5,165 339.5,195 L 339.5,222" fill="none" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1"/>
             
-            <!-- Technical factory stamps on vertical leader tongue (spaced down the 235-unit tongue) -->
+            <!-- Technical factory stamps on vertical leader tongue (spaced down the narrow tongue) -->
             <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-weight="800" letter-spacing="0.1em">
-              <text x="50" y="70" font-size="9">▲ LOAD FILM ▲</text>
-              <text x="50" y="95" font-size="7.5" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE</text>
-              <text x="50" y="110" font-size="7.5" fill="#c4bcb0" opacity="0.85">BEYOND LINE</text>
-              <text x="50" y="136" font-size="7.8" fill="#f59e0b">CINESTILL 800T</text>
-              <text x="50" y="152" font-size="7.2" fill="#f59e0b" opacity="0.9">35MM // 13 EXP</text>
+              <text x="50" y="38" font-size="8.8">▲ LOAD FILM ▲</text>
+              <text x="50" y="55" font-size="7.2" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE</text>
+              <text x="50" y="67" font-size="7.2" fill="#c4bcb0" opacity="0.85">BEYOND LINE</text>
+              <text x="50" y="85" font-size="7.5" fill="#f59e0b">CINESTILL 800T</text>
+              <text x="50" y="97" font-size="7" fill="#f59e0b" opacity="0.9">35MM // 13 EXP</text>
             </g>
-            <line x1="48" y1="180" x2="182" y2="180" stroke="#f59e0b" stroke-dasharray="4,4" stroke-width="1.2" opacity="0.75"/>
-            <text x="50" y="202" fill="#f59e0b" opacity="0.85" font-family="ui-monospace, monospace" font-size="8" font-weight="700">LOAD TO LINE ▶</text>
+            <line x1="48" y1="112" x2="182" y2="112" stroke="#f59e0b" stroke-dasharray="4,4" stroke-width="1.2" opacity="0.75"/>
+            <text x="50" y="125" fill="#f59e0b" opacity="0.85" font-family="ui-monospace, monospace" font-size="7.8" font-weight="700">LOAD TO LINE ▶</text>
           </svg>
         </div>
         <div class="continuous-sprocket-track top leader-vertical-left-track" aria-hidden="true">
@@ -476,8 +476,19 @@ function updateFilmPosition() {
     let targetY = 0;
 
     if (currentThemeIndex === 0) {
-      // FRAME 01: Entire vertical leader tongue is fully inside the frame at top!
-      targetY = 12;
+      // FRAME 01: Ensure Frame 01's entire aperture card (title, poetry, all 8 swatches)
+      // sits 100% visible in the stage safely above the bottom canister!
+      const frame01Height = activeSlide.offsetHeight;
+      const leaderHeight = leaderUnit ? leaderUnit.offsetHeight : 200;
+      const totalBlockHeight = frame01Height + leaderHeight;
+
+      // Position Frame 01's bottom edge safely above the canister:
+      const idealTargetY = (stageHeight - 14) - totalBlockHeight;
+      if (totalBlockHeight < stageHeight - 20) {
+        targetY = Math.max(10, Math.round((stageHeight - totalBlockHeight) / 2));
+      } else {
+        targetY = idealTargetY;
+      }
     } else {
       // ALL OTHER FRAMES: Active frame centered in visible stage above bottom canister!
       const slideTopInRibbon = getOffsetTopInContainer(activeSlide, ribbon);

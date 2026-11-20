@@ -1205,9 +1205,9 @@ body.film-aesthetic {
   /* Individual Exposure Slide */
   .film-frame-exposure {
     width: 100%;
-    height: clamp(340px, 46vh, 420px);
-    flex: 0 0 clamp(340px, 46vh, 420px);
-    padding: 10px 6px;
+    height: clamp(290px, 38vh, 345px);
+    flex: 0 0 clamp(290px, 38vh, 345px);
+    padding: 6px 6px;
     background: #050608;
     margin: 0;
     border: none;
@@ -1218,23 +1218,27 @@ body.film-aesthetic {
 
   .slide-exposure-inner {
     border-radius: 8px;
-    padding: clamp(0.75rem, 2vh, 1.25rem) clamp(0.75rem, 2vw, 1.1rem);
-    gap: 0.5rem;
+    padding: clamp(0.45rem, 1.5vh, 0.8rem) clamp(0.55rem, 1.8vw, 0.85rem);
+    gap: 0.25rem;
+  }
+
+  .exposure-content-wrap {
+    gap: clamp(0.2rem, 0.9vh, 0.45rem);
   }
 
   .theme-title {
-    font-size: clamp(1.35rem, 3.4vh, 1.85rem);
+    font-size: clamp(1.15rem, 2.8vh, 1.55rem);
     line-height: 1.15;
   }
 
   .theme-poetry {
-    font-size: clamp(0.82rem, 1.8vh, 0.95rem);
-    padding: 0.5rem 0.8rem;
-    line-height: 1.45;
+    font-size: clamp(0.72rem, 1.5vh, 0.85rem);
+    padding: 0.35rem 0.65rem;
+    line-height: 1.35;
   }
 
   .swatch-chip {
-    height: clamp(24px, 3.2vh, 32px);
+    height: clamp(18px, 2.5vh, 24px);
   }
 
   /* Spool Lead at Bottom of Frame 13 (Tucked into bottom canister mouth) */
@@ -1250,11 +1254,11 @@ body.film-aesthetic {
     align-items: center;
   }
 
-  /* Leader Unit at Top of Ribbon (Elongated authentic 35mm tongue pointing up) */
+  /* Leader Unit at Top of Ribbon (Authentic 35mm tongue pointing up) */
   .film-leader-unit {
     width: 100% !important;
-    height: clamp(340px, 44vh, 420px) !important;
-    flex: 0 0 clamp(340px, 44vh, 420px) !important;
+    height: clamp(180px, 23vh, 220px) !important;
+    flex: 0 0 clamp(180px, 23vh, 220px) !important;
     margin: 0 0 -2px 0 !important;
     background: transparent;
     position: relative;
