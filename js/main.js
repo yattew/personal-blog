@@ -14,17 +14,23 @@ function applyTheme(themeKey) {
   });
 }
 
+function renderThemeButtons() {
+  const container = document.querySelector(".theme-preview");
+  if (!container) return;
+
+  container.innerHTML = "";
+  for (const [themeKey, themeData] of Object.entries(siteConfig.themes)) {
+    const btn = document.createElement("button");
+    btn.className = "theme-btn" + (themeKey === "default" ? " active" : "");
+    btn.dataset.theme = themeKey;
+    btn.textContent = themeData.name;
+    btn.addEventListener("click", () => applyTheme(themeKey));
+    container.appendChild(btn);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  // Apply initial default theme
+  renderThemeButtons();
   applyTheme("default");
-
-  // Hook up preview palette switchers
-  const themeButtons = document.querySelectorAll(".theme-btn");
-  themeButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      applyTheme(btn.dataset.theme);
-    });
-  });
-
   console.log(`${siteConfig.title} initialized (v${siteConfig.version})`);
 });
