@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from firefox_client import FirefoxMCPClient
 
 BRAIN_DIR = "/Users/yattew/.gemini/antigravity-cli/brain/1253fd37-a817-4fb4-a7b8-2571480cbfb3"
-BASE_URL = "http://localhost:8000/?v=51"
+BASE_URL = "http://localhost:8000/?v=59"
 
 def run_firefox_tests():
     print("=== Launching Firefox MCP Client ===")

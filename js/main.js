@@ -1,4 +1,4 @@
-import { siteConfig } from "../config.js?v=43";
+import { siteConfig } from "../config.js?v=59";
 
 const FILM_STOCKS = {
   tokyo_neon_noir: "DynaStill400X",
@@ -735,7 +735,7 @@ function applyTheme(themeKey, isInitial = false) {
   if (totalFramesEl) totalFramesEl.textContent = totalFrames;
 
   const stockTagEl = document.getElementById("current-stock-tag");
-  if (stockTagEl) stockTagEl.textContent = `${stockName} // ${theme.name}`;
+  if (stockTagEl) stockTagEl.textContent = theme.name.toUpperCase();
 
   // 6. Dynamically theme the 35mm metal canister with liquid crossfade & physical unwind delay
   updateCanisterTheme(themeKey, isInitial);
@@ -778,6 +778,7 @@ function makeLuminousColor(hex, targetL = 74, minS = 88) {
  * Guarantees vivid, high-contrast, razor-sharp typography against dark anodized metallic surfaces
  */
 function getCanisterThemeMeta(themeKey, theme) {
+  if (theme && theme.canister) return theme.canister;
   if (!theme) return CANISTER_THEMES.default;
   if (CANISTER_THEMES[themeKey]) return CANISTER_THEMES[themeKey];
 
