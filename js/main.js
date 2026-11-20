@@ -290,7 +290,7 @@ function renderContinuousFilmRibbon() {
   exposuresTrack.innerHTML = "";
   topCodesTrack.innerHTML = "";
   bottomCodesTrack.innerHTML = "";
-  themeKeys = Object.keys(siteConfig.themes);
+  themeKeys = Object.keys(siteConfig.themes).filter(k => k !== "default");
 
   // 1. Canister Click Navigation (Fixed on Far Left)
   if (canisterUnit) {
@@ -326,8 +326,8 @@ function renderContinuousFilmRibbon() {
     const frameNumber = originalIdx + 1;
     const framePadded = String(frameNumber).padStart(2, "0");
     const stockName = FILM_STOCKS[key] || "DynaStill400X";
-    const dateStr = DATE_STAMPS[originalIdx % DATE_STAMPS.length];
-    const coordsStr = THEME_COORDINATES[key] || "35°41'22\"N • 139°41'30\"E";
+    const dateStr = theme.date || DATE_STAMPS[originalIdx % DATE_STAMPS.length];
+    const coordsStr = theme.coords || THEME_COORDINATES[key] || "35°41'22\"N • 139°41'30\"E";
 
     const palette = theme.palette || [
       theme.colors.bg,
@@ -357,6 +357,7 @@ function renderContinuousFilmRibbon() {
     // Frame's own aperture background
     const p4 = palette[4] || theme.colors.accent;
     const p5 = palette[5] || theme.colors.accent;
+    const photoUrl = theme.image || `images/exposures/frame-${framePadded}.jpg`;
 
     slide.innerHTML = `
       <div class="slide-exposure-inner" style="background: radial-gradient(at 15% 25%, ${p4}40 0px, transparent 65%), radial-gradient(at 85% 75%, ${p5}38 0px, transparent 65%), linear-gradient(180deg, #0b0c10 0%, #101218 50%, #0b0c10 100%);">
@@ -373,10 +374,14 @@ function renderContinuousFilmRibbon() {
             <h1 class="theme-title">${theme.name}</h1>
           </header>
 
+          <div class="exposure-photo-frame">
+            <img class="exposure-photo" src="${photoUrl}" alt="${theme.name}" loading="lazy" />
+          </div>
+
           <div class="emulsion-swatch-row">
             <div class="swatch-meta">
               <span class="swatch-label">Emulsion Palette (8 Tones)</span>
-              <span class="photo-count">${theme.name} Emulsion</span>
+              <span class="photo-count">${theme.matched_theme || theme.name}</span>
             </div>
             <div class="swatches-strip" role="list">
               ${swatchesHtml}
@@ -449,7 +454,7 @@ function renderContinuousFilmRibbon() {
             <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-weight="800" letter-spacing="0.14em">
               <text x="205" y="225" font-size="11">◀ LOAD FILM ──►</text>
               <text x="205" y="255" font-size="9" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND THIS LINE</text>
-              <text x="205" y="290" font-size="10" fill="#f59e0b">35MM • DynaStill400X • EXP 13</text>
+              <text x="205" y="290" font-size="10" fill="#f59e0b">35MM • DynaStill400X • EXP 36</text>
             </g>
           </svg>
         </div>
@@ -471,7 +476,7 @@ function renderContinuousFilmRibbon() {
               <text x="50" y="55" font-size="7.2" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE</text>
               <text x="50" y="67" font-size="7.2" fill="#c4bcb0" opacity="0.85">BEYOND LINE</text>
               <text x="50" y="85" font-size="7.5" fill="#f59e0b">DynaStill400X</text>
-              <text x="50" y="97" font-size="7" fill="#f59e0b" opacity="0.9">35MM // 13 EXP</text>
+              <text x="50" y="97" font-size="7" fill="#f59e0b" opacity="0.9">35MM // 36 EXP</text>
             </g>
             <line x1="48" y1="112" x2="182" y2="112" stroke="#f59e0b" stroke-dasharray="4,4" stroke-width="1.2" opacity="0.75"/>
             <text x="50" y="125" fill="#f59e0b" opacity="0.85" font-family="ui-monospace, monospace" font-size="7.8" font-weight="700">LOAD TO LINE ▶</text>
@@ -779,8 +784,8 @@ function updateCanisterTheme(themeKey, isInitial = false) {
   }
 
   const applyCanisterUpdates = () => {
-    const meta = CANISTER_THEMES[themeKey] || CANISTER_THEMES.default;
     const theme = siteConfig.themes[themeKey] || siteConfig.themes.default;
+    const meta = CANISTER_THEMES[themeKey] || (theme && theme.matched_theme && CANISTER_THEMES[theme.matched_theme]) || CANISTER_THEMES.default;
     const originalIdx = themeKeys.indexOf(themeKey);
     const framePadded = String((originalIdx >= 0 ? originalIdx : 0) + 1).padStart(2, "0");
 
@@ -813,7 +818,8 @@ function updateCanisterTheme(themeKey, isInitial = false) {
 
   if (isInitial) {
     const layerA = document.getElementById("canister-bg-a");
-    const meta = CANISTER_THEMES[themeKey] || CANISTER_THEMES.default;
+    const theme = siteConfig.themes[themeKey] || siteConfig.themes.default;
+    const meta = CANISTER_THEMES[themeKey] || (theme && theme.matched_theme && CANISTER_THEMES[theme.matched_theme]) || CANISTER_THEMES.default;
     if (layerA) {
       layerA.style.background = meta.gradient;
       layerA.classList.add("active");

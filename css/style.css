@@ -468,6 +468,38 @@ body.film-aesthetic {
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
 }
 
+/* Authentic 35mm Photographic Print Aperture Window */
+.exposure-photo-frame {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  flex: 1;
+  min-height: 0;
+  max-height: clamp(190px, 38vh, 340px);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.75), inset 0 0 1px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exposure-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.3, 1), filter 0.5s ease;
+  filter: contrast(1.02) saturate(1.04);
+}
+
+.film-frame-exposure:hover .exposure-photo {
+  transform: scale(1.025);
+}
+
 /* 8-Color Emulsion Swatches */
 .emulsion-swatch-row {
   width: 100%;
@@ -1429,6 +1461,11 @@ body.film-aesthetic {
     gap: clamp(0.2rem, 0.9vh, 0.45rem);
   }
 
+  .exposure-photo-frame {
+    max-height: clamp(120px, 18vh, 155px) !important;
+    width: 100% !important;
+  }
+
   .theme-title {
     font-size: clamp(1.15rem, 2.8vh, 1.55rem);
     line-height: 1.15;
@@ -2006,6 +2043,11 @@ body.film-aesthetic {
     font-size: clamp(0.7rem, 2.3vh, 0.82rem);
     padding: 0.25rem 0.6rem;
     line-height: 1.35;
+  }
+
+  .exposure-photo-frame {
+    max-height: clamp(110px, 30vh, 150px) !important;
+    width: 100% !important;
   }
 
   .emulsion-swatch-row {
