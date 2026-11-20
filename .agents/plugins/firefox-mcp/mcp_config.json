@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "firefox-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@mozilla/firefox-mcp@latest",
+        "--firefoxPath",
+        "/Applications/Firefox.app/Contents/MacOS/firefox",
+        "--unrestrictedSavePaths"
+      ]
+    }
+  }
+}

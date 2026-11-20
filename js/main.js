@@ -325,7 +325,7 @@ function renderContinuousFilmRibbon() {
     const theme = siteConfig.themes[key];
     const frameNumber = originalIdx + 1;
     const framePadded = String(frameNumber).padStart(2, "0");
-    const stockName = FILM_STOCKS[key] || "KODAK PORTRA 400";
+    const stockName = FILM_STOCKS[key] || "DynaStill400X";
     const dateStr = DATE_STAMPS[originalIdx % DATE_STAMPS.length];
     const coordsStr = THEME_COORDINATES[key] || "35°41'22\"N • 139°41'30\"E";
 
@@ -423,7 +423,7 @@ function renderContinuousFilmRibbon() {
     bottomMeta.className = "frame-sprocket-meta";
     bottomMeta.dataset.index = originalIdx;
     bottomMeta.innerHTML = `
-      <span class="edge-code">PORTRA EMULSION • TOKYO</span>
+      <span class="edge-code">DYNASTILL EMULSION • TOKYO</span>
       <span class="frame-tag-bottom">${framePadded}</span>
       <span class="dx-barcode">| ||| || | | ||||</span>
     `;
@@ -730,7 +730,7 @@ function applyTheme(themeKey, isInitial = false) {
   const frameNumber = currentThemeIndex + 1;
   const framePadded = String(frameNumber).padStart(2, "0");
   const totalFrames = String(themeKeys.length).padStart(2, "0");
-  const stockName = FILM_STOCKS[themeKey] || "KODAK PORTRA 400";
+  const stockName = FILM_STOCKS[themeKey] || "DynaStill400X";
 
   // 1. Physically roll the unbroken ribbon so active frame is centered with 20% peaking left & right
   updateFilmPosition();
