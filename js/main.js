@@ -53,6 +53,10 @@ let themeKeys = [];
 let toastTimeout = null;
 let activeAmbientLayer = "a"; // 'a' or 'b'
 
+export function isPortraitMode() {
+  return window.innerWidth <= 768 || window.innerHeight > window.innerWidth;
+}
+
 /**
  * Generates an organic ambient gradient mesh from an 8-color theme palette
  * NO horizontal black bands. Continuous ambient glow across entire viewport.
@@ -306,28 +310,46 @@ function renderContinuousFilmRibbon() {
     bottomCodesTrack.appendChild(bottomMeta);
   });
 
-  // 3. Render Classic 35mm Tapered Film Leader Tongue on the FAR RIGHT (after Frame 01)
-  // Uses identical bottom sprocket track CSS so hole size & alignment are 100% pixel-perfect!
+  // 3. Render Classic 35mm Tapered Film Leader Tongue
+  // Supports both Landscape (horizontal tongue on far right) and Mobile Portrait (vertical tongue on top)
   if (leaderUnit) {
     leaderUnit.innerHTML = `
-      <div class="leader-taper-zone">
-        <svg class="leader-taper-svg" viewBox="0 0 320 380" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Tapered tongue cut: Starts at full height (0,0 to 0,380) on the left, S-curves down from y=0 to y=150 at x=140, runs to x=306 at y=150 with rounded tip (rx=14) down to y=380 -->
-          <path d="M 0,0 C 60,0 95,150 150,150 L 306,150 A 14,14 0 0 1 320,164 L 320,366 A 14,14 0 0 1 306,380 L 0,380 Z" fill="#050608"/>
-          <!-- Stamped Markings -->
-          <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" font-weight="800" letter-spacing="0.14em">
-            <text x="50" y="240">◀ LOAD FILM ──►</text>
-            <text x="50" y="270" font-size="8" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND THIS LINE</text>
-            <text x="50" y="305" font-size="9" fill="#f59e0b">35MM • CINESTILL 800T • EXP 13</text>
-          </g>
-          <!-- Loading Mark -->
-          <line x1="80" y1="100" x2="80" y2="350" stroke="#f59e0b" stroke-dasharray="5,4" stroke-width="1.5" opacity="0.75"/>
-          <text x="70" y="225" fill="#f59e0b" opacity="0.85" font-family="ui-monospace, monospace" font-size="8" font-weight="700" transform="rotate(-90, 70, 225)">LOAD TO LINE ▶</text>
-        </svg>
+      <!-- 3A. Landscape Leader View (Tongue curves rightwards) -->
+      <div class="leader-horizontal-view">
+        <div class="leader-taper-zone">
+          <svg class="leader-taper-svg" viewBox="0 0 320 380" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0,0 C 60,0 95,150 150,150 L 306,150 A 14,14 0 0 1 320,164 L 320,366 A 14,14 0 0 1 306,380 L 0,380 Z" fill="#050608"/>
+            <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" font-weight="800" letter-spacing="0.14em">
+              <text x="50" y="240">◀ LOAD FILM ──►</text>
+              <text x="50" y="270" font-size="8" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND THIS LINE</text>
+              <text x="50" y="305" font-size="9" fill="#f59e0b">35MM • CINESTILL 800T • EXP 13</text>
+            </g>
+            <line x1="80" y1="100" x2="80" y2="350" stroke="#f59e0b" stroke-dasharray="5,4" stroke-width="1.5" opacity="0.75"/>
+            <text x="70" y="225" fill="#f59e0b" opacity="0.85" font-family="ui-monospace, monospace" font-size="8" font-weight="700" transform="rotate(-90, 70, 225)">LOAD TO LINE ▶</text>
+          </svg>
+        </div>
+        <div class="continuous-sprocket-track bottom leader-bottom-track" aria-hidden="true">
+          <div class="sprocket-perforations-continuous bottom"></div>
+        </div>
       </div>
-      <!-- Bottom Track with 100% IDENTICAL CSS class & SVG pattern to main film strip! -->
-      <div class="continuous-sprocket-track bottom leader-bottom-track" aria-hidden="true">
-        <div class="sprocket-perforations-continuous bottom"></div>
+
+      <!-- 3B. Mobile Portrait Leader View (Tongue curves upwards away from bottom canister) -->
+      <div class="leader-vertical-view">
+        <div class="leader-vertical-zone">
+          <svg class="leader-vertical-svg" viewBox="0 0 340 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0,180 L 340,180 L 340,140 C 340,95 240,40 170,40 L 170,12 A 12,12 0 0 0 158,0 L 12,0 A 12,12 0 0 0 0,12 Z" fill="#050608"/>
+            <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" font-weight="800" letter-spacing="0.14em">
+              <text x="42" y="55">▲ LOAD FILM ▲</text>
+              <text x="42" y="75" font-size="7.5" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND LINE</text>
+              <text x="42" y="98" font-size="8" fill="#f59e0b">35MM • CINESTILL 800T • EXP 13</text>
+            </g>
+            <line x1="42" y1="125" x2="310" y2="125" stroke="#f59e0b" stroke-dasharray="4,4" stroke-width="1.2" opacity="0.75"/>
+            <text x="42" y="140" fill="#f59e0b" opacity="0.85" font-family="ui-monospace, monospace" font-size="7.5" font-weight="700">LOAD TO LINE ▶</text>
+          </svg>
+        </div>
+        <div class="continuous-sprocket-track top leader-vertical-left-track" aria-hidden="true">
+          <div class="sprocket-perforations-continuous top"></div>
+        </div>
       </div>
     `;
     leaderUnit.onclick = () => {
@@ -342,14 +364,38 @@ function renderContinuousFilmRibbon() {
 }
 
 /**
+ * Helper to compute an element's offsetTop relative to a container without transform interference
+ */
+function getOffsetTopInContainer(el, container) {
+  let top = 0;
+  let curr = el;
+  while (curr && curr !== container) {
+    top += curr.offsetTop;
+    curr = curr.offsetParent;
+  }
+  return top;
+}
+
+/**
  * Positions top and bottom sprocket margin codes above each frame column
  */
 function positionSprocketCodes() {
+  const isPortrait = isPortraitMode();
   const slides = document.querySelectorAll(".film-frame-exposure");
   const mainStrip = document.getElementById("film-main-strip");
   const ribbon = document.getElementById("film-roll-ribbon");
   const leaderUnit = document.getElementById("film-leader-unit");
 
+  if (isPortrait) {
+    if (mainStrip) mainStrip.style.width = "";
+    if (ribbon) {
+      ribbon.style.width = "";
+      ribbon.style.left = "50%";
+    }
+    return;
+  }
+
+  // Landscape horizontal layout calculation
   slides.forEach((slide) => {
     const origIdx = parseInt(slide.dataset.index, 10);
     const left = slide.offsetLeft;
@@ -376,16 +422,25 @@ function positionSprocketCodes() {
     if (mainStrip) mainStrip.style.width = `${totalStripWidth}px`;
     
     const leaderWidth = leaderUnit ? leaderUnit.offsetWidth : 0;
-    if (ribbon) ribbon.style.width = `${totalStripWidth + leaderWidth}px`;
+    if (ribbon) {
+      ribbon.style.width = `${totalStripWidth + leaderWidth}px`;
+      ribbon.style.left = "0";
+    }
   }
 }
 
 /**
  * Calculates position so the active frame is displayed with authentic mechanical camera physics:
- * - FRAME 01: ENTIRE leading edge tongue is 100% in-frame on the right! Always lands reliably.
- * - FRAME 13 (LAST FRAME): Emerges cleanly from the canister mouth with no dead empty void!
- * - INTERMEDIATE FRAMES: Dead-centered in the stage between canister and right screen edge.
- * - NO WRAP-AROUND.
+ * - In LANDSCAPE:
+ *   - FRAME 01: ENTIRE leading edge tongue is 100% in-frame on the right.
+ *   - FRAME 13 (LAST FRAME): Spool lead connects cleanly into canister mouth.
+ *   - INTERMEDIATE FRAMES: Centered in stage between canister and right screen edge.
+ * - In PORTRAIT / VERTICAL DISPLAYS:
+ *   - CANISTER: Anchored across the bottom of the screen.
+ *   - FRAME 01: Leader tongue 100% in-frame pointing upwards at the top.
+ *   - FRAME 02+: Pulled upwards out of bottom canister, centered above canister.
+ *   - FRAME 13: Spool lead extends directly down into bottom canister snout.
+ * - STRICT NO WRAP-AROUND.
  */
 function updateFilmPosition() {
   const activeSlide = document.querySelector(`.film-frame-exposure[data-index="${currentThemeIndex}"]`);
@@ -396,26 +451,49 @@ function updateFilmPosition() {
   const leaderUnit = document.getElementById("film-leader-unit");
   if (!activeSlide || !slides.length || !ribbon || !gate) return;
 
-  const gateWidth = gate.offsetWidth || window.innerWidth;
-  const canisterWidth = canister ? canister.offsetWidth : 190;
-  const stageWidth = gateWidth - canisterWidth;
-  const stageCenter = canisterWidth + (stageWidth / 2);
+  const isPortrait = isPortraitMode();
 
-  let targetX = 0;
+  if (isPortrait) {
+    const gateHeight = gate.offsetHeight || window.innerHeight;
+    const canisterHeight = canister ? canister.offsetHeight : 110;
+    const stageHeight = gateHeight - canisterHeight;
+    const stageCenterY = stageHeight / 2;
 
-  if (currentThemeIndex === 0) {
-    // FRAME 01: Entire leading edge tongue must be fully inside the frame on the right!
-    const ribbonWidth = ribbon.offsetWidth;
-    targetX = gateWidth - 28 - ribbonWidth;
+    let targetY = 0;
+
+    if (currentThemeIndex === 0) {
+      // FRAME 01: Entire vertical leader tongue is fully inside the frame at top!
+      targetY = 16;
+    } else {
+      // ALL OTHER FRAMES: Active frame centered in visible stage above bottom canister!
+      const slideTopInRibbon = getOffsetTopInContainer(activeSlide, ribbon);
+      const slideCenter = slideTopInRibbon + (activeSlide.offsetHeight / 2);
+      targetY = stageCenterY - slideCenter;
+    }
+
+    ribbon.style.transform = `translate(-50%, ${targetY}px)`;
   } else {
-    // ALL OTHER FRAMES (including Frame 13): Dead-centered in the visible stage!
-    // The spool lead on the left of Frame 13 ensures the film strip is ALWAYS physically connected to the canister!
-    const slideWidth = activeSlide.offsetWidth;
-    const slideCenter = activeSlide.offsetLeft + (slideWidth / 2);
-    targetX = stageCenter - slideCenter;
-  }
+    // Landscape logic
+    const gateWidth = gate.offsetWidth || window.innerWidth;
+    const canisterWidth = canister ? canister.offsetWidth : 190;
+    const stageWidth = gateWidth - canisterWidth;
+    const stageCenter = canisterWidth + (stageWidth / 2);
 
-  ribbon.style.transform = `translateX(${targetX}px)`;
+    let targetX = 0;
+
+    if (currentThemeIndex === 0) {
+      // FRAME 01: Entire leading edge tongue must be fully inside the frame on the right!
+      const ribbonWidth = ribbon.offsetWidth;
+      targetX = gateWidth - 28 - ribbonWidth;
+    } else {
+      // ALL OTHER FRAMES (including Frame 13): Dead-centered in the visible stage!
+      const slideWidth = activeSlide.offsetWidth;
+      const slideCenter = activeSlide.offsetLeft + (slideWidth / 2);
+      targetX = stageCenter - slideCenter;
+    }
+
+    ribbon.style.transform = `translateX(${targetX}px)`;
+  }
 
   slides.forEach((s) => {
     const origIdx = parseInt(s.dataset.index, 10);
@@ -541,7 +619,7 @@ function applyTheme(themeKey, isInitial = false) {
 }
 
 /**
- * Configures winder buttons, keyboard arrows, and touch swipe gestures
+ * Configures winder buttons, keyboard arrows, wheel scroll, and touch swipe gestures
  */
 function setupControls() {
   const prevBtn = document.getElementById("prev-scene-btn");
@@ -550,18 +628,18 @@ function setupControls() {
   if (prevBtn) prevBtn.addEventListener("click", () => advanceFrame(-1));
   if (nextBtn) nextBtn.addEventListener("click", () => advanceFrame(1));
 
-  // Keyboard navigation: Right arrow / space advances, left arrow rewinds
+  // Keyboard navigation: Right/Down/Space advances, Left/Up rewinds
   window.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowRight" || e.key === " ") {
+    if (e.key === "ArrowRight" || e.key === " " || e.key === "ArrowDown") {
       e.preventDefault();
       advanceFrame(1);
-    } else if (e.key === "ArrowLeft") {
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
       e.preventDefault();
       advanceFrame(-1);
     }
   });
 
-  // Touch swipe on the film gate
+  // Touch swipe gesture on the film gate
   const gate = document.getElementById("film-gate");
   if (gate) {
     let touchStartX = 0;
@@ -578,22 +656,71 @@ function setupControls() {
       if (e.changedTouches.length === 1) {
         const deltaX = e.changedTouches[0].clientX - touchStartX;
         const deltaY = e.changedTouches[0].clientY - touchStartY;
-        // Horizontal swipe: left swipe advances, right swipe rewinds
-        if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.4) {
-          if (deltaX < 0) {
-            advanceFrame(1); // Swipe left -> advance film roll
-          } else {
-            advanceFrame(-1); // Swipe right -> rewind film roll
+        const isPortrait = isPortraitMode();
+
+        if (isPortrait) {
+          // In mobile portrait:
+          // Thumb moves bottom to top (deltaY < 0): pulls film up out of canister -> advances frame!
+          // Thumb moves top to bottom (deltaY > 0): winds film down into canister -> rewinds frame!
+          if (Math.abs(deltaY) > 28 && Math.abs(deltaY) > Math.abs(deltaX) * 0.7) {
+            if (deltaY < 0) {
+              advanceFrame(1);
+            } else {
+              advanceFrame(-1);
+            }
+          }
+        } else {
+          // In landscape mode:
+          // Swipe left (deltaX < 0) advances, swipe right (deltaX > 0) rewinds
+          if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.4) {
+            if (deltaX < 0) {
+              advanceFrame(1);
+            } else {
+              advanceFrame(-1);
+            }
+          }
+        }
+      }
+    }, { passive: true });
+
+    // Wheel event for trackpads & mouse wheel scrolling:
+    let wheelCooldown = false;
+    window.addEventListener("wheel", (e) => {
+      if (wheelCooldown) return;
+      if (Math.abs(e.deltaY) > 20 || Math.abs(e.deltaX) > 20) {
+        wheelCooldown = true;
+        setTimeout(() => { wheelCooldown = false; }, 360);
+        const isPortrait = isPortraitMode();
+        if (isPortrait) {
+          // Scrolling down (deltaY > 0) pulls film up out of canister -> advances!
+          if (e.deltaY > 0) {
+            advanceFrame(1);
+          } else if (e.deltaY < 0) {
+            advanceFrame(-1);
+          }
+        } else {
+          // In landscape: scrolling down/right advances, scrolling up/left rewinds
+          if (e.deltaY > 0 || e.deltaX > 0) {
+            advanceFrame(1);
+          } else if (e.deltaY < 0 || e.deltaX < 0) {
+            advanceFrame(-1);
           }
         }
       }
     }, { passive: true });
   }
 
-  // Recalculate layout on window resize
+  // Recalculate layout on window resize & orientation change
   window.addEventListener("resize", () => {
     positionSprocketCodes();
     updateFilmPosition();
+  }, { passive: true });
+
+  window.addEventListener("orientationchange", () => {
+    setTimeout(() => {
+      positionSprocketCodes();
+      updateFilmPosition();
+    }, 120);
   }, { passive: true });
 }
 
