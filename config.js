@@ -10,14 +10,15 @@ export const siteConfig = {
   // Theme palettes designed for dynamic context switching
   themes: {
     default: {
-      name: "Default Minimal",
+      name: "Gruvbox Beige",
       colors: {
-        bg: "#0a0c10",
-        surface: "#12151c",
-        text: "#f0f3f6",
-        muted: "#8c95a5",
-        accent: "#38bdf8",
-        border: "#1f242e"
+        bg: "#fbf1c7",
+        surface: "#f2e5bc",
+        text: "#3c3836",
+        muted: "#7c6f64",
+        accent: "#af3a03",
+        border: "#d5c4a1",
+        shadow: "0 10px 30px rgba(60, 56, 54, 0.08)"
       }
     },
     japan: {
@@ -28,7 +29,8 @@ export const siteConfig = {
         text: "#f5f6fa",
         muted: "#868eae",
         accent: "#f43f5e",
-        border: "#202444"
+        border: "#202444",
+        shadow: "0 10px 30px rgba(0, 0, 0, 0.5)"
       }
     },
     rajasthan: {
@@ -39,7 +41,8 @@ export const siteConfig = {
         text: "#faf4ed",
         muted: "#a89b8c",
         accent: "#e07a2d",
-        border: "#382e24"
+        border: "#382e24",
+        shadow: "0 10px 30px rgba(0, 0, 0, 0.5)"
       }
     }
   }
