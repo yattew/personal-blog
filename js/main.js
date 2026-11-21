@@ -1,4 +1,4 @@
-import { siteConfig } from "../config.js?v=61";
+import { siteConfig } from "../config.js?v=62";
 
 const FILM_STOCKS = {
   tokyo_neon_noir: "DynaStill400X",
@@ -350,8 +350,10 @@ function renderContinuousFilmRibbon() {
     const photoUrl = theme.image || `images/exposures/frame-${framePadded}.jpg`;
 
     slide.innerHTML = `
-      <div class="frame-edge-vertical left" aria-hidden="true">
-        <span class="v-edge-text">▶ ${framePadded}A &nbsp; ${theme.name.toUpperCase()}</span>
+      <div class="frame-edge-bar top" aria-hidden="true">
+        <span class="edge-tag">▶ ${framePadded}A</span>
+        <span class="edge-title" title="${theme.name}">${theme.name.toUpperCase()}</span>
+        <span class="edge-date">${dateStr}</span>
       </div>
       <div class="slide-exposure-inner" style="background: radial-gradient(at 15% 25%, ${p4}30 0px, transparent 65%), radial-gradient(at 85% 75%, ${p5}30 0px, transparent 65%), linear-gradient(180deg, #0b0c10 0%, #101218 50%, #0b0c10 100%);">
         <div class="exposure-content-wrap">
@@ -364,8 +366,9 @@ function renderContinuousFilmRibbon() {
           </div>
         </div>
       </div>
-      <div class="frame-edge-vertical right" aria-hidden="true">
-        <span class="v-edge-text">DYNASTILL 400X &nbsp; ${framePadded}</span>
+      <div class="frame-edge-bar bottom" aria-hidden="true">
+        <span class="edge-code">DYNASTILL EMULSION • TOKYO</span>
+        <span class="edge-num">${framePadded}</span>
       </div>
     `;
 
@@ -440,27 +443,25 @@ function renderContinuousFilmRibbon() {
         </div>
       </div>
 
-      <!-- 3B. Mobile Portrait Leader View (Authentic 35mm tongue unrolling upwards) -->
+      <!-- 3B. Mobile Portrait Leader View (Authentic 35mm Film Lead unrolling upwards) -->
       <div class="leader-vertical-view">
-        <div class="leader-vertical-zone">
-          <svg class="leader-vertical-svg" viewBox="0 0 340 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Solid celluloid body of the vertical leader (starts at x=38 so left track is 100% transparent cutout!) -->
-            <path d="M 38,222 L 340,222 L 340,195 C 340,165 188,160 188,135 L 188,14 A 14,14 0 0 0 174,0 L 38,0 Z" fill="#050608"/>
-            
-            <!-- Technical factory stamps on vertical leader tongue (spaced down the narrow tongue) -->
-            <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-weight="800" letter-spacing="0.1em">
-              <text x="50" y="38" font-size="8.8">▲ LOAD FILM ▲</text>
-              <text x="50" y="55" font-size="7.2" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE</text>
-              <text x="50" y="67" font-size="7.2" fill="#c4bcb0" opacity="0.85">BEYOND LINE</text>
-              <text x="50" y="85" font-size="7.5" fill="#f59e0b">DynaStill400X</text>
-              <text x="50" y="97" font-size="7" fill="#f59e0b" opacity="0.9">35MM // 36 EXP</text>
-            </g>
-            <line x1="48" y1="112" x2="182" y2="112" stroke="#f59e0b" stroke-dasharray="4,4" stroke-width="1.2" opacity="0.75"/>
-            <text x="50" y="125" fill="#f59e0b" opacity="0.85" font-family="ui-monospace, monospace" font-size="7.8" font-weight="700">LOAD TO LINE ▶</text>
-          </svg>
-        </div>
-        <div class="continuous-sprocket-track top leader-vertical-left-track" aria-hidden="true">
+        <div class="continuous-sprocket-track top leader-vertical-track left" aria-hidden="true">
           <div class="sprocket-perforations-continuous top"></div>
+        </div>
+        <div class="leader-vertical-zone">
+          <div class="leader-lead-content">
+            <span class="leader-stamp-header">▲ LOAD FILM ▲</span>
+            <span class="leader-stamp-sub">DO NOT EXPOSE BEYOND LINE</span>
+            <div class="leader-load-line" aria-hidden="true"></div>
+            <div class="leader-stamp-row">
+              <span class="leader-stamp-stock">DynaStill 400X</span>
+              <span class="leader-stamp-meta">35MM // 36 EXP</span>
+            </div>
+            <span class="leader-stamp-prompt">LOAD TO LINE ▶</span>
+          </div>
+        </div>
+        <div class="continuous-sprocket-track bottom leader-vertical-track right" aria-hidden="true">
+          <div class="sprocket-perforations-continuous bottom"></div>
         </div>
       </div>
     `;

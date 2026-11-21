@@ -354,7 +354,7 @@ body.film-aesthetic {
 }
 
 /* Inactive in Desktop Landscape: Handled by continuous sprocket tracks above & below */
-.frame-edge-vertical {
+.frame-edge-bar {
   display: none;
 }
 
@@ -1410,48 +1410,83 @@ body.film-aesthetic {
     width: 100%;
     height: auto;
     flex: 0 0 auto;
-    padding: 10px 0;
+    padding: 6px 0 10px 0;
     background: #050608;
     margin: 0;
     border: none;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
     justify-content: center;
-    gap: 0;
+    gap: 3px;
     box-sizing: border-box;
   }
 
-  /* Vertical text running along the length / edge of the film strip */
-  .frame-edge-vertical {
+  /* Horizontal text on the borders of the film in mobile */
+  .frame-edge-bar {
     display: flex !important;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    width: 16px;
-    height: 100%;
-    flex-shrink: 0;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: var(--font-mono);
+    color: var(--film-code-amber, #f59e0b);
+    font-weight: 800;
+    text-transform: uppercase;
     user-select: none;
     pointer-events: none;
-    overflow: hidden;
+    background: transparent;
   }
 
-  .v-edge-text {
-    writing-mode: vertical-rl;
-    font-family: var(--font-mono);
-    font-size: clamp(0.46rem, 1.9vw, 0.54rem);
-    font-weight: 800;
-    color: var(--film-code-amber, #f59e0b);
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    white-space: nowrap;
+  .frame-edge-bar.top {
+    height: 22px;
+    padding: 2px 4px 0 4px;
+    font-size: clamp(0.5rem, 2vw, 0.6rem);
+    letter-spacing: 0.12em;
     opacity: 0.95;
     text-shadow: 0 0 5px color-mix(in srgb, var(--film-code-amber, #f59e0b) 50%, transparent);
   }
 
+  .frame-edge-bar.bottom {
+    height: 20px;
+    padding: 0 4px 2px 4px;
+    font-size: clamp(0.44rem, 1.8vw, 0.54rem);
+    letter-spacing: 0.1em;
+    opacity: 0.85;
+    text-shadow: 0 0 5px color-mix(in srgb, var(--film-code-amber, #f59e0b) 40%, transparent);
+  }
+
+  .frame-edge-bar .edge-tag {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .frame-edge-bar .edge-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 6px;
+    letter-spacing: 0.14em;
+  }
+
+  .frame-edge-bar .edge-date {
+    white-space: nowrap;
+    flex-shrink: 0;
+    opacity: 0.85;
+  }
+
+  .frame-edge-bar .edge-code {
+    white-space: nowrap;
+    letter-spacing: 0.12em;
+  }
+
+  .frame-edge-bar .edge-num {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
   .slide-exposure-inner {
-    flex: 1;
-    width: auto;
-    min-width: 0;
+    width: 100%;
     height: auto;
     aspect-ratio: 4 / 3;
     border-radius: 6px;
@@ -1509,17 +1544,19 @@ body.film-aesthetic {
     align-items: center;
   }
 
-  /* Leader Unit at Top of Ribbon (Authentic 35mm tongue pointing up) */
+  /* Leader Unit at Top of Ribbon (Authentic 35mm film lead) */
   .film-leader-unit {
     width: 100% !important;
-    height: clamp(180px, 23vh, 220px) !important;
-    flex: 0 0 clamp(180px, 23vh, 220px) !important;
-    margin: 0 0 -2px 0 !important;
+    height: clamp(100px, 14vh, 125px) !important;
+    flex: 0 0 clamp(100px, 14vh, 125px) !important;
+    margin: 0 !important;
     background: transparent;
     position: relative;
     cursor: pointer;
     z-index: 5;
     border: none !important;
+    border-radius: 14px 14px 0 0 !important;
+    overflow: hidden !important;
   }
 
   .leader-horizontal-view {
@@ -1528,39 +1565,97 @@ body.film-aesthetic {
 
   .leader-vertical-view {
     display: flex !important;
-    width: 100%;
-    height: 100%;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+    overflow: hidden !important;
+    background: transparent;
+  }
+
+  .leader-vertical-track {
+    width: 38px !important;
+    height: 100% !important;
+    flex-shrink: 0;
     position: relative;
     overflow: hidden;
+    background: transparent;
+  }
+
+  .leader-vertical-track.left {
+    margin: 0;
+  }
+
+  .leader-vertical-track.right {
+    margin: 0;
   }
 
   .leader-vertical-zone {
     flex: 1;
-    width: 100%;
+    width: calc(100% - 76px);
     height: 100%;
     position: relative;
-    min-height: 0;
+    background: #050608;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px;
+    box-sizing: border-box;
   }
 
-  .leader-vertical-svg {
+  .leader-lead-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
     width: 100%;
-    height: 100%;
-    display: block;
+    font-family: var(--font-mono);
+    text-align: center;
+    user-select: none;
   }
 
-  .continuous-sprocket-track.leader-vertical-left-track {
-    width: 38px !important;
-    height: 100% !important;
-    position: absolute !important;
-    left: 0 !important;
-    top: 0 !important;
-    bottom: 0 !important;
-    right: auto !important;
-    margin: 0 !important;
-    z-index: 5 !important;
-    border: none !important;
-    border-radius: 14px 0 0 0 !important;
-    box-sizing: border-box !important;
+  .leader-stamp-header {
+    font-size: clamp(0.56rem, 2.1vw, 0.66rem);
+    font-weight: 800;
+    color: var(--film-code-amber, #f59e0b);
+    letter-spacing: 0.16em;
+  }
+
+  .leader-stamp-sub {
+    font-size: clamp(0.42rem, 1.6vw, 0.5rem);
+    font-weight: 700;
+    color: #c4bcb0;
+    opacity: 0.85;
+    letter-spacing: 0.1em;
+  }
+
+  .leader-load-line {
+    width: 82%;
+    border-bottom: 1.5px dashed var(--film-code-amber, #f59e0b);
+    opacity: 0.75;
+    margin: 3px 0;
+  }
+
+  .leader-stamp-row {
+    display: flex;
+    justify-content: space-between;
+    width: 85%;
+    font-size: clamp(0.46rem, 1.7vw, 0.54rem);
+    font-weight: 800;
+    color: var(--film-code-amber, #f59e0b);
+    letter-spacing: 0.1em;
+  }
+
+  .leader-stamp-prompt {
+    font-size: clamp(0.44rem, 1.7vw, 0.52rem);
+    font-weight: 700;
+    color: var(--film-code-amber, #f59e0b);
+    opacity: 0.9;
+    letter-spacing: 0.12em;
+    margin-top: 1px;
   }
 
   /* Photorealistic 3D Metal Canister Anchored Across Bottom */
