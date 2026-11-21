@@ -1,4 +1,4 @@
-import { siteConfig } from "../config.js?v=62";
+import { siteConfig } from "../config.js?v=63";
 
 const FILM_STOCKS = {
   tokyo_neon_noir: "DynaStill400X",
@@ -443,25 +443,25 @@ function renderContinuousFilmRibbon() {
         </div>
       </div>
 
-      <!-- 3B. Mobile Portrait Leader View (Authentic 35mm Film Lead unrolling upwards) -->
+      <!-- 3B. Mobile Portrait Leader View (Authentic 35mm Leading Edge Tongue) -->
       <div class="leader-vertical-view">
         <div class="continuous-sprocket-track top leader-vertical-track left" aria-hidden="true">
           <div class="sprocket-perforations-continuous top"></div>
         </div>
-        <div class="leader-vertical-zone">
-          <div class="leader-lead-content">
-            <span class="leader-stamp-header">▲ LOAD FILM ▲</span>
-            <span class="leader-stamp-sub">DO NOT EXPOSE BEYOND LINE</span>
-            <div class="leader-load-line" aria-hidden="true"></div>
-            <div class="leader-stamp-row">
-              <span class="leader-stamp-stock">DynaStill 400X</span>
-              <span class="leader-stamp-meta">35MM // 36 EXP</span>
-            </div>
-            <span class="leader-stamp-prompt">LOAD TO LINE ▶</span>
-          </div>
-        </div>
         <div class="continuous-sprocket-track bottom leader-vertical-track right" aria-hidden="true">
           <div class="sprocket-perforations-continuous bottom"></div>
+        </div>
+        <div class="leader-vertical-zone">
+          <svg class="leader-vertical-svg" id="leader-vertical-svg-elem" viewBox="0 0 360 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path id="leader-vertical-path" d="M 38,200 L 360,200 L 360,128 C 360,95 195,95 195,65 L 195,14 A 14,14 0 0 0 181,0 L 38,0 Z" fill="#050608"/>
+            <g fill="#f59e0b" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-weight="800" letter-spacing="0.1em">
+              <text x="50" y="28" font-size="8.5">▲ LOAD FILM ▲</text>
+              <text x="50" y="42" font-size="7" fill="#c4bcb0" opacity="0.85">DO NOT EXPOSE BEYOND LINE</text>
+              <line x1="48" y1="50" x2="182" y2="50" stroke="#f59e0b" stroke-dasharray="4,4" stroke-width="1.2" opacity="0.75"/>
+              <text x="50" y="62" font-size="7.5" fill="#f59e0b">DynaStill400X • 35MM</text>
+              <text x="50" y="74" font-size="7" fill="#f59e0b" opacity="0.9">36 EXP // LOAD TO LINE ▶</text>
+            </g>
+          </svg>
         </div>
       </div>
     `;
@@ -471,6 +471,9 @@ function renderContinuousFilmRibbon() {
       advanceFrame(1);
     };
   }
+
+  // Synchronize dynamic leader SVG coordinates with exact container width
+  updateLeaderSVG();
 
   // Calculate layout geometry
   positionSprocketCodes();
@@ -490,6 +493,26 @@ function getOffsetTopInContainer(el, container) {
 }
 
 /**
+ * Synchronizes the mobile portrait leading edge SVG path with the exact pixel width of the ribbon.
+ * Guarantees 0.00px error transition from Frame 01 to the tapered tongue.
+ */
+export function updateLeaderSVG() {
+  if (!isPortraitMode()) return;
+  const leaderUnit = document.getElementById("film-leader-unit");
+  const svg = document.getElementById("leader-vertical-svg-elem");
+  const path = document.getElementById("leader-vertical-path");
+  if (!leaderUnit || !svg || !path) return;
+
+  const w = leaderUnit.offsetWidth || 360;
+  const tongueW = Math.round(w * 0.54);
+  svg.setAttribute("viewBox", `0 0 ${w} 200`);
+  path.setAttribute(
+    "d",
+    `M 38,200 L ${w},200 L ${w},128 C ${w},95 ${tongueW},95 ${tongueW},65 L ${tongueW},14 A 14,14 0 0 0 ${tongueW - 14},0 L 38,0 Z`
+  );
+}
+
+/**
  * Positions top and bottom sprocket margin codes above each frame column
  */
 function positionSprocketCodes() {
@@ -505,6 +528,7 @@ function positionSprocketCodes() {
       ribbon.style.width = "";
       ribbon.style.left = "50%";
     }
+    updateLeaderSVG();
     return;
   }
 
@@ -595,6 +619,7 @@ function updateFilmPosition() {
       targetY = stageCenterY - slideCenter;
     }
 
+    updateLeaderSVG();
     ribbon.style.transform = `translate(-50%, ${targetY}px)`;
   } else {
     // Landscape logic

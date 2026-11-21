@@ -1544,19 +1544,18 @@ body.film-aesthetic {
     align-items: center;
   }
 
-  /* Leader Unit at Top of Ribbon (Authentic 35mm film lead) */
+  /* Leader Unit at Top of Ribbon (Authentic 35mm leading edge tongue) */
   .film-leader-unit {
     width: 100% !important;
-    height: clamp(100px, 14vh, 125px) !important;
-    flex: 0 0 clamp(100px, 14vh, 125px) !important;
+    height: 200px !important;
+    flex: 0 0 200px !important;
     margin: 0 !important;
-    background: transparent;
+    background: transparent !important;
     position: relative;
     cursor: pointer;
     z-index: 5;
     border: none !important;
-    border-radius: 14px 14px 0 0 !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   .leader-horizontal-view {
@@ -1564,98 +1563,60 @@ body.film-aesthetic {
   }
 
   .leader-vertical-view {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: stretch !important;
+    display: block !important;
     width: 100% !important;
     height: 100% !important;
     position: relative !important;
-    overflow: hidden !important;
-    background: transparent;
-  }
-
-  .leader-vertical-track {
-    width: 38px !important;
-    height: 100% !important;
-    flex-shrink: 0;
-    position: relative;
-    overflow: hidden;
-    background: transparent;
-  }
-
-  .leader-vertical-track.left {
-    margin: 0;
-  }
-
-  .leader-vertical-track.right {
-    margin: 0;
+    overflow: visible !important;
+    background: transparent !important;
   }
 
   .leader-vertical-zone {
-    flex: 1;
-    width: calc(100% - 76px);
-    height: 100%;
-    position: relative;
-    background: #050608;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 8px 12px;
-    box-sizing: border-box;
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+    background: transparent !important;
   }
 
-  .leader-lead-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    width: 100%;
-    font-family: var(--font-mono);
-    text-align: center;
-    user-select: none;
+  .leader-vertical-svg {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
   }
 
-  .leader-stamp-header {
-    font-size: clamp(0.56rem, 2.1vw, 0.66rem);
-    font-weight: 800;
-    color: var(--film-code-amber, #f59e0b);
-    letter-spacing: 0.16em;
+  /* Left track runs full 200px height to top tip of tongue */
+  .leader-vertical-track.left {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 38px !important;
+    height: 200px !important;
+    z-index: 5 !important;
+    border-radius: 12px 0 0 0 !important;
+    overflow: hidden !important;
+    background-repeat: repeat-y !important;
+    background-position: center top !important;
+    background-size: 38px 36px !important;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNiIgdmlld0JveD0iMCAwIDM4IDM2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9InJnYig1LDYsOCkiIGQ9Ik0tMiwtMiBINDIgVjQwIEgtMiBaIE0xMiw4IEgyNiBBNCw0IDAgMCAxIDMwLDEyIFYyNCBBNCw0IDAgMCAxIDI2LDI4IEgxMiBBNCw0IDAgMCAxIDgsMjQgVjEyIEE0LDQgMCAwIDEgMTIsOCBaIi8+PC9zdmc+") !important;
   }
 
-  .leader-stamp-sub {
-    font-size: clamp(0.42rem, 1.6vw, 0.5rem);
-    font-weight: 700;
-    color: #c4bcb0;
-    opacity: 0.85;
-    letter-spacing: 0.1em;
-  }
-
-  .leader-load-line {
-    width: 82%;
-    border-bottom: 1.5px dashed var(--film-code-amber, #f59e0b);
-    opacity: 0.75;
-    margin: 3px 0;
-  }
-
-  .leader-stamp-row {
-    display: flex;
-    justify-content: space-between;
-    width: 85%;
-    font-size: clamp(0.46rem, 1.7vw, 0.54rem);
-    font-weight: 800;
-    color: var(--film-code-amber, #f59e0b);
-    letter-spacing: 0.1em;
-  }
-
-  .leader-stamp-prompt {
-    font-size: clamp(0.44rem, 1.7vw, 0.52rem);
-    font-weight: 700;
-    color: var(--film-code-amber, #f59e0b);
-    opacity: 0.9;
-    letter-spacing: 0.12em;
-    margin-top: 1px;
+  /* Right track runs 72px at bottom of leader up to start of taper curve */
+  .leader-vertical-track.right {
+    position: absolute !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 38px !important;
+    height: 72px !important;
+    z-index: 5 !important;
+    overflow: hidden !important;
+    background-repeat: repeat-y !important;
+    background-position: center bottom !important;
+    background-size: 38px 36px !important;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNiIgdmlld0JveD0iMCAwIDM4IDM2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9InJnYig1LDYsOCkiIGQ9Ik0tMiwtMiBINDIgVjQwIEgtMiBaIE0xMiw4IEgyNiBBNCw0IDAgMCAxIDMwLDEyIFYyNCBBNCw0IDAgMCAxIDI2LDI4IEgxMiBBNCw0IDAgMCAxIDgsMjQgVjEyIEE0LDQgMCAwIDEgMTIsOCBaIi8+PC9zdmc+") !important;
   }
 
   /* Photorealistic 3D Metal Canister Anchored Across Bottom */
